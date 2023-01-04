@@ -16,6 +16,8 @@ namespace ArtVenue.Models
         public string MessageContent { get; set; }
         [AllowNull]
         public string RecieverId { get; set; }
+        [AllowNull]
+        public int? GroupId { get; set; }
 
         [Required]
         public string SendTime { get; set; }
@@ -24,5 +26,6 @@ namespace ArtVenue.Models
         public string SenderName { get; set; }
         public AppUser Sender { get; set; }
         public AppUser Reciever { get; set; }
+        public Group Group { get; set; }
     }
 }

@@ -17,5 +17,7 @@ namespace ArtVenue.Models
         public string? ProfileImage { get; set; }
         public HashSet<Message> Messages_Sent { get; set; }
         public HashSet<Message> Messages_Recieved { get; set; }
+        public HashSet<Group> GroupsCreated { get; set; }
+        public HashSet<Groups_Members> GroupsJoined { get; set; }
     }
 }

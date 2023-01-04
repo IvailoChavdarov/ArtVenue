@@ -19,7 +19,15 @@ namespace ArtVenue.Hubs
             message.Sender = await _userManager.FindByIdAsync(message.SenderId);
             message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
             await Clients.All.SendAsync("ReceiveMessage", message);
-            AddMessageToDatabase(message);
+            try
+            {
+                AddMessageToDatabase(message);
+            }
+            catch(Exception ex)
+            {
+                string asd = ex.Message;
+            }
+            
         }
         public void AddMessageToDatabase(Message message)
         {
