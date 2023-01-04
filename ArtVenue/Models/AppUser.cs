@@ -14,6 +14,8 @@ namespace ArtVenue.Models
         public string LastName { get; set; }
         [Required]
         public bool IsPublic { get; set; }
-        public string ProfileImage { get; set; }
+        public string? ProfileImage { get; set; }
+        public HashSet<Message> Messages_Sent { get; set; }
+        public HashSet<Message> Messages_Recieved { get; set; }
     }
 }

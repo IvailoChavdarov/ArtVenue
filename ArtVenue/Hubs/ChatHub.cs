@@ -1,12 +1,30 @@
-﻿using Microsoft.AspNetCore.SignalR;
-
+﻿using ArtVenue.Data;
+using ArtVenue.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 namespace ArtVenue.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string user, string message)
+        private readonly UserManager<AppUser> _userManager;
+        private readonly ApplicationDbContext _db;
+        public ChatHub(ApplicationDbContext db, UserManager<AppUser> userManager)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            _userManager = userManager;
+            _db = db;
+        }
+        public async Task SendMessage(Message message)
+        {
+            message.SendTime = DateTime.Now.ToString();
+            message.Sender = await _userManager.FindByIdAsync(message.SenderId);
+            message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
+            await Clients.All.SendAsync("ReceiveMessage", message);
+            AddMessageToDatabase(message);
+        }
+        public void AddMessageToDatabase(Message message)
+        {
+            _db.Messages.Add(message);
+            _db.SaveChanges();
         }
     }
 }
