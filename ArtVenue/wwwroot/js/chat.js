@@ -29,15 +29,28 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
+    var reciever = document.getElementById("recieverIdInput").value;
+
     today = mm + '/' + dd + '/' + yyyy;
     console.log(user);
     console.log(message);
     console.log(today);
+    console.log("reciever is:" + reciever);
+    if (reciever) {
+        var message = { SenderId: user, MessageContent: messageContent, Send_Time: today }
+        console.log(message);
+        connection.invoke("SendMessageToUser", message, reciever).catch(function (err) {
+            return console.error(err.toString());
+        });
+        
+    }
+    else {
+        var message = { SenderId: user, MessageContent: messageContent, Send_Time: today }
+        console.log(message);
+        connection.invoke("SendMessage", message).catch(function (err) {
+            return console.error(err.toString());
+        });
+    }
 
-    var message = { SenderId: user, MessageContent: messageContent, Send_Time: today }
-    console.log(message);
-    connection.invoke("SendMessage", message).catch(function (err) {
-        return console.error(err.toString());
-    });
     event.preventDefault();
 });

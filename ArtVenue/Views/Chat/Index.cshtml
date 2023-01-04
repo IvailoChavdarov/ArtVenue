@@ -14,9 +14,16 @@
         </div>
         <div class="row p-1">
             <div class="col-6 text-end">
+                <input type="text" id="recieverIdInput"/>
+            </div>
+        </div>
+
+        <div class="row p-1">
+            <div class="col-6 text-end">
                 <input type="button" id="sendButton" value="Send Message" />
             </div>
         </div>
+
         <div class="row p-1">
             <div class="col-6">
                 <hr />
@@ -31,7 +38,14 @@
                         }
                         else
                         {
-                            <li style="background-color:rgba(180,180,180); color:black;">@message.SenderName says <span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
+                            if(message.RecieverId!=null && message.RecieverId == Model.UserId)
+                            {
+                                <li style="background-color:rgba(180,50,0); color:aqua;">@message.SenderName says <span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
+                            }
+                            else if (message.RecieverId == null)
+                            {
+                                <li style="background-color:rgba(180,180,180); color:black;">@message.SenderName says <span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
+                            }
                         }
                     
                     }
