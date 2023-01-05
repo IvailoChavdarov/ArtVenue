@@ -32,6 +32,19 @@ namespace ArtVenue.Hubs
             await Clients.All.SendAsync("ReceiveMessage", message);
             AddMessageToDatabase(message);
         }
+        public async Task SendMessageToGroup(Message message, int groupId)
+        {
+            message.SendTime = DateTime.Now.ToString();
+            message.Sender = await _userManager.FindByIdAsync(message.SenderId);
+            message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
+            await Clients.Group(groupId.ToString()).SendAsync("ReceiveMessage", message);
+            message.GroupId = groupId;
+            AddMessageToDatabase(message);
+        }
+        public async Task AddToGroupInstantChat(int groupId)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupId.ToString());
+        }
         public void AddMessageToDatabase(Message message)
         {
             _db.Messages.Add(message);

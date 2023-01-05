@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Group Chat Page";
+}
+@model GroupChatViewModel
+
+<div class="container">
+    <div class="row p-1">
+        <div class="col-1">User</div>
+        <div class="col-5"><input type="text" id="userInput" value="@Model.UserId" /></div>
+    </div>
+    <div class="row p-1">
+        <div class="col-1">Message</div>
+        <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6 text-end">
+            <input type="text" id="recieverIdInput" />
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6 text-end">
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+    <h1>CHATID IS @Model.GroupChatId</h1>
+    <div class="row p-1">
+        <div class="col-6">
+            <hr />
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6">
+            <ul id="messagesList">
+                @foreach (Message message in Model.Messages)
+                {
+                    if (message.SenderId == Model.UserId)
+                    {
+                        <li style="text-align:right;background-color:rgba(10,10,255,0.6); color:white;">@message.SenderName says <span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
+                    }
+                    else
+                    {
+                        <li style="background-color:rgba(180,180,180); color:black;">@message.SenderName says <span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
+                    }
+
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    var ChatId = @Model.GroupChatId.ToString();
+    console.log("chatId is definetly" + ChatId);
+    var inGroupChat = true;
+
+</script>
+<script src="~/lib/microsoft-signalr/signalr.js"></script>
+<script src="~/js/chat.js"></script>
