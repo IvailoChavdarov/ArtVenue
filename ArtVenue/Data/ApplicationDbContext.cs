@@ -49,6 +49,9 @@ namespace ArtVenue.Data
                 .HasForeignKey(gm => gm.GroupId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Group>().Property(x=>x.GroupBackground).IsRequired(false);
+            modelBuilder.Entity<Group>().Property(x => x.GroupPicture).IsRequired(false);
+
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Message> Messages { get; set; }
