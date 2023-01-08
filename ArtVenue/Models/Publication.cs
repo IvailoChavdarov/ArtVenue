@@ -29,5 +29,6 @@ namespace ArtVenue.Models
         public AppUser Creator { get; set; }
         public Group Group { get; set; }
         public HashSet<GalleryImage> Gallery { get; set; }
+        public HashSet<Publications_Categories> Categories { get; set; }
     }
 }

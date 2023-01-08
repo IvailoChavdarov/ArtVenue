@@ -68,6 +68,37 @@ namespace ArtVenue.Data
                 .HasForeignKey(image => image.PublicationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
+            modelBuilder.Entity<Publications_Categories>()
+                .HasKey(pc => new { pc.PublicationId, pc.CategoryId });
+
+            modelBuilder.Entity<Publications_Categories>()
+                .HasOne(pc => pc.Publication)
+                .WithMany(publication => publication.Categories)
+                .HasForeignKey(gm => gm.PublicationId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Publications_Categories>()
+                .HasOne(pc => pc.Category)
+                .WithMany(category => category.Publications)
+                .HasForeignKey(gm => gm.CategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Users_Interests>()
+                .HasKey(pc => new { pc.UserId, pc.CategoryId });
+
+            modelBuilder.Entity<Users_Interests>()
+                .HasOne(pc => pc.User)
+                .WithMany(user => user.Interests)
+                .HasForeignKey(gm => gm.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Users_Interests>()
+                .HasOne(pc => pc.Category)
+                .WithMany(category => category.Interested)
+                .HasForeignKey(gm => gm.CategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Group>()
                 .Property(x=>x.GroupBackground)
                 .IsRequired(false);
@@ -103,5 +134,8 @@ namespace ArtVenue.Data
         public DbSet<Groups_Members> Groups_Members { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<GalleryImage> GalleryImages { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Users_Interests> Interests { get; set; }
+        public DbSet<Publications_Categories> Publications_Categories { get; set; }
     }
 }
