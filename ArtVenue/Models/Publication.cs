@@ -20,11 +20,12 @@ namespace ArtVenue.Models
         public string VideoLink { get; set; }
         public bool HasManyImages { get; set; }
         public string OutsideLink { get; set; }
+        public string EmbeddedVideoLink { get; set; }
         [Required]
         public string PostedTime { get; set; }
 
         [NotMapped]
-        public string UserName { get; set; }
+        public string CreatorName { get; set; }
         public AppUser Creator { get; set; }
         public Group Group { get; set; }
         public HashSet<GalleryImage> Gallery { get; set; }

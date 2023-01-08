@@ -92,6 +92,10 @@ namespace ArtVenue.Data
                 .Property(publication => publication.PublicationText)
                 .IsRequired(false);
 
+            modelBuilder.Entity<Publication>()
+                .Property(publication => publication.EmbeddedVideoLink)
+                .IsRequired(false);
+
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Message> Messages { get; set; }
