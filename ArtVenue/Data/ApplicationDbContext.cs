@@ -85,18 +85,45 @@ namespace ArtVenue.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Users_Interests>()
-                .HasKey(pc => new { pc.UserId, pc.CategoryId });
+                .HasKey(ui => new { ui.UserId, ui.CategoryId });
 
             modelBuilder.Entity<Users_Interests>()
-                .HasOne(pc => pc.User)
+                .HasOne(ui => ui.User)
                 .WithMany(user => user.Interests)
-                .HasForeignKey(gm => gm.UserId)
+                .HasForeignKey(ui => ui.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Users_Interests>()
-                .HasOne(pc => pc.Category)
+                .HasOne(ui => ui.Category)
                 .WithMany(category => category.Interested)
-                .HasForeignKey(gm => gm.CategoryId)
+                .HasForeignKey(ui => ui.CategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Users_Saved>()
+                .HasKey(us => new { us.UserId, us.PublicationId });
+
+            modelBuilder.Entity<Users_Saved>()
+                .HasOne(us => us.User)
+                .WithMany(user => user.Saved)
+                .HasForeignKey(us => us.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Users_Saved>()
+                .HasOne(us => us.Publication)
+                .WithMany(category => category.SavedBy)
+                .HasForeignKey(us => us.PublicationId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(comment => comment.Publication)
+                .WithMany(publication => publication.Comments)
+                .HasForeignKey(comment => comment.PublicationId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(comment => comment.User)
+                .WithMany(user => user.Comments)
+                .HasForeignKey(comment => comment.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Group>()
@@ -137,5 +164,7 @@ namespace ArtVenue.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Users_Interests> Interests { get; set; }
         public DbSet<Publications_Categories> Publications_Categories { get; set; }
+        public DbSet<Users_Saved> Saved { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

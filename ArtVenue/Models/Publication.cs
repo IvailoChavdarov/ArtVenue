@@ -23,12 +23,13 @@ namespace ArtVenue.Models
         public string EmbeddedVideoLink { get; set; }
         [Required]
         public string PostedTime { get; set; }
-
         [NotMapped]
         public string CreatorName { get; set; }
         public AppUser Creator { get; set; }
         public Group Group { get; set; }
         public HashSet<GalleryImage> Gallery { get; set; }
         public HashSet<Publications_Categories> Categories { get; set; }
+        public HashSet<Users_Saved> SavedBy { get; set; }
+        public HashSet<Comment> Comments { get; set; }
     }
 }

@@ -21,5 +21,7 @@ namespace ArtVenue.Models
         public HashSet<Groups_Members> GroupsJoined { get; set; }
         public HashSet<Publication> PublicationsPosted { get; set; }
         public HashSet<Users_Interests> Interests { get; set; }
+        public HashSet<Users_Saved> Saved { get; set; }
+        public HashSet<Comment> Comments { get; set; }
     }
 }

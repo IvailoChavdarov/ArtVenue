@@ -4,6 +4,7 @@ using ArtVenue.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtVenue.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230108123713_AddedUserSavedPublications")]
+    partial class AddedUserSavedPublications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,38 +120,6 @@ namespace ArtVenue.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("ArtVenue.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CommentContent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostedTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PublicationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PublicationId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.GalleryImage", b =>
@@ -495,25 +465,6 @@ namespace ArtVenue.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ArtVenue.Models.Comment", b =>
-                {
-                    b.HasOne("ArtVenue.Models.Publication", "Publication")
-                        .WithMany("Comments")
-                        .HasForeignKey("PublicationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ArtVenue.Models.AppUser", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Publication");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ArtVenue.Models.GalleryImage", b =>
                 {
                     b.HasOne("ArtVenue.Models.Publication", "Publication")
@@ -706,8 +657,6 @@ namespace ArtVenue.Data.Migrations
 
             modelBuilder.Entity("ArtVenue.Models.AppUser", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("GroupsCreated");
 
                     b.Navigation("GroupsJoined");
@@ -742,8 +691,6 @@ namespace ArtVenue.Data.Migrations
             modelBuilder.Entity("ArtVenue.Models.Publication", b =>
                 {
                     b.Navigation("Categories");
-
-                    b.Navigation("Comments");
 
                     b.Navigation("Gallery");
 
