@@ -49,12 +49,55 @@ namespace ArtVenue.Data
                 .HasForeignKey(gm => gm.GroupId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Group>().Property(x=>x.GroupBackground).IsRequired(false);
-            modelBuilder.Entity<Group>().Property(x => x.GroupPicture).IsRequired(false);
+            modelBuilder.Entity<Publication>()
+                .HasOne(publication => publication.Creator)
+                .WithMany(user => user.PublicationsPosted)
+                .HasForeignKey(publication => publication.CreatorId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Publication>()
+                .HasOne(publication => publication.Group)
+                .WithMany(group => group.Publications)
+                .HasForeignKey(publication => publication.GroupId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<GalleryImage>()
+                .HasOne(image => image.Publication)
+                .WithMany(publication => publication.Gallery)
+                .HasForeignKey(image => image.PublicationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Group>()
+                .Property(x=>x.GroupBackground)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Group>()
+                .Property(x => x.GroupPicture)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Publication>()
+                .Property(publication => publication.ImageLink)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Publication>()
+                .Property(publication => publication.VideoLink)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Publication>()
+                .Property(publication => publication.OutsideLink)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Publication>()
+                .Property(publication => publication.PublicationText)
+                .IsRequired(false);
 
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Groups_Members> Groups_Members { get; set; }
+        public DbSet<Publication> Publications { get; set; }
+        public DbSet<GalleryImage> GalleryImages { get; set; }
     }
 }

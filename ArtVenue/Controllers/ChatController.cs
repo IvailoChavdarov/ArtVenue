@@ -70,5 +70,15 @@ namespace ArtVenue.Controllers
             data.GroupChatId = id.ToString();
             return View(data);
         }
+        [HttpPost]
+        public async Task<IActionResult> AddPersonToGroup(string userId, int groupId)
+        {
+            Groups_Members connection = new Groups_Members();
+            connection.MemberId = userId;
+            connection.GroupId = groupId;
+            _db.Groups_Members.Add(connection);
+            await _db.SaveChangesAsync();
+            return View("Index");
+        }
     }
 }

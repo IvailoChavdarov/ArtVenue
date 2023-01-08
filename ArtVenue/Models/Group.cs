@@ -25,5 +25,6 @@ namespace ArtVenue.Models
         public AppUser Creator { get; set; }
         public HashSet<Groups_Members> Memberships { get; set; }
         public HashSet<Message> Messages { get; set; }
+        public HashSet<Publication> Publications { get; set; }
     }
 }

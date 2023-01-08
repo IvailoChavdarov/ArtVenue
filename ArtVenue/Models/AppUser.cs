@@ -19,5 +19,6 @@ namespace ArtVenue.Models
         public HashSet<Message> Messages_Recieved { get; set; }
         public HashSet<Group> GroupsCreated { get; set; }
         public HashSet<Groups_Members> GroupsJoined { get; set; }
+        public HashSet<Publication> PublicationsPosted { get; set; }
     }
 }
