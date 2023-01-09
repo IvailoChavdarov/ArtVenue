@@ -3,25 +3,25 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-<ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+    <div id="userNavigationMini">
+        <a class="nav-link" asp-controller="collection" asp-action="index"><i class="fas fa-bookmark"></i> <span class="hiddenOnMobile">Saved</span></a>
+        <div class="dropdown">
+            <a class="nav-link" asp-area="identity" asp-page="/account/manage/index" title="Manage account"><i class="fas fa-user"></i><span class="hiddenOnMobile"> @UserManager.FindByNameAsync(User.Identity.Name).Result.FirstName</span></a>
+            <div class="dropdown-content">
+                <a class="nav-link text-black" asp-area="identity" asp-page="/account/manage/index" aria-label="Go to account"><i class="fas fa-user-cog"></i>Manage</a>
+                <a class="nav-link text-black" asp-controller="collection" asp-action="index" aria-label="Go to watchlist"><i class="far fa-bookmark"></i>Watchlist</a>
+                <a class="nav-link text-black" asp-controller="collection" asp-action="favourites" aria-label="Go to favourites"><i class="far fa-heart"></i>Favourites</a>
+                <hr />
+                <form class="form-inline" asp-area="Identity" asp-page="/account/logout" asp-route-returnUrl="@Url.Action("index", "home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link" aria-label="logout"><i class="fas fa-sign-out-alt"></i>Sign out</button>
+                </form>
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+    <a class="nav-link" id="signInButton" asp-area="Identity" asp-page="/Account/Login">Join ArtVenue</a>
 }
-</ul>

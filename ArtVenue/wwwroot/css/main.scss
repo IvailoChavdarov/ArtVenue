@@ -1,1 +1,314 @@
-﻿
+﻿@import "Utility/_colors.scss";
+@import "Utility/_timings.scss";
+
+body::-webkit-scrollbar {
+    width: 0px;
+}
+
+.show-mobile-inline-block {
+    display: none
+}
+
+.show-largeScreen-inline-block {
+    display: inline-block
+}
+
+.show-mobile-block {
+    display: none
+}
+
+@media only screen and (max-width : 576px) {
+    .show-mobile-inline-block {
+        display: inline-block
+    }
+
+    .show-largeScreen-inline-block {
+        display: none
+    }
+
+    .show-mobile-block {
+        display: block
+    }
+
+    #navSearchInputForm {
+        display: none;
+    }
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+.margin-md {
+    margin-left: 110px;
+    margin-right: 0;
+}
+
+.margin-md_lg {
+    margin-left: 200px;
+}
+
+.rotate {
+    transform: rotate(-180deg);
+    transition-duration: 0.8s;
+    transition-property: transform;
+}
+
+span.breadcrumbSeparator {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+h1 {
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+
+.bg-transparent {
+    background-color: transparent;
+}
+
+.noDisplay {
+    display: none;
+}
+
+.text-mainColor {
+    color: $mainColor;
+}
+/* typical phone screen resolution */
+@media only screen and (min-width : 991px) {
+    .hiddenOnBigScreen {
+        display: none;
+    }
+}
+
+@media only screen and (max-width : 991px) {
+    .hiddenOnMobile {
+        display: none !important;
+    }
+
+    .hiddenOnTablet {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width : 1551px) {
+    .hiddenOnTablet {
+        display: none !important;
+    }
+}
+
+.theme-dark {
+    background-color: $secondaryColor-dark;
+    transition: background-color $changeThemeAnimationTime ease;
+
+    .showcaseSectionTitle {
+        h1 {
+            color: $textColor;
+        }
+    }
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+body {
+    overflow-x: hidden;
+    transition: background-color $changeThemeAnimationTime ease;
+    background-color: $textColor;
+    background: url('../../img/backgrounds/icons_pattern.png')
+}
+
+@media only screen and (max-width : 667px) {
+    .showcaseSectionTitle {
+        padding: 0;
+        margin: 0;
+        font-size: 0;
+
+        .right-border {
+            display: inline-block;
+            width: 7.5vw;
+
+
+            hr {
+                border-top: 3px solid $mainColor;
+            }
+        }
+
+        h1 {
+            display: inline-block;
+            width: 92.5vw;
+            padding-left: 1.5vw;
+            border-left: 3px solid $mainColor;
+        }
+
+        .left-border {
+            display: inline-block;
+            width: 0;
+        }
+    }
+}
+
+.showcaseSectionTitle {
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    margin-top: 100px;
+
+    .right-border {
+        display: inline-block;
+        width: 7.5vw;
+
+
+        hr {
+            border-top: 3px solid $mainColor;
+        }
+    }
+
+    h1 {
+        display: inline-block;
+        width: 45vw;
+        padding-left: 1.5vw;
+        border-left: 3px solid $mainColor;
+        color: $secondaryColor-dark;
+        font-weight: 600;
+    }
+
+    .left-border {
+        display: inline-block;
+        width: 47.5vw;
+
+        hr {
+            border-top: 3px solid $mainColor;
+        }
+    }
+}
+
+::-moz-selection {
+    color: $textColor;
+    background: $mainColor;
+}
+
+::selection {
+    color: $textColor;
+    background: $mainColor;
+}
+
+.slideInFromLeftContainer {
+    animation: slideInFromLeft $renderAnimationTime;
+}
+
+.slideOutToLeftContainer {
+    animation: slideOutToLeft $renderAnimationTime;
+    transform: translateX(-120%)
+}
+
+.notice {
+    display: inline-block;
+    position: fixed;
+    right: 0px;
+    bottom: 10vh;
+    animation: slideInFromRight $noticeAnimationTiming;
+    height: fit-content;
+    width: 400px;
+    color: $textColor;
+    padding: 25px;
+    padding-right: 20px;
+    font-size: large;
+    cursor: pointer;
+
+    span {
+        display: inline-block;
+        width: 300px;
+        margin-left: 70px;
+    }
+}
+
+.notice::before {
+    position: absolute;
+    left: 12px;
+    font-family: "Font Awesome 5 Free";
+    content: "\f058";
+    color: white;
+    font-weight: 900;
+    font-size: 60px;
+    top: 5px;
+    bottom: 0;
+    width: 100px;
+}
+
+.notice.bg-danger::before {
+    content: "\f057"
+}
+
+.notice.closed {
+    transition: transform $noticeAnimationTiming;
+    transform: translateX(100%);
+}
+
+.notice::after {
+    content: '';
+    height: 7px;
+    background-color: lime;
+    width: 400px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform-origin: right;
+    /*transform:wid*/
+}
+
+.notice.bg-danger::after {
+    background-color: orangered;
+}
+
+.notice.activated::after {
+    animation: slideOutToRightNotice 5s;
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        .showcaseSectionTitle {
+            h1 {
+                width: 90vw;
+            }
+
+            .left-border {
+                display: none;
+            }
+        }
+    }
+
+    .showcase {
+        .card-deck {
+            padding: 0;
+            width: 100vw;
+            max-width: 100vw;
+        }
+    }
+
+    .slidersContainer {
+        margin: 0;
+        max-width: 100%;
+    }
+}
+
+main {
+    min-height: 60vh
+}
+
+.bg-secondary-dark {
+    background-color: $secondaryColor-dark;
+    border: 5px solid transparent;
+    transition: all $changeThemeAnimationTime ease;
+    margin-top: 50px;
+    color: $textColor;
+    padding: 30px;
+}
+
+.theme-dark {
+    background-color:$secondaryColor-dark;
+    .bg-secondary-dark {
+        border-color: $mainColor;
+    }
+}

@@ -1,0 +1,73 @@
+﻿<nav id="topNav" class="navbar navbar-expand-lg">
+
+    <a class="navbar-brand" asp-controller="home" asp-action="index" id="homeIcon"><img src="~/img/logos/logo-sm-dark.png" alt="ArtVenue" /></a>
+    <div class="collapse navbar-collapse" id="navBarContent">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item hiddenOnMobile">
+                <a asp-controller="home" asp-action="index" class="nav-link NoLoader">Home</a>
+            </li>
+            <li class="nav-item hiddenOnMobile">
+                <a asp-controller="home" asp-action="about" class="nav-link NoLoader">About</a>
+            </li>
+            <li class="nav-item hiddenOnBigScreen" id="themeSwitcherMobile" onclick="switchTheme()" title="Switch theme">
+                <i class="fas fa-lg" id="themeIdenticatorMobile"></i>
+            </li>
+        </ul>
+
+    </div>
+    <partial name="_LoginPartial" />
+    <button id="themeSwitcher" class="NoLoader" onclick="switchTheme()" title="Switch theme"><i class="fas fa-lg" id="themeIdenticator"></i></button>
+    <div id="mobileMenuToggler" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</nav>
+
+<menu id="mobileMenu">
+    <ul>
+        <li class="nav-item hiddenOnBigScreen">
+            <h5><i class="fas fa-sm fa-search text-mainColor"></i><span>Search</span></h5>
+        </li>
+        <li class="nav-item hiddenOnBigScreen">
+            <form asp-controller="titles" asp-action="search" method="get">
+                <input type="search" name="search" aria-label="Search" placeholder="Search for a title, actor or keyword">
+                <button type="submit" aria-label="start search"><i class="fas fa-search fa-sm"></i></button>
+            </form>
+        </li>
+        <hr />
+        <li class="nav-item hiddenOnBigScreen">
+            <a asp-controller="home" asp-action="index"><h5><i class="fas fa-sm fa-home text-mainColor"></i><span>Home</span></h5></a>
+        </li>
+        <li class="nav-item hiddenOnBigScreen">
+            <a asp-controller="home" asp-action="history" class="dropdownNav-link">History</a>
+        </li>
+        <li class="nav-item hiddenOnBigScreen">
+            <a asp-controller="home" asp-action="interestingfacts" class="dropdownNav-link">Interesting facts</a>
+        </li>
+        <li class="nav-item hiddenOnBigScreen">
+            <a asp-controller="home" asp-action="news" class="dropdownNav-link">News</a>
+        </li>
+        <hr />
+        <li class="nav-item hiddenOnBigScreen">
+            <h5><i class="fas fa-sm fa-user text-mainColor"></i><span>Account</span></h5>
+        </li>
+        <li class="nav-item hiddenOnBigScreen">
+            <a class="dropdownNav-link" asp-area="identity" asp-page="/account/manage/index">Manage</a>
+        </li>
+        <li class="nav-item hiddenOnBigScreen">
+            <a class="dropdownNav-link" asp-controller="collection" asp-action="index">Watchlist</a>
+        </li>
+        <li class="nav-item hiddenOnBigScreen">
+            <a class="dropdownNav-link" asp-controller="collection" asp-action="favourites">Favourites</a>
+        </li>
+        <li class="nav-item hiddenOnBigScreen">
+            <form class="form-inline" asp-area="Identity" asp-page="/account/logout" asp-route-returnUrl="@Url.Action("index", "home", new { area = "" })">
+                <button type="submit" class="nav-item" id="signOutButton-mobile">Sign out</button>
+            </form>
+        </li>
+        <hr />
+    </ul>
+</menu>

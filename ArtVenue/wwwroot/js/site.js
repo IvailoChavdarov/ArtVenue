@@ -1,4 +1,7 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.getElementById('mobileMenu').style.height = window.innerHeight - 70;
 
-// Write your JavaScript code.
+function toggleMobileMenu() {
+    $('#mobileMenu').toggleClass('open');
+    $('body').toggleClass('overflow-hidden');
+    $('#mobileMenuToggler').toggleClass('open');
+}
