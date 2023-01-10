@@ -1,5 +1,5 @@
 ﻿#topNav {
-  background-color: #2F4858;
+  background-color: #28363d;
   padding-bottom: 7px;
   padding-top: 7px;
   z-index: 5;
@@ -29,19 +29,19 @@
   cursor: pointer;
 }
 #topNav #homeIcon {
-  color: #FF9800;
+  color: #eb6600;
   font-family: Arial, Helvetica, sans-serif;
 }
 #topNav #homeIcon img {
   height: 40px;
 }
 #topNav #homeDropdownIndicator {
-  color: #DFE0DF;
+  color: #619194;
   transition-duration: 0.3s;
   transform: rotate(0deg);
 }
 #topNav #homeDropdownIndicator-triggered {
-  color: #FF9800;
+  color: #eb6600;
   transition: 0.5s;
   -o-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
@@ -67,13 +67,13 @@
 }
 #topNav #navSearchBar select {
   height: 35px;
-  border: 2px solid #DFE0DF;
+  border: 2px solid #619194;
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
   background-color: white;
   padding-left: 5px;
   width: 100px;
-  color: #2F4858;
+  color: #28363d;
   cursor: pointer;
   transition: color 250ms ease, background-color 250ms ease;
 }
@@ -82,17 +82,17 @@
 }
 #topNav #navSearchBar input {
   padding-left: 5px;
-  border: 2px solid #DFE0DF;
+  border: 2px solid #619194;
   height: 35px;
   border-left: none;
   border-right: none;
   width: 600px;
   background-color: white;
-  color: #2F4858;
+  color: #28363d;
   transition: color 250ms ease, background-color 250ms ease;
 }
 #topNav #navSearchBar button {
-  border: 2px solid #DFE0DF;
+  border: 2px solid #619194;
   height: 35px;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
@@ -123,17 +123,17 @@
 #topNav .dropdown-content a.nav-link, #topNav .dropdown-content button {
   padding-top: 5px;
   padding-bottom: 5px;
-  color: #2F4858;
+  color: #28363d;
   display: block;
   padding-left: 0;
 }
 #topNav .dropdown-content a.nav-link:hover, #topNav .dropdown-content button:hover {
-  color: #FF9800;
+  color: #eb6600;
 }
 #topNav .dropdown-content hr {
   margin-top: 8px;
   margin-bottom: 8px;
-  border-color: #FF9800;
+  border-color: #eb6600;
 }
 #topNav .dropdown-content i {
   width: 43px;
@@ -145,10 +145,10 @@
   color: #e31b23;
 }
 #topNav .dropdown-content .fa-user-cog {
-  color: #FF9800;
+  color: #eb6600;
 }
 #topNav .dropdown-content .fa-sign-out-alt {
-  color: #2F4858;
+  color: #28363d;
   width: auto;
   margin-right: 25px;
 }
@@ -210,7 +210,7 @@
   transform: translate(-50%, -50%);
 }
 #topNav #signInButton {
-  background-color: #FF9800;
+  background-color: #eb6600;
   padding: 10px;
   padding-bottom: 7px;
   padding-top: 7px;
@@ -219,7 +219,7 @@
   margin-right: 5px;
 }
 #topNav .fas {
-  color: #DFE0DF;
+  color: #619194;
 }
 #topNav .fa-sun {
   color: #FDB813;
@@ -229,12 +229,12 @@
 }
 #topNav #randomButton:hover i {
   transition: color 0.3s ease;
-  color: #FF9800;
+  color: #eb6600;
 }
 
 #topNavDropdown {
   position: absolute;
-  border-bottom: 5px solid #FF9800;
+  border-bottom: 5px solid #eb6600;
   /*z-index: 1; */
   z-index: 2;
   width: 100%;
@@ -244,7 +244,7 @@
   -ms-transition: height, 0.3s linear;
   -o-transition: height, 0.3s linear;
   transition: height, 0.3s linear;
-  background-color: #2F4858;
+  background-color: #28363d;
   text-wrap: normal;
   overflow: hidden;
   color: #EFFCFF;
@@ -257,7 +257,7 @@
   font-weight: 900;
 }
 #topNavDropdown hr {
-  border-color: #DFE0DF;
+  border-color: #619194;
   margin: 0;
 }
 #topNavDropdown content {
@@ -284,7 +284,7 @@
   content: "\f101";
   width: 10px;
   height: 100%;
-  color: #FF9800;
+  color: #eb6600;
   font-weight: 900;
   font-size: 17px;
   animation: 0.3s fadeIn;
@@ -313,17 +313,17 @@
 }
 
 .theme-dark #topNav .dropdown-content {
-  background-color: #2F4858;
+  background-color: #28363d;
   box-shadow: 0px 8px 16px 0px rgba(255, 255, 255, 0.1);
 }
 .theme-dark #topNav .dropdown-content a.nav-link, .theme-dark #topNav .dropdown-content button {
   color: #EFFCFF;
 }
 .theme-dark #topNav .dropdown-content a.nav-link:hover, .theme-dark #topNav .dropdown-content button:hover {
-  color: #FF9800;
+  color: #eb6600;
 }
 .theme-dark #topNav .dropdown-content .fa-sign-out-alt {
-  color: #DFE0DF;
+  color: #619194;
 }
 .theme-dark #topNav #themeSwitcherMobile {
   background-color: #131862;
@@ -345,7 +345,7 @@
     position: fixed;
     top: 0;
     width: 100vw;
-    border-bottom: 3px solid #FF9800;
+    border-bottom: 3px solid #eb6600;
     padding-right: 0;
   }
   #topNav #signInButton {
@@ -367,7 +367,7 @@
     top: 70px;
     width: 0;
     margin: 0;
-    background-color: #2F4858;
+    background-color: #28363d;
     overflow: hidden;
     padding-left: 0;
     transition: 0.5s;
@@ -405,9 +405,9 @@
     font-size: inherit;
   }
   #mobileMenu ul li hr {
-    border-color: #DFE0DF;
-    color: #DFE0DF;
-    background-color: #DFE0DF;
+    border-color: #619194;
+    color: #619194;
+    background-color: #619194;
   }
   #mobileMenu ul li .fas {
     margin-right: 10px;
@@ -424,7 +424,7 @@
     white-space: nowrap;
     width: 10%;
     background-color: transparent;
-    color: #DFE0DF;
+    color: #619194;
     font-size: 20px;
   }
   #mobileMenu ul li form #signOutButton-mobile {
@@ -453,10 +453,10 @@
     border-bottom-right-radius: 3px;
   }
   #mobileMenu ul li form input[type=search]:focus {
-    border-bottom: 2px solid #FF9800;
+    border-bottom: 2px solid #eb6600;
   }
   #mobileMenu ul li form input[type=search]:focus + button {
-    color: #FF9800;
+    color: #eb6600;
   }
   #mobileMenu ul li form input::placeholder {
     color: #EFFCFF;
@@ -486,7 +486,7 @@
     position: absolute;
     height: 9px;
     width: 100%;
-    background: #FF9800;
+    background: #eb6600;
     border-radius: 9px;
     opacity: 1;
     left: 0;

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ArtVenue.Hubs;
 using ArtVenue.Models;
-using ArtVenue.LibraryClasses;
 
 var builder = WebApplication.CreateBuilder(args);
 

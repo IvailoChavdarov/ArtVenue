@@ -1,0 +1,66 @@
+﻿<footer class="footer text-muted" id="pageFooter">
+    <div class="row mx-auto">
+        <div class="col-lg-4 col-sm-12">
+            <h5>Filmly</h5>
+            <hr />
+            <h6>
+                <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </h6>
+            <h6>
+                <a asp-controller="Home" asp-action="Developer">Developer</a>
+            </h6>
+            <h6>
+                <a asp-controller="Home" asp-action="Documentation">Documentation(BG)</a>
+            </h6>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <h5>Used:</h5>
+            <hr />
+            <p id="usedTechnologiesMini">
+                <a href="https://dotnet.microsoft.com/en-us/apps/aspnet/signalr" target="_blank" class="NoLoader" rel="noopener"><img src="~/img/technologies-logos/signalr.png" class="tech-icon" height="40" width="40" alt="SignalR" /></a>
+                <a href="https://dotnet.microsoft.com/en-us/apps/aspnet" target="_blank" class="NoLoader" rel="noopener"><img src="~/img/technologies-logos/aspnet.png" class="tech-icon" height="40" width="40" alt="ASP.NET" /></a>
+                <a href="https://cloudinary.com/" target="_blank" class="NoLoader" rel="noopener"><img src="~/img/technologies-logos/cloudinary.png" class="tech-icon" height="40" width="40" alt="Cloudinary" /></a>
+                <a href="https://sass-lang.com/" target="_blank" class="NoLoader" rel="noopener"><img src="~/img/technologies-logos/sass.png" class="tech-icon" height="40" width="40" alt="SASS" /></a>
+            </p>
+            <p>
+                and <span type="button" data-toggle="modal" data-target="#usedTechnologiesModal" class="NoLoader"><b>more...</b></span>
+            </p>
+        </div>
+        <div class="col-lg-4 col-sm-12" style="position:relative;">
+            <h5 class="socialMediaTitle">You can find me at</h5>
+
+            <ul id="socialMedias">
+                <li>
+                    <div class="popup">
+                        <span class="popuptext" id="discordPopup">Copied discord name to clipboard!</span>
+                    </div>
+                    <button aria-label="discord name" class="NoLoader" id="discordLink" onclick="copyDiscordName()">
+                        <i class="fab fa-discord"></i>
+                    </button>
+                </li>
+                <li>
+                    <a class="NoLoader" href="https://www.instagram.com/ivailo_chavdarov/?hl=bg" aria-label="instagram" rel="noopener" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="NoLoader" href="https://www.facebook.com/ivailo.chavdarov.90" aria-label="facebook" rel="noopener" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+
+                </li>
+                <li>
+                    <a class="NoLoader" href="https://github.com/IvailoChavdarov" aria-label="github" rel="noopener" target="_blank">
+                        <i class="fab fa-github-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright-container">
+        <span>Made in <a href="https://en.wikipedia.org/wiki/Smolyan" target="_blank" class="NoLoader">Smolyan</a></span>
+        <img src="~/img/logos/logo-sm-dark.png" height="40" width="40" alt="ArtVenue" />
+        &copy; 2022/2023 - ArtVenue
+        @*add https://icons8.com/ to footer*@
+    </div>
+</footer>

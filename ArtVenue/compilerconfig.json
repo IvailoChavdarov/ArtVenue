@@ -6,5 +6,9 @@
   {
     "outputFile": "wwwroot/css/Shared/topnav.css",
     "inputFile": "wwwroot/css/Shared/topnav.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Shared/footer.css",
+    "inputFile": "wwwroot/css/Shared/footer.scss"
   }
 ]

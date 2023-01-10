@@ -1,0 +1,315 @@
+﻿footer {
+  background-color: #28363d;
+  height: 270px;
+  position: relative;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  border-top: 1px solid #619194;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+}
+footer h5, footer h6, footer p, footer div {
+  color: #EFFCFF;
+  text-align: center;
+}
+footer h5 a, footer h6 a, footer p a, footer div a {
+  color: #EFFCFF;
+}
+footer h5 a:hover, footer h6 a:hover, footer p a:hover, footer div a:hover {
+  color: #eb6600;
+}
+footer h5 hr, footer h6 hr, footer p hr, footer div hr {
+  border-color: #619194;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+footer .col-lg-4 {
+  margin-bottom: 10px;
+}
+footer .tech-icon {
+  height: 40px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+footer .copyright-container {
+  background-color: #141b1e;
+  color: #d6f7ff;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100vw;
+  padding: 20px;
+  border-top: 3px solid #28363d;
+}
+footer .copyright-container a {
+  color: #EFFCFF;
+}
+footer #socialMedias {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+}
+footer #socialMedias li {
+  list-style: none;
+  margin: 0 10px;
+}
+footer #socialMedias li a, footer #socialMedias li button {
+  all: unset;
+  background-color: #28363d;
+  position: relative;
+  display: block;
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  line-height: 46.8px;
+  background: #28363d;
+  border-radius: 50%;
+  font-size: 24px;
+  color: #619194;
+  transition: 0.5s;
+  cursor: pointer;
+}
+footer #socialMedias li a::before, footer #socialMedias li button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #eb6600;
+  transition: 0.5s;
+  transform: scale(0.9);
+  z-index: -1;
+}
+footer #socialMedias li a:hover::before, footer #socialMedias li button:hover::before {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #eb6600;
+}
+footer #socialMedias li a:hover, footer #socialMedias li button:hover {
+  color: #eb6600;
+  box-shadow: 0 0 5px #eb6600;
+  text-shadow: 0 0 5px #eb6600;
+}
+footer #discordLink {
+  cursor: pointer;
+}
+footer #socialMedias li button.used {
+  color: #22BB33;
+  box-shadow: 0 0 5px #22BB33;
+  text-shadow: 0 0 5px #22BB33;
+  cursor: default !important;
+  pointer-events: none;
+}
+footer #socialMedias li button.used:hover {
+  color: #22BB33;
+  box-shadow: 0 0 5px #22BB33;
+  text-shadow: 0 0 5px #22BB33;
+}
+footer #socialMedias li button.used::before {
+  background: #22BB33;
+}
+footer #socialMedias li button.used:hover::before {
+  box-shadow: 0 0 15px #22BB33;
+}
+footer #usedTechnologiesMini a {
+  filter: brightness(70%);
+}
+footer #usedTechnologiesMini a:hover {
+  filter: brightness(100%);
+}
+footer .socialMediaTitle {
+  margin-bottom: 100px;
+}
+
+@media only screen and (max-width: 991px) {
+  footer #socialMedias li a, footer #socialMedias li button {
+    color: #eb6600;
+    margin-bottom: 5px;
+  }
+  footer .socialMediaTitle {
+    margin-bottom: 25px;
+  }
+}
+.darkTheme footer {
+  background-color: #141b1e;
+}
+.darkTheme footer .copyright-container {
+  background-color: black;
+  color: #d6f7ff;
+}
+.darkTheme footer .copyright-container a {
+  color: #EFFCFF;
+}
+.darkTheme footer #socialMedias li a, .darkTheme footer #socialMedias li button {
+  background: #141b1e;
+}
+
+#usedTechnologiesModal .modal-content .close {
+  color: #eb6600;
+}
+#usedTechnologiesModal .modal-content button.closeButton {
+  background-color: #eb6600;
+  border: 0px;
+  box-shadow: none;
+  border-radius: 0px;
+  opacity: 0.7;
+}
+#usedTechnologiesModal .modal-content .closeButton:hover {
+  opacity: 1;
+}
+#usedTechnologiesModal .modal-content .fab, #usedTechnologiesModal .modal-content img {
+  margin-right: 5px;
+  margin-left: 3px;
+}
+#usedTechnologiesModal .modal-content .fa-html5 {
+  color: orangered;
+}
+#usedTechnologiesModal .modal-content .fa-css3-alt {
+  color: aqua;
+}
+#usedTechnologiesModal .modal-content .fa-js-square {
+  color: yellow;
+}
+#usedTechnologiesModal .modal-content .fa-bootstrap {
+  color: mediumpurple;
+}
+#usedTechnologiesModal .modal-content .fa-font-awesome {
+  color: deepskyblue;
+}
+#usedTechnologiesModal .modal-content .fa-sass {
+  color: deeppink;
+}
+#usedTechnologiesModal button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.darkTheme #usedTechnologiesModal .modal-content {
+  background-color: #28363d;
+  color: #EFFCFF;
+}
+.darkTheme #usedTechnologiesModal .modal-content .close {
+  text-shadow: none;
+  color: #eb6600;
+}
+.darkTheme #usedTechnologiesModal .modal-content button.closeButton {
+  background-color: #eb6600;
+  border: 0px;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+.popup {
+  position: absolute;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #22BB33;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+  margin-bottom: 7px;
+  animation: fadeOut 1s;
+}
+
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #22BB33 transparent transparent transparent;
+}
+
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+.popup.hide {
+  visibility: hidden;
+  -webkit-animation: fadeOut 1s;
+  animation: fadeOut 1s;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media only screen and (max-width: 991px) {
+  footer {
+    height: fit-content;
+  }
+  footer .copyright-container {
+    position: relative;
+    margin-left: -30px;
+  }
+  footer #socialMedias {
+    display: block;
+    position: relative;
+  }
+  footer #socialMedias li {
+    display: inline-block;
+  }
+  footer #usedTechnologiesMini a {
+    filter: brightness(100%);
+  }
+  footer .col-lg-4 {
+    margin-bottom: 30px;
+  }
+}

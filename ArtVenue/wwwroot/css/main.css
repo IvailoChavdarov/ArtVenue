@@ -65,7 +65,7 @@ h1 {
 }
 
 .text-mainColor {
-  color: #FF9800;
+  color: #eb6600;
 }
 
 /* typical phone screen resolution */
@@ -88,7 +88,7 @@ h1 {
   }
 }
 .theme-dark {
-  background-color: #2F4858;
+  background-color: #28363d;
   transition: background-color 250ms ease;
 }
 .theme-dark .showcaseSectionTitle h1 {
@@ -117,13 +117,13 @@ body {
     width: 7.5vw;
   }
   .showcaseSectionTitle .right-border hr {
-    border-top: 3px solid #FF9800;
+    border-top: 3px solid #eb6600;
   }
   .showcaseSectionTitle h1 {
     display: inline-block;
     width: 92.5vw;
     padding-left: 1.5vw;
-    border-left: 3px solid #FF9800;
+    border-left: 3px solid #eb6600;
   }
   .showcaseSectionTitle .left-border {
     display: inline-block;
@@ -141,14 +141,14 @@ body {
   width: 7.5vw;
 }
 .showcaseSectionTitle .right-border hr {
-  border-top: 3px solid #FF9800;
+  border-top: 3px solid #eb6600;
 }
 .showcaseSectionTitle h1 {
   display: inline-block;
   width: 45vw;
   padding-left: 1.5vw;
-  border-left: 3px solid #FF9800;
-  color: #2F4858;
+  border-left: 3px solid #eb6600;
+  color: #28363d;
   font-weight: 600;
 }
 .showcaseSectionTitle .left-border {
@@ -156,17 +156,17 @@ body {
   width: 47.5vw;
 }
 .showcaseSectionTitle .left-border hr {
-  border-top: 3px solid #FF9800;
+  border-top: 3px solid #eb6600;
 }
 
 ::-moz-selection {
   color: #EFFCFF;
-  background: #FF9800;
+  background: #eb6600;
 }
 
 ::selection {
   color: #EFFCFF;
-  background: #FF9800;
+  background: #eb6600;
 }
 
 .slideInFromLeftContainer {
@@ -262,7 +262,7 @@ main {
 }
 
 .bg-secondary-dark {
-  background-color: #2F4858;
+  background-color: #28363d;
   border: 5px solid transparent;
   transition: all 250ms ease;
   margin-top: 50px;
@@ -271,8 +271,8 @@ main {
 }
 
 .theme-dark {
-  background-color: #2F4858;
+  background-color: #28363d;
 }
 .theme-dark .bg-secondary-dark {
-  border-color: #FF9800;
+  border-color: #eb6600;
 }
