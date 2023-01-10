@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Shared/topnav.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Shared/footer.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Shared/loader.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body>
@@ -23,11 +24,13 @@
     </div>
 
     <partial name="_Footer" />
+    <partial name="_Loader" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/themeSwitcher.js" asp-append-version="true"></script>
     <script src="~/js/discordPopup.js" asp-append-version="true"></script>
+    <script src="~/js/loader.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

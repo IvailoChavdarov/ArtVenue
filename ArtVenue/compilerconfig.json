@@ -10,5 +10,9 @@
   {
     "outputFile": "wwwroot/css/Shared/footer.css",
     "inputFile": "wwwroot/css/Shared/footer.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Shared/loader.css",
+    "inputFile": "wwwroot/css/Shared/loader.scss"
   }
 ]
