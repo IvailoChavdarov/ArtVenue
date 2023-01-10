@@ -14,5 +14,9 @@
   {
     "outputFile": "wwwroot/css/Shared/loader.css",
     "inputFile": "wwwroot/css/Shared/loader.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Identity/register.css",
+    "inputFile": "wwwroot/css/Identity/register.scss"
   }
 ]
