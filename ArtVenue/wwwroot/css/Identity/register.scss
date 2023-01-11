@@ -35,8 +35,87 @@ main{
         button:hover {
             background-color: #FF7E51;
         }
+         .btn-halfWidth{
+             width:50%;
+             display:inline-block;
+         }
+        .checkbox-container {
+            input {
+                all: unset;
+                width: 35px;
+                height: 35px;
+                display: inline-block;
+                margin-bottom: 10px;
+                margin-left: 5px;
+                vertical-align: middle;
+                background-color: $textColor;
+                position: relative;
+            }
+
+            label {
+                padding-left: 40px;
+                font-size: 20px;
+                color: $textColor;
+                vertical-align: top;
+                padding: 5px;
+                position: relative;
+            }
+
+            input:checked {
+                background-color: $mainColor;
+            }
+
+            input:checked::before {
+                font-family: "Font Awesome 5 Free";
+                content: "\f00c";
+                color: $textColor;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-weight: 900;
+                font-size: x-large;
+            }
+        }
+
+        .checkbox-container-sm {
+            input {
+                width: 25px;
+                height: 25px;
+                margin: 0;
+            }
+
+            input:checked {
+                background-color: $mainColor;
+                border:none;
+            }
+            label{
+                color:$textColor;
+            }
+            input:checked::before {
+                font-size: large;
+            }
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            border: 3px solid $mainColor;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            pointer-events: all;
+            height: 40px;
+            color:$mainColor;
+            .fas {
+                color: $mainColor;
+            }
+        }
     }
 }
+
 #topNav {
     background-color: transparent;
 
@@ -45,3 +124,4 @@ main{
         display: none;
     }*/
 }
+
