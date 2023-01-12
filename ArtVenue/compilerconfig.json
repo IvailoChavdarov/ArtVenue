@@ -22,5 +22,9 @@
   {
     "outputFile": "wwwroot/css/Home/privacy.css",
     "inputFile": "wwwroot/css/Home/privacy.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Home/technologies.css",
+    "inputFile": "wwwroot/css/Home/technologies.scss"
   }
 ]
