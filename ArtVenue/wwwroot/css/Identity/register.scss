@@ -15,7 +15,9 @@ main{
     margin: 50px;
     padding: 60px;
     color: $textColor;
-
+    a{
+        color:$mainColor;
+    }
     form {
         text-align: left;
 
@@ -35,10 +37,12 @@ main{
         button:hover {
             background-color: #FF7E51;
         }
-         .btn-halfWidth{
-             width:50%;
-             display:inline-block;
-         }
+
+        .btn-halfWidth {
+            width: 50%;
+            display: inline-block;
+        }
+
         .checkbox-container {
             input {
                 all: unset;
@@ -87,11 +91,13 @@ main{
 
             input:checked {
                 background-color: $mainColor;
-                border:none;
+                border: none;
             }
-            label{
-                color:$textColor;
+
+            label {
+                color: $textColor;
             }
+
             input:checked::before {
                 font-size: large;
             }
@@ -108,11 +114,16 @@ main{
             cursor: pointer;
             pointer-events: all;
             height: 40px;
-            color:$mainColor;
+            color: $mainColor;
+            margin-left:30px;
             .fas {
                 color: $mainColor;
             }
         }
+    }
+    p{
+        margin-top:20px;
+        text-align:left;
     }
 }
 

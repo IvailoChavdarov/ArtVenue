@@ -17,6 +17,9 @@ main {
   padding: 60px;
   color: #EFFCFF;
 }
+.user-form-container a {
+  color: #eb6600;
+}
 .user-form-container form {
   text-align: left;
 }
@@ -96,9 +99,14 @@ main {
   pointer-events: all;
   height: 40px;
   color: #eb6600;
+  margin-left: 30px;
 }
 .user-form-container form .custom-file-upload .fas {
   color: #eb6600;
+}
+.user-form-container p {
+  margin-top: 20px;
+  text-align: left;
 }
 
 #topNav {

@@ -18,5 +18,9 @@
   {
     "outputFile": "wwwroot/css/Identity/register.css",
     "inputFile": "wwwroot/css/Identity/register.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Home/privacy.css",
+    "inputFile": "wwwroot/css/Home/privacy.scss"
   }
 ]

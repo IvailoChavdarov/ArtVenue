@@ -42,84 +42,6 @@ $searchBarHeight: 35px;
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    #homeDropdownIndicator {
-        color: $secondaryColor-light;
-        transition-duration: $dropdownNavClosingDuration;
-        transform: rotate(0deg);
-    }
-
-    #homeDropdownIndicator-triggered {
-        color: $mainColor;
-        transition: $dropdownNavOpeningDuration;
-        -o-transform: rotate(-180deg);
-        -ms-transform: rotate(-180deg);
-        -moz-transform: rotate(-180deg);
-        -webkit-transform: rotate(-180deg);
-        transform: rotate(-180deg);
-    }
-
-    #homeDropdownButton {
-        font-size: 1.15rem;
-        margin: 0;
-        padding: 0;
-    }
-
-    #homeDropdownButton:hover {
-        i:not(#homeDropdownIndicator-triggered) {
-            color: $secondaryColor-light-semiTransparent;
-        }
-    }
-
-    #navSearchBar {
-        position: absolute;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
-        width: 735px;
-
-        select {
-            height: $searchBarHeight;
-            border: 2px solid $secondaryColor-light;
-            border-bottom-left-radius: $searchBarRounding;
-            border-top-left-radius: $searchBarRounding;
-            background-color: white;
-            padding-left: 5px;
-            width: 100px;
-            color: $secondaryColor-dark;
-            cursor: pointer;
-            transition: color $changeThemeAnimationTime ease, background-color $changeThemeAnimationTime ease;
-        }
-
-        option {
-            cursor: pointer;
-        }
-
-        input {
-            padding-left: 5px;
-            border: 2px solid $secondaryColor-light;
-            height: $searchBarHeight;
-            border-left: none;
-            border-right: none;
-            width: 600px;
-            background-color: white;
-            color: $secondaryColor-dark;
-            transition: color $changeThemeAnimationTime ease, background-color $changeThemeAnimationTime ease;
-        }
-
-        button {
-            border: 2px solid $secondaryColor-light;
-            height: $searchBarHeight;
-            border-bottom-right-radius: $searchBarRounding;
-            border-top-right-radius: $searchBarRounding;
-            border-left: none;
-            background-color: white;
-            width: 35px;
-            color: $textColor;
-            transition: color $changeThemeAnimationTime ease, background-color $changeThemeAnimationTime ease;
-        }
-    }
-
     input:focus, button:focus, select:focus {
         outline: none;
     }
@@ -222,7 +144,8 @@ $searchBarHeight: 35px;
         background-color: transparent;
         border: 0;
         margin-left: 15px;
-        margin-right: 10px;
+        margin-right: 20px;
+        width:26px
     }
 
     #themeIdenticator {
