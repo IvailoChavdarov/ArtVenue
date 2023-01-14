@@ -21,8 +21,8 @@ namespace ArtVenue.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Message>()
-                .HasOne(m => m.Reciever)
-                .WithMany(u => u.Messages_Recieved)
+                .HasOne(m => m.DirectChat)
+                .WithMany(u => u.Messages)
                 .IsRequired(false);
 
             modelBuilder.Entity<Message>()
@@ -126,6 +126,18 @@ namespace ArtVenue.Data
                 .HasForeignKey(comment => comment.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<DirectChat>()
+                .HasOne(us => us.FirstUser)
+                .WithMany(user => user.DirectChats)
+                .HasForeignKey(us => us.FirstUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<DirectChat>()
+                .HasOne(us => us.SecondUser)
+                .WithMany(user => user.DirectChatsSecondUser)
+                .HasForeignKey(us => us.SecondUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Group>()
                 .Property(x=>x.GroupBackground)
                 .IsRequired(false);
@@ -165,6 +177,7 @@ namespace ArtVenue.Data
         public DbSet<Users_Interests> Interests { get; set; }
         public DbSet<Publications_Categories> Publications_Categories { get; set; }
         public DbSet<Users_Saved> Saved { get; set; }
+        public DbSet<DirectChat> DirectChats { get; set; }
         public DbSet<Comment> Comments { get; set; }
     }
 }

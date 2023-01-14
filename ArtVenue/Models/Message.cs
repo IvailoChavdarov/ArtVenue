@@ -15,7 +15,7 @@ namespace ArtVenue.Models
         [Required]
         public string MessageContent { get; set; }
         [AllowNull]
-        public string RecieverId { get; set; }
+        public int? DirectChatId { get; set; }
         [AllowNull]
         public int? GroupId { get; set; }
 
@@ -25,7 +25,7 @@ namespace ArtVenue.Models
         [NotMapped]
         public string SenderName { get; set; }
         public AppUser Sender { get; set; }
-        public AppUser Reciever { get; set; }
+        public DirectChat DirectChat { get; set; }
         public Group Group { get; set; }
     }
 }

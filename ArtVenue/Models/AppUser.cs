@@ -16,12 +16,13 @@ namespace ArtVenue.Models
         public bool IsPublic { get; set; }
         public string? ProfileImage { get; set; }
         public HashSet<Message> Messages_Sent { get; set; }
-        public HashSet<Message> Messages_Recieved { get; set; }
         public HashSet<Group> GroupsCreated { get; set; }
         public HashSet<Groups_Members> GroupsJoined { get; set; }
         public HashSet<Publication> PublicationsPosted { get; set; }
         public HashSet<Users_Interests> Interests { get; set; }
         public HashSet<Users_Saved> Saved { get; set; }
         public HashSet<Comment> Comments { get; set; }
+        public HashSet<DirectChat> DirectChats { get; set; }
+        public HashSet<DirectChat> DirectChatsSecondUser { get; set; }
     }
 }

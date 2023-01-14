@@ -21,17 +21,17 @@ namespace ArtVenue.Hubs
             message.Sender = await _userManager.FindByIdAsync(message.SenderId);
             message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
             await Clients.User(recieverId).SendAsync("ReceiveMessage", message);
-            message.RecieverId = recieverId;
+            message.DirectChatId = await GetDirectChatId(message.SenderId, recieverId);
             AddMessageToDatabase(message);
         }
-        public async Task SendMessage(Message message)
-        {
-            message.SendTime = DateTime.Now.ToString();
-            message.Sender = await _userManager.FindByIdAsync(message.SenderId);
-            message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
-            await Clients.All.SendAsync("ReceiveMessage", message);
-            AddMessageToDatabase(message);
-        }
+        //public async Task SendMessage(Message message)
+        //{
+        //    message.SendTime = DateTime.Now.ToString();
+        //    message.Sender = await _userManager.FindByIdAsync(message.SenderId);
+        //    message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
+        //    await Clients.All.SendAsync("ReceiveMessage", message);
+        //    AddMessageToDatabase(message);
+        //}
         public async Task SendMessageToGroup(Message message, int groupId)
         {
             message.SendTime = DateTime.Now.ToString();
@@ -49,6 +49,21 @@ namespace ArtVenue.Hubs
         {
             _db.Messages.Add(message);
             _db.SaveChanges();
+        }
+        public async Task<int> GetDirectChatId(string senderId, string recieverId)
+        {
+            var chats = _db.DirectChats.Where(x => x.FirstUserId == senderId && x.SecondUserId == recieverId);
+            DirectChat chat;
+            if (chats.Any())
+            {
+                chat = chats.First();
+            }
+            else
+            {
+                chat = _db.DirectChats.Where(x => x.SecondUserId == senderId && x.FirstUserId == recieverId).First();
+            }
+
+            return chat.Id;
         }
     }
 }

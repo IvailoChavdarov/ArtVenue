@@ -4,6 +4,7 @@ using ArtVenue.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtVenue.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230114100818_AddedDirectChatsTable")]
+    partial class AddedDirectChatsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,23 +156,13 @@ namespace ArtVenue.Data.Migrations
 
             modelBuilder.Entity("ArtVenue.Models.DirectChat", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<string>("FirstUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SecondUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("FirstUserId");
+                    b.HasKey("FirstUserId", "SecondUserId");
 
                     b.HasIndex("SecondUserId");
 
@@ -263,15 +255,15 @@ namespace ArtVenue.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("DirectChatId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<string>("MessageContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecieverId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SendTime")
                         .IsRequired()
@@ -283,9 +275,9 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DirectChatId");
-
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("RecieverId");
 
                     b.HasIndex("SenderId");
 
@@ -601,13 +593,13 @@ namespace ArtVenue.Data.Migrations
 
             modelBuilder.Entity("ArtVenue.Models.Message", b =>
                 {
-                    b.HasOne("ArtVenue.Models.DirectChat", "DirectChat")
-                        .WithMany("Messages")
-                        .HasForeignKey("DirectChatId");
-
                     b.HasOne("ArtVenue.Models.Group", "Group")
                         .WithMany("Messages")
                         .HasForeignKey("GroupId");
+
+                    b.HasOne("ArtVenue.Models.AppUser", "Reciever")
+                        .WithMany("Messages_Recieved")
+                        .HasForeignKey("RecieverId");
 
                     b.HasOne("ArtVenue.Models.AppUser", "Sender")
                         .WithMany("Messages_Sent")
@@ -615,9 +607,9 @@ namespace ArtVenue.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DirectChat");
-
                     b.Navigation("Group");
+
+                    b.Navigation("Reciever");
 
                     b.Navigation("Sender");
                 });
@@ -762,6 +754,8 @@ namespace ArtVenue.Data.Migrations
 
                     b.Navigation("Interests");
 
+                    b.Navigation("Messages_Recieved");
+
                     b.Navigation("Messages_Sent");
 
                     b.Navigation("PublicationsPosted");
@@ -774,11 +768,6 @@ namespace ArtVenue.Data.Migrations
                     b.Navigation("Interested");
 
                     b.Navigation("Publications");
-                });
-
-            modelBuilder.Entity("ArtVenue.Models.DirectChat", b =>
-                {
-                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Group", b =>
