@@ -56,10 +56,12 @@ namespace ArtVenue.Controllers
                     
                 }
                 publication.PostComments = comments.ToList();
+                publication.IsSavedByUser = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User) && x.PublicationId == publication.Id).Any();
                 data.Publications.Add(publication);
             }
             return View(data);
         }
+
         [HttpPost]
         public async Task<IActionResult> PostComment(ViewModelWithCommentInput data)
         {
@@ -70,6 +72,24 @@ namespace ArtVenue.Controllers
             comment.PublicationId = data.CommentInput.PostId;
             comment.PostedTime = DateTime.UtcNow.ToString();
             await _db.Comments.AddAsync(comment);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> SavePublication(int id)
+        {
+            string userId = _userManager.GetUserId(User);
+            Users_Saved connection = new Users_Saved();
+            connection.PublicationId = id;
+            connection.UserId = userId;
+            if (_db.Saved.Contains(connection))
+            {
+                _db.Saved.Remove(connection);
+            }
+            else
+            {
+                await _db.Saved.AddAsync(connection);
+            }
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

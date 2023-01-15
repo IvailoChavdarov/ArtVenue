@@ -57,21 +57,40 @@
                     @publication.PublicationText
             </div>
             <div class="post-action-list" style="line-height:24px;color: #b1bbc3;">
-                <i class="fa-solid fa-share" style="width: 80px;"></i>
-                <button class="closeChatButton NoLoader"><i class="fa-solid fa-comment" style="width: 80px"></i></button>
-                <i class="fa fa-heart" style="width: 80px"></i>
+                <a asp-asp-controller="posts" asp-action="post" asp-route-id="@publication.Id">
+                    <i class="fa-solid fa-share"></i>
+                </a>
+
+                <button class="closeChatButton NoLoader"><i class="fa-solid fa-comment"></i>
+                    @if (publication.PostComments.Count!= 0)
+                    {
+                        <span class="text-muted">@publication.PostComments.Count</span>
+                    }
+                </button>
+                <form asp-action="savepublication" asp-route-id="@publication.Id">
+                    <button type="submit">
+                        @if (publication.IsSavedByUser)
+                        {
+                            <i class="fa fa-bookmark text-mainColor"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-bookmark"></i>
+                        }
+                    </button>
+                </form>
             </div>
             <br/>
             <div class="comments">
-                <div>
-                    <form asp-action="PostComment">
-                        <input asp-for="CommentInput.PostId" type="hidden" value="@publication.Id">
-                        <input asp-for="CommentInput.CommentContent" placeholder="Say something about this publication...">
-                    </form>
-                </div>
                 @if (publication.PostComments!=null)
                 {
-                    <h3>Comments:</h3>
+                    <h4>Comments:</h4>
+                    <div class="commentInput">
+                        <form asp-action="PostComment">
+                            <input asp-for="CommentInput.PostId" type="hidden" value="@publication.Id">
+                            <input asp-for="CommentInput.CommentContent" placeholder="Say something about this publication...">
+                        </form>
+                    </div>
                     foreach (Comment comment in publication.PostComments)
                     {
                         <div class="comment">

@@ -64,15 +64,25 @@ body {
     line-height: 18px;
     margin-left: 58px;
     margin-top: 10px;
-    color: #292f33;
+    form{
+        display:inline-block;
+    }
+    a, button {
+        all: unset;
+        width: 80px;
+        text-align: left;
+        text-decoration: none;
+        display: inline-block;
+        color: $secondaryColor-light;
+    }
 }
 
 .fa-share:hover {
     color: aqua;
 }
 
-.fa-heart:hover {
-    color: #ff3333;
+.fa-bookmark:hover {
+    color: mediumaquamarine;
 }
 .closeChatButton {
     all: unset;
@@ -196,8 +206,18 @@ body {
         }
     }
 }
+
+.comments{
+    h4{
+        color:$secondaryColor-dark;
+        padding-left:15px;
+        margin-bottom:15px;
+    }
+}
+
 .comment {
     margin:20px;
+    padding-left:15px;
     img {
         height: 38px;
         width: 38px;
@@ -218,6 +238,7 @@ body {
         line-break:anywhere;
     }
 }
+
 .post.hiddenComments {
     .comments {
         height: 0;
@@ -225,15 +246,41 @@ body {
         overflow:hidden
     }
 }
+
+.commentInput {
+    width: 90%;
+    margin-left: 30px;
+
+    input {
+        width: 100%;
+        border: 1px solid $secondaryColor-light;
+        border-radius: 20px;
+        padding: 5px;
+        padding-left: 10px;
+    }
+
+    input:focus {
+        outline: 1px solid $mainColor;
+        border-color: $mainColor;
+    }
+}
+
 ::-webkit-scrollbar {
     height: 0;
 }
+
 .theme-dark {
     .post-fullname {
         color: $textColor;
     }
 
-    .post-text-container{
-        color:$textColor;
+    .post-text-container {
+        color: $textColor;
+    }
+
+    .comments {
+        h4 {
+            color: $textColor;
+        }
     }
 }

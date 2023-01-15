@@ -36,5 +36,7 @@ namespace ArtVenue.Models
         public List<string> Images { get; set; }
         [NotMapped]
         public List<Comment> PostComments { get; set; }
+        [NotMapped]
+        public bool IsSavedByUser { get; set; }
     }
 }
