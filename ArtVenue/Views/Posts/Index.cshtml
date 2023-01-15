@@ -1,0 +1,97 @@
+﻿@model PostsIndexViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Posts/index.css" asp-append-version="true" />
+}
+<div class="postContainer">
+    @foreach (Publication publication in Model.Publications)
+    {
+        <div class="post hiddenComments">
+            <div class="post-content">
+
+                <a class="post-account" href="#">
+
+                    <img class="post-avatar" src="@publication.PostedBy.ProfileImage">
+
+                    <strong class="post-fullname">
+                        @publication.PostedBy.FullName
+                    </strong>
+                    <span class="post-timestamp">@publication.PostedTime</span>
+                </a>
+            </div>
+            @if (!string.IsNullOrEmpty(publication.ImageLink))
+            {
+                <div class="optionalMedia">
+                    <img src="@publication.ImageLink">
+                </div>
+            }
+            else if (publication.HasManyImages)
+            {
+                <div class="optionalMedia gallery">
+                    <div class="gallery-inner">
+                    @for(int i = 1; i<=publication.Images.Count; i++)
+                    {
+                        <div class="img-container">
+                             <span class="slide-counter">@i/@publication.Images.Count</span>   
+                             <img src="@publication.Images[i-1]">
+                        </div>
+                    }
+                    </div>
+                </div>
+            }
+            else if (!string.IsNullOrEmpty(publication.VideoLink))
+            {
+                <div class="optionalMedia">
+                    <video controls>
+                        <source src="@publication.VideoLink" type="video/mp4">
+                        Could not load video
+                    </video>
+                </div>
+            }
+            else if (!string.IsNullOrEmpty(publication.EmbeddedVideoLink))
+            {
+                <div class="optionalMedia">
+                    <iframe class="video-block" src="@publication.EmbeddedVideoLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            }
+            <div class="post-text-container">
+                    @publication.PublicationText
+            </div>
+            <div class="post-action-list" style="line-height:24px;color: #b1bbc3;">
+                <i class="fa-solid fa-share" style="width: 80px;"></i>
+                <button class="closeChatButton NoLoader"><i class="fa-solid fa-comment" style="width: 80px"></i></button>
+                <i class="fa fa-heart" style="width: 80px"></i>
+            </div>
+            <br/>
+            <div class="comments">
+                <div>
+                    <form asp-action="PostComment">
+                        <input asp-for="CommentInput.PostId" type="hidden" value="@publication.Id">
+                        <input asp-for="CommentInput.CommentContent" placeholder="Say something about this publication...">
+                    </form>
+                </div>
+                @if (publication.PostComments!=null)
+                {
+                    <h3>Comments:</h3>
+                    foreach (Comment comment in publication.PostComments)
+                    {
+                        <div class="comment">
+                            <a class="post-account" href="#">
+                                <img src="@comment.Sender.ProfileImage">
+                                <strong class="post-fullname">
+                                    @comment.Sender.FullName
+                                </strong>
+                        </a>
+                        <span class="post-timestamp">@comment.PostedTime</span>
+                        <div class="post-text-container">
+                            @comment.CommentContent
+                        </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script src="~/js/posts.js"></script>
+}

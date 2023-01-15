@@ -1,0 +1,239 @@
+﻿@import "../Utility/_colors.scss";
+/*.post-block {
+    width: 80%;
+    margin: 0 auto;
+
+    .post-header {
+        text-align: center;
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: gray;
+        }
+    }
+
+    .post-content {
+        .multiple-images-block, .video-block, .single-image-block, .no-image-block {
+            display: none;
+        }
+
+        .multiple-images-block {
+            display: flex;
+            flex-wrap: wrap;
+
+            img {
+                width: 30%;
+                margin-right: 2%;
+            }
+        }
+
+        .video-block {
+            video {
+                width: 100%;
+            }
+        }
+
+        .single-image-block {
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+*/
+body {
+    font-family: Arial,sans-serif;
+    color: #292f33;
+}
+
+/* This element would be replaced by where you want the templates. */
+.postContainer {
+    width: 700px;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom:25px;
+}
+
+/* The action list is optional. */
+.post-action-list {
+    display: block;
+    line-height: 18px;
+    margin-left: 58px;
+    margin-top: 10px;
+    color: #292f33;
+}
+
+.fa-share:hover {
+    color: aqua;
+}
+
+.fa-heart:hover {
+    color: #ff3333;
+}
+.closeChatButton {
+    all: unset;
+}
+.closeChatButton:hover{
+    i{
+        color:$mainColor;
+    }
+}
+.post {
+    border: 1px solid $secondaryColor-light;
+    cursor: pointer;
+    min-height: 51px;
+    padding: 15px;
+    margin-bottom:20px;
+    border-radius:5px;
+}
+
+.post-content {
+    display: block;
+    font-size: 14px;
+    margin-left: 58px;
+    font-size: 14px;
+}
+
+.post-account {
+    padding: 0px;
+    text-decoration: none;
+    line-height: 20px;
+}
+
+.post-avatar {
+    float: left;
+    height: 48px;
+    width: 48px;
+    margin-left: -58px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.post-fullname {
+    padding-left:10px;
+    font-weight: bold;
+    font-size: larger;
+    color: $secondaryColor-dark;
+    padding: 0px;
+}
+
+.post-username {
+    font-weight: bold;
+    font-size: 14px;
+    color: #b1bbc3;
+    padding: 0px;
+}
+
+.post-timestamp {
+    font-size: 14px;
+    color: $secondaryColor-light;
+    padding: 0px;
+}
+
+.post-text-container {
+    font-size: 14px;
+    color: $secondaryColor-dark;
+    line-height: 18px;
+    padding:15px;
+    padding-left: 58px;
+}
+
+.optionalMedia {
+    margin-left: 58px;
+    margin-top: 10px;
+    text-align: center;
+
+    img, iframe, video {
+        border-radius: 5px;
+        max-width: 600px;
+        max-height: 600px;
+    }
+
+    video {
+        width: 600px;
+        height: auto;
+    }
+
+    iframe {
+        width: 600px;
+        height: 300px;
+    }
+}
+
+.gallery {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    .img-container {
+        scroll-behavior: smooth;
+        /*        scroll-snap-align: start;*/
+        width: 618px;
+        height: 618px;
+        text-align: center;
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        user-select: none;
+
+        .slide-counter {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background-color: rgba(0,0,0,0.5);
+            width: 55px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+        }
+    }
+}
+.comment {
+    margin:20px;
+    img {
+        height: 38px;
+        width: 38px;
+        border-radius: 5px;
+        object-fit: cover;
+        margin-right:10px;
+    }
+    .post-fullname{
+        font-size:medium;
+        font-weight:600;
+    }
+    .post-text-container{
+        padding-top:0;
+        padding-left:0;
+        display:inline-block;
+        width:90%;
+        padding-left:58px;
+        line-break:anywhere;
+    }
+}
+.post.hiddenComments {
+    .comments {
+        height: 0;
+        white-space: pre-wrap;
+        overflow:hidden
+    }
+}
+::-webkit-scrollbar {
+    height: 0;
+}
+.theme-dark {
+    .post-fullname {
+        color: $textColor;
+    }
+
+    .post-text-container{
+        color:$textColor;
+    }
+}

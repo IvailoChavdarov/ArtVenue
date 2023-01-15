@@ -26,7 +26,8 @@ using (var scope = app.Services.CreateScope())
     string[] roles = new string[]{"admin", "moderator"};
     foreach (var role in roles)
     {
-        if (!(await roleManager.RoleExistsAsync(role)))
+        bool exists = await roleManager.RoleExistsAsync(role);
+        if (!exists)
         {
             await roleManager.CreateAsync(new IdentityRole(role));
         }

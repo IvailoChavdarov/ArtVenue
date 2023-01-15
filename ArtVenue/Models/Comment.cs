@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ArtVenue.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace ArtVenue.Models
@@ -18,7 +19,10 @@ namespace ArtVenue.Models
         public string PostedTime { get; set; }
         [NotMapped]
         public string UserName { get; set; }
+        [NotMapped]
+        public PostCreator Sender { get; set; }
         public AppUser User { get; set; }
         public Publication Publication { get; set; }
+
     }
 }

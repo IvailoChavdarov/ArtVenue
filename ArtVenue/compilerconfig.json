@@ -26,5 +26,9 @@
   {
     "outputFile": "wwwroot/css/Home/technologies.css",
     "inputFile": "wwwroot/css/Home/technologies.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Posts/index.css",
+    "inputFile": "wwwroot/css/Posts/index.scss"
   }
 ]

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ArtVenue.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -24,12 +25,16 @@ namespace ArtVenue.Models
         [Required]
         public string PostedTime { get; set; }
         [NotMapped]
-        public string CreatorName { get; set; }
+        public PostCreator PostedBy { get; set; }
         public AppUser Creator { get; set; }
         public Group Group { get; set; }
         public HashSet<GalleryImage> Gallery { get; set; }
         public HashSet<Publications_Categories> Categories { get; set; }
         public HashSet<Users_Saved> SavedBy { get; set; }
         public HashSet<Comment> Comments { get; set; }
+        [NotMapped]
+        public List<string> Images { get; set; }
+        [NotMapped]
+        public List<Comment> PostComments { get; set; }
     }
 }

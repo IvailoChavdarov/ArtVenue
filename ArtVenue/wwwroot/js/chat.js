@@ -10,10 +10,6 @@ connection.on("ReceiveMessage", function (message) {
     li.textContent = `${message.senderName} says ${message.messageContent} at ${message.sendTime}`;
     document.getElementById("messagesList").appendChild(li);
     console.log(message);
-    // We can assign user-supplied strings to an element's textContent because it
-    // is not interpreted as markup. If you're assigning in any other way, you 
-    // should be aware of possible script injection concerns.
-
 });
 
 connection.start().then(function () {

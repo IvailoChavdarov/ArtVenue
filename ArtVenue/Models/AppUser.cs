@@ -24,5 +24,16 @@ namespace ArtVenue.Models
         public HashSet<Comment> Comments { get; set; }
         public HashSet<DirectChat> DirectChats { get; set; }
         public HashSet<DirectChat> DirectChatsSecondUser { get; set; }
+        public string GetProfileImage()
+        {
+            if (string.IsNullOrEmpty(this.ProfileImage))
+            {
+                return "https://res.cloudinary.com/ddo3vrwcb/image/upload/v1673793962/profile-placeholder_ivroyn.png";
+            }
+            else
+            {
+                return this.ProfileImage;
+            }
+        }
     }
 }
