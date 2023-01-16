@@ -55,6 +55,7 @@ body {
   margin: auto;
   margin-top: 25px;
   margin-bottom: 25px;
+  display: block;
 }
 
 /* The action list is optional. */
@@ -254,6 +255,49 @@ body {
   border-color: #eb6600;
 }
 
+.posts-sidenav {
+  padding: 20px;
+  padding-top: 30px;
+  padding-left: 80px;
+  font-size: 22px;
+}
+.posts-sidenav a {
+  color: #28363d;
+  padding: 7px;
+  margin: 7px;
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+  border-radius: 25px;
+  cursor: pointer;
+  text-decoration: none;
+  height: 50px;
+}
+.posts-sidenav .user-button {
+  background-color: #619194;
+  color: #EFFCFF;
+}
+.posts-sidenav .create-button {
+  background-color: #eb6600;
+  color: #EFFCFF;
+}
+.posts-sidenav .saved-button {
+  background-color: aqua;
+  color: aliceblue;
+}
+.posts-sidenav .liked-button {
+  background-color: hotpink;
+  color: aliceblue;
+}
+.posts-sidenav img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+.posts-sidenav i, .posts-sidenav img {
+  margin-right: 15px;
+  font-size: 24px;
+}
+
 ::-webkit-scrollbar {
   height: 0;
 }
@@ -265,5 +309,8 @@ body {
   color: #EFFCFF;
 }
 .theme-dark .comments h4 {
+  color: #EFFCFF;
+}
+.theme-dark .posts-sidenav a {
   color: #EFFCFF;
 }

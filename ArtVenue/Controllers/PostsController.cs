@@ -59,6 +59,9 @@ namespace ArtVenue.Controllers
                 publication.IsSavedByUser = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User) && x.PublicationId == publication.Id).Any();
                 data.Publications.Add(publication);
             }
+            AppUser currentUser = await _userManager.GetUserAsync(User);
+            data.UserProfilePicture = currentUser.GetProfileImage();
+            data.UserName = currentUser.FirstName;
             return View(data);
         }
 

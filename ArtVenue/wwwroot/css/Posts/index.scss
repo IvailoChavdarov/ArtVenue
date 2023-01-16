@@ -56,6 +56,7 @@ body {
     margin: auto;
     margin-top: 25px;
     margin-bottom:25px;
+    display:block;
 }
 
 /* The action list is optional. */
@@ -265,6 +266,50 @@ body {
     }
 }
 
+.posts-sidenav {
+    padding: 20px;
+    padding-top: 30px;
+    padding-left: 80px;
+    font-size: 22px;
+
+    a {
+        color: $secondaryColor-dark;
+        padding: 7px;
+        margin: 7px;
+        display: inline-block;
+        width: 200px;
+        text-align: center;
+        border-radius: 25px;
+        cursor: pointer;
+        text-decoration:none;
+        height:50px;
+    }
+    .user-button{
+        background-color:$secondaryColor-light;
+        color:$textColor;
+    }
+    .create-button{
+        background-color:$mainColor;
+        color:$textColor;
+    }
+    .saved-button{
+        background-color:aqua;
+        color:aliceblue;
+    }
+    .liked-button{
+        background-color:hotpink;
+        color:aliceblue;
+    }
+    img {
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    i, img{
+        margin-right:15px;
+        font-size:24px;
+    }
+}
+
 ::-webkit-scrollbar {
     height: 0;
 }
@@ -283,4 +328,11 @@ body {
             color: $textColor;
         }
     }
+
+    .posts-sidenav {
+        a {
+            color: $textColor;
+        }
+    }
 }
+
