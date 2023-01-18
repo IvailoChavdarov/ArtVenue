@@ -1,8 +1,10 @@
 ﻿using ArtVenue.Data;
 using ArtVenue.Models;
 using ArtVenue.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing.Printing;
 using System.Threading.Tasks;
 
 namespace ArtVenue.Controllers
@@ -17,11 +19,16 @@ namespace ArtVenue.Controllers
             _userManager = userManager;
             _db = db;
         }
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(int page = 1)
         {
             Dictionary<string, PostCreator> userNames = new Dictionary<string, PostCreator>();
             PostsIndexViewModel data = new PostsIndexViewModel();
-            foreach (var publication in _db.Publications)
+            int pageSize = 2;
+            page -= 1;
+            List<Publication> publications = _db.Publications.OrderByDescending(x=>x.PostedTime).ToList();
+            List<Publication> sortedPublications = publications.Skip(page * pageSize).Take(pageSize).ToList();
+            foreach (var publication in sortedPublications)
             {
                 if (userNames.ContainsKey(publication.CreatorId))
                 {
@@ -62,10 +69,75 @@ namespace ArtVenue.Controllers
             AppUser currentUser = await _userManager.GetUserAsync(User);
             data.UserProfilePicture = currentUser.GetProfileImage();
             data.UserName = currentUser.FirstName;
+            data.PrevPage = page > 0;
+            data.NextPage = publications.Count() > (page+1) * pageSize;
+            data.CurrentPage = page+1;
+            return View(data);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Saved(int page = 1)
+        {
+            Dictionary<string, PostCreator> userNames = new Dictionary<string, PostCreator>();
+            PostsIndexViewModel data = new PostsIndexViewModel();
+            AppUser currentUser = await _userManager.GetUserAsync(User);
+            string userId = currentUser.Id;
+            int pageSize = 25;
+            page -= 1;
+            List<int> savedPublicationsIds = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User)).Select(x=>x.PublicationId).Skip(page * pageSize).Take(pageSize).ToList();
+            List<Publication> savedPublications = new List<Publication>();
+            foreach (var publicationId in savedPublicationsIds)
+            {
+                savedPublications.Add(_db.Publications.Where(x => x.Id == publicationId).FirstOrDefault());
+            }
+            foreach (var publication in savedPublications)
+            {
+                if (userNames.ContainsKey(publication.CreatorId))
+                {
+                    publication.PostedBy = userNames[publication.CreatorId];
+                }
+                else
+                {
+                    AppUser user = await _userManager.FindByIdAsync(publication.CreatorId);
+                    PostCreator createdBy = new PostCreator(user);
+                    userNames.Add(publication.CreatorId, createdBy);
+                    publication.PostedBy = createdBy;
+                }
+                if (publication.HasManyImages)
+                {
+                    publication.Images = _db.GalleryImages.Where(x => x.PublicationId == publication.Id).Select(x => x.ImageLink).ToList<string>();
+                }
+
+                List<Comment> comments = _db.Comments.Where(x => x.PublicationId == publication.Id).ToList();
+                foreach (Comment comment in comments)
+                {
+                    if (userNames.ContainsKey(comment.UserId))
+                    {
+                        comment.Sender = userNames[comment.UserId];
+                    }
+                    else
+                    {
+                        AppUser user = await _userManager.FindByIdAsync(comment.UserId);
+                        PostCreator createdBy = new PostCreator(user);
+                        userNames.Add(comment.UserId, createdBy);
+                        comment.Sender = createdBy;
+                    }
+
+                }
+                publication.PostComments = comments.ToList();
+                publication.IsSavedByUser = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User) && x.PublicationId == publication.Id).Any();
+                data.Publications.Add(publication);
+            }
+            data.UserProfilePicture = currentUser.GetProfileImage();
+            data.UserName = currentUser.FirstName;
+            data.PrevPage = page > 0;
+            data.NextPage = _db.Saved.Count() > (page + 1) * pageSize;
+            data.CurrentPage = page + 1;
             return View(data);
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> PostComment(ViewModelWithCommentInput data)
         {
             string userId = _userManager.GetUserId(User);
@@ -78,7 +150,9 @@ namespace ArtVenue.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> SavePublication(int id)
         {
             string userId = _userManager.GetUserId(User);

@@ -298,6 +298,15 @@ body {
   font-size: 24px;
 }
 
+.page-slider a {
+  color: #eb6600;
+  text-decoration: none;
+  margin-bottom: 50px;
+}
+.page-slider .right {
+  float: right;
+}
+
 ::-webkit-scrollbar {
   height: 0;
 }

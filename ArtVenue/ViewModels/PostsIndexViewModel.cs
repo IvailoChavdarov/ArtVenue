@@ -2,12 +2,9 @@
 
 namespace ArtVenue.ViewModels
 {
-    public class PostsIndexViewModel: ViewModelWithCommentInput
+    public class PostsIndexViewModel : ViewModelWithPublicationList
     {
-        public List<Publication> Publications { get; set; } = new List<Publication>();
-        public CommentInput CommentInput { get; set; }
-        public string UserProfilePicture { get; set; }
-        public string UserName { get; set; }
+
     }
     public class PostCreator
     {

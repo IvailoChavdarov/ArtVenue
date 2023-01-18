@@ -6,7 +6,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div id="userNavigationMini">
-        <a class="nav-link" asp-controller="collection" asp-action="index"><i class="fas fa-bookmark"></i> <span class="hiddenOnMobile">Saved</span></a>
+        <a class="nav-link" asp-controller="posts" asp-action="saved"><i class="fas fa-bookmark"></i> <span class="hiddenOnMobile">Saved</span></a>
         <div class="dropdown">
             <a class="nav-link" asp-area="identity" asp-page="/account/manage/index" title="Manage account"><i class="fas fa-user"></i><span class="hiddenOnMobile"> @UserManager.FindByNameAsync(User.Identity.Name).Result.FirstName</span></a>
             <div class="dropdown-content">

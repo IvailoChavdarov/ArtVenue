@@ -1,0 +1,11 @@
+﻿@model ViewModelWithPublicationList
+<div class="page-slider">
+    @if (Model.PrevPage)
+    {
+        <a asp-route-page="@(Model.CurrentPage-1)">Previous page</a>
+    }
+    @if (Model.NextPage)
+    {
+        <a class="right" asp-route-page="@(Model.CurrentPage+1)">Next page</a>
+    }
+</div>

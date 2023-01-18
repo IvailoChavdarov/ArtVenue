@@ -1,13 +1,10 @@
 ﻿@import '../Utility/_colors.scss';
-body {
-    font-family: Arial, sans-serif;
-}
 .container {
     margin: 50px auto;
     padding: 40px;
     background-color: $secondaryColor-dark;
     color: $textColor;
-    
+    font-family: Arial, sans-serif;
 }
 .shield-list {
     list-style: none;
