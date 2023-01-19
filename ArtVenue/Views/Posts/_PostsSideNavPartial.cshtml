@@ -1,7 +1,7 @@
 ﻿@model ViewModelWithPublicationList
 <div class="posts-sidenav sticky-top">
     <div class="nav flex-column">
-        <a asp-controller="posts" asp-action="user" class="user-button"><img src="@Model.UserProfilePicture" height="35" width="35" /> @Model.UserName</a>
+        <a asp-controller="posts" asp-action="users" asp-route-id="" class="user-button"><img src="@Model.UserProfilePicture" height="35" width="35" /> @Model.UserName</a>
         <a asp-controller="posts" asp-action="create" class="create-button"><i class="fa-solid fa-circle-plus"></i> Create</a>
         <a asp-controller="posts" asp-action="saved" class="saved-button"><i class="fa-solid fa-bookmark"></i> Saved</a>
     </div>

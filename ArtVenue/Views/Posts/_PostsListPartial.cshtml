@@ -4,7 +4,7 @@
     {
         <div class="post hiddenComments">
             <div class="post-content">
-                <a class="post-account" asp-controller="posts" asp-action="user">
+                <a class="post-account" asp-controller="posts" asp-action="users" asp-route-id="@publication.PostedBy.UserId">
                     <img class="post-avatar" src="@publication.PostedBy.ProfileImage">
                     <strong class="post-fullname">
                         @publication.PostedBy.FullName
@@ -89,7 +89,7 @@
                     foreach (Comment comment in publication.PostComments)
                     {
                         <div class="comment">
-                            <a class="post-account" href="#">
+                            <a class="post-account" asp-action="users" asp-route-id="@comment.Sender.UserId">
                                 <img src="@comment.Sender.ProfileImage">
                                 <strong class="post-fullname">
                                     @comment.Sender.FullName

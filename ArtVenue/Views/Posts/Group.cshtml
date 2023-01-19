@@ -1,13 +1,16 @@
-﻿@model PostsIndexViewModel
+﻿@model PostsGroupViewModel
 @section Heads{
     <link rel="stylesheet" href="~/css/Posts/index.css" asp-append-version="true" />
 }
 @{
-    ViewData["Title"] = "Posts";
+    ViewData["Title"] = Model.Group.GroupName;
 }
+@*<header>
+    
+</header>*@
 <div class="row">
     <div class="posts-sidenav-container col-12 col-lg-3 col-md-3">
-        <partial name="_PostsSideNavPartial"/>
+        <partial name="_PostsSideNavPartial" />
     </div>
     <div class="col">
         <partial name="_PostsListPartial" />

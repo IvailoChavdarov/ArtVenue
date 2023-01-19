@@ -26,5 +26,17 @@ namespace ArtVenue.Models
         public HashSet<Groups_Members> Memberships { get; set; }
         public HashSet<Message> Messages { get; set; }
         public HashSet<Publication> Publications { get; set; }
+
+        public string GetGroupPicture()
+        {
+            if (string.IsNullOrEmpty(this.GroupPicture))
+            {
+                return "https://res.cloudinary.com/ddo3vrwcb/image/upload/v1674145845/group-image-placeholder_neaqvl.png";
+            }
+            else
+            {
+                return this.GroupPicture;
+            }
+        }
     }
 }

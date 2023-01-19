@@ -262,7 +262,7 @@ body {
   font-size: 22px;
 }
 .posts-sidenav a {
-  color: #28363d;
+  color: #EFFCFF;
   padding: 7px;
   margin: 7px;
   display: inline-block;
@@ -272,22 +272,19 @@ body {
   cursor: pointer;
   text-decoration: none;
   height: 50px;
+  transition: all 250ms;
 }
 .posts-sidenav .user-button {
   background-color: #619194;
-  color: #EFFCFF;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .posts-sidenav .create-button {
   background-color: #eb6600;
-  color: #EFFCFF;
 }
 .posts-sidenav .saved-button {
-  background-color: aqua;
-  color: aliceblue;
-}
-.posts-sidenav .liked-button {
-  background-color: hotpink;
-  color: aliceblue;
+  background-color: #4bcf00;
 }
 .posts-sidenav img {
   border-radius: 50%;
@@ -321,5 +318,5 @@ body {
   color: #EFFCFF;
 }
 .theme-dark .posts-sidenav a {
-  color: #EFFCFF;
+  color: #28363d;
 }

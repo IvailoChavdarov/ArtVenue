@@ -72,9 +72,7 @@ const closeChatButtons = document.querySelectorAll('.closeChatButton')
 console.log(closeChatButtons);
 closeChatButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-        console.log("working");
         var postContainer = btn.parentElement.parentElement;
-        console.log(postContainer);
         if (postContainer.classList.contains("hiddenComments")) {
             postContainer.classList.remove("hiddenComments")
         }

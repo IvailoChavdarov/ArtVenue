@@ -1,0 +1,56 @@
+﻿@model PostsUserViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Posts/index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Posts/user.css" asp-append-version="true" />
+}
+@{
+    ViewData["Title"] = Model.User.FirstName +" "+ Model.User.LastName;
+}
+<div class="row col-lg-13">
+    <div class="posts-sidenav-container col-12 col-lg-3 col-md-3">
+        <partial name="_PostsSideNavPartial" />
+    </div>
+    <div class="col">
+        <header class="user-header">
+            <div class="user-cover-container">
+                @if (!string.IsNullOrEmpty(Model.User.ProfileBackground))
+                {
+                    <img src="@Model.User.ProfileBackground" />
+                }
+                @if (Model.IsTheUser)
+                {
+                    <a asp-area="identity" asp-page="/account/manage/index"><i class="fa-solid fa-gear"></i> Account settings</a>
+                }
+            </div>
+            <div class="profile-name-container">
+                <img src="@Model.User.ProfileImage" height="160" width="160" />
+                <h1>@Model.User.FirstName @Model.User.LastName</h1>
+                <span>@Model.User.Email</span>
+            </div>
+            <div class="user-info-container">
+                @if (!string.IsNullOrEmpty(Model.User.ArtType))
+                {
+                    <p>Type of art: @Model.User.ArtType</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.User.Bio))
+                {
+                    <p>@Model.User.Bio</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.User.OutsideLink))
+                {
+                    <p>
+                        <a class="NoLoader" href="@Model.User.OutsideLink" target="_blank">Go to user's website</a>
+                    </p>
+                }
+            </div>
+        </header>
+        <partial name="_PostsListPartial" />
+        <partial name="_PostsPageSliderPartial" />
+    </div>
+    <div class="posts-sidenav-container col-12 col-lg-3 col-md-3">
+        <partial name="_PostsGroupsSideNavPartial" />
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/posts.js"></script>
+}

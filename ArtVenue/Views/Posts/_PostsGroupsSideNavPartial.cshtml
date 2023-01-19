@@ -1,0 +1,9 @@
+﻿@model ViewModelWithPublicationList
+<div class="posts-sidenav sticky-top">
+    <div class="nav flex-column">
+        @foreach (var group in Model.Groups)
+        {
+           <a asp-controller="posts" asp-action="group" asp-route-id="@group.Id" class="user-button"><img src="@group.GroupPicture" height="35" width="35" /> @group.GroupName</a> 
+        }
+    </div>
+</div>

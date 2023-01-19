@@ -1,4 +1,5 @@
 ﻿@import "../Utility/_colors.scss";
+@import "../Utility/_timings.scss";
 /*.post-block {
     width: 80%;
     margin: 0 auto;
@@ -85,14 +86,17 @@ body {
 .fa-bookmark:hover {
     color: mediumaquamarine;
 }
+
 .closeChatButton {
     all: unset;
 }
+
 .closeChatButton:hover{
     i{
         color:$mainColor;
     }
 }
+
 .post {
     border: 1px solid $secondaryColor-light;
     cursor: pointer;
@@ -273,7 +277,7 @@ body {
     font-size: 22px;
 
     a {
-        color: $secondaryColor-dark;
+        color: $textColor;
         padding: 7px;
         margin: 7px;
         display: inline-block;
@@ -281,34 +285,37 @@ body {
         text-align: center;
         border-radius: 25px;
         cursor: pointer;
-        text-decoration:none;
-        height:50px;
+        text-decoration: none;
+        height: 50px;
+        transition: all $changeThemeAnimationTime;
     }
-    .user-button{
-        background-color:$secondaryColor-light;
-        color:$textColor;
+
+    .user-button {
+        background-color: $secondaryColor-light;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
-    .create-button{
-        background-color:$mainColor;
-        color:$textColor;
+
+    .create-button {
+        background-color: $mainColor;
     }
-    .saved-button{
-        background-color:aqua;
-        color:aliceblue;
+
+    .saved-button {
+        background-color: #4bcf00;
     }
-    .liked-button{
-        background-color:hotpink;
-        color:aliceblue;
-    }
+
     img {
         border-radius: 50%;
         object-fit: cover;
     }
-    i, img{
-        margin-right:15px;
-        font-size:24px;
+
+    i, img {
+        margin-right: 15px;
+        font-size: 24px;
     }
 }
+
 .page-slider {
     a {
         color: $mainColor;
@@ -341,7 +348,7 @@ body {
 
     .posts-sidenav {
         a {
-            color: $textColor;
+            color: $secondaryColor-dark;
         }
     }
 }

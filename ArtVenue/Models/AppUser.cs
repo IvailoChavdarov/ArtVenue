@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+
 namespace ArtVenue.Models
 {
     public class AppUser: IdentityUser
@@ -15,6 +17,10 @@ namespace ArtVenue.Models
         [Required]
         public bool IsPublic { get; set; }
         public string? ProfileImage { get; set; }
+        public string? ProfileBackground { get; set; }
+        public string? ArtType { get; set; }
+        public string? Bio { get; set; }
+        public string? OutsideLink { get; set; }
         public HashSet<Message> Messages_Sent { get; set; }
         public HashSet<Group> GroupsCreated { get; set; }
         public HashSet<Groups_Members> GroupsJoined { get; set; }
