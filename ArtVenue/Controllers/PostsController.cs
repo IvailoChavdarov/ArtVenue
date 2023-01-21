@@ -19,15 +19,38 @@ namespace ArtVenue.Controllers
             _userManager = userManager;
             _db = db;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index(int page = 1)
         {
             Dictionary<string, PostCreator> userNames = new Dictionary<string, PostCreator>();
             PostsIndexViewModel data = new PostsIndexViewModel();
             int pageSize = 25;
             page -= 1;
-            List<Publication> publications = _db.Publications.OrderByDescending(x=>x.PostedTime).ToList();
-            List<Publication> sortedPublications = publications.Skip(page * pageSize).Take(pageSize).ToList();
+            AppUser currentUser = await _userManager.GetUserAsync(User);
+            List<int> categoriesInterestedInId = _db.Interests.Where(x=>x.UserId==currentUser.Id).Select(x=>x.CategoryId).ToList();
+            List<Publication> publications = _db.Publications.OrderByDescending(x => x.PostedTime).ToList();
+            for (int i = 0; i < publications.Count; i++)
+            {
+                publications[i].CategoriesIds = _db.Publications_Categories
+                    .Where(x => x.PublicationId == publications[i].Id)
+                    .Select(x=>x.CategoryId)
+                    .ToList(); 
+            }
+
+            List<Publication> filteredPublications = new List<Publication>();
+            foreach (var publication in publications)
+            {
+                foreach (int categoryId in publication.CategoriesIds)
+                {
+                    if (categoriesInterestedInId.Contains(categoryId))
+                    {
+                        filteredPublications.Add(publication);
+                        break;
+                    }
+                }
+            }
+
+            List<Publication> sortedPublications = filteredPublications.Skip(page * pageSize).Take(pageSize).ToList();
             foreach (var publication in sortedPublications)
             {
                 if (userNames.ContainsKey(publication.CreatorId))
@@ -43,7 +66,7 @@ namespace ArtVenue.Controllers
                 }
                 if (publication.HasManyImages)
                 {
-                    publication.Images = _db.GalleryImages.Where(x => x.PublicationId == publication.Id).Select(x=>x.ImageLink).ToList<string>();
+                    publication.Images = _db.GalleryImages.Where(x => x.PublicationId == publication.Id).Select(x => x.ImageLink).ToList<string>();
                 }
 
                 List<Comment> comments = _db.Comments.Where(x => x.PublicationId == publication.Id).ToList();
@@ -60,18 +83,17 @@ namespace ArtVenue.Controllers
                         userNames.Add(comment.UserId, createdBy);
                         comment.Sender = createdBy;
                     }
-                    
+
                 }
                 publication.PostComments = comments.ToList();
                 publication.IsSavedByUser = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User) && x.PublicationId == publication.Id).Any();
                 data.Publications.Add(publication);
             }
-            AppUser currentUser = await _userManager.GetUserAsync(User);
             data.UserProfilePicture = currentUser.GetProfileImage();
             data.UserName = currentUser.FirstName;
             data.PrevPage = page > 0;
-            data.NextPage = publications.Count() > (page+1) * pageSize;
-            data.CurrentPage = page+1;
+            data.NextPage = filteredPublications.Count() > (page + 1) * pageSize;
+            data.CurrentPage = page + 1;
             List<Group> groups = GetUserGroups();
             foreach (var group in groups)
             {

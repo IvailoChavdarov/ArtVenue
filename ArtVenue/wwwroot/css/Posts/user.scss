@@ -1,7 +1,7 @@
 ﻿@import "../Utility/_colors.scss";
 @import "../Utility/_timings.scss";
 .user-header {
-    max-width: 100vw;
+    max-width: 85%;
     margin: 40px auto;
 
     * {
@@ -10,28 +10,37 @@
 
     .user-cover-container {
         position:relative;
+        width:100%;
         img {
-            width: 900px;
+            width: 100%;
             max-height: 500px;
             border-radius: 20px;
+            object-fit:cover;
         }
         a{
             border-radius:10px;
             line-height:20px;
             display:inline-block;
             background-color:$secondaryColor-light;
-            color:$mainColor;
+            color:$textColor;
             position:absolute;
             bottom:20px;
-            right:100px;
+            right:30px;
             padding:7px 15px;
             text-decoration:none;
+            opacity:0.7;
+            i{
+                margin-right:5px;
+            }
+        }
+        a:hover{
+            opacity:1;
         }
     }
 
     .profile-name-container {
         position: relative;
-        padding-left: 210px;
+        padding-left: 255px;
         padding-top: 10px;
         height: 110px;
 
@@ -40,7 +49,7 @@
             border: 3px solid $textColor;
             object-fit: cover;
             position: absolute;
-            left: 30px;
+            left: 80px;
             top: -90px;
         }
 

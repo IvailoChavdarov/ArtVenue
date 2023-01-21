@@ -49,7 +49,6 @@ body {
   color: #292f33;
 }
 
-/* This element would be replaced by where you want the templates. */
 .postContainer {
   width: 700px;
   margin: auto;
@@ -58,7 +57,6 @@ body {
   display: block;
 }
 
-/* The action list is optional. */
 .post-action-list {
   display: block;
   line-height: 18px;
@@ -256,15 +254,14 @@ body {
 }
 
 .posts-sidenav {
-  padding: 20px;
   padding-top: 30px;
-  padding-left: 80px;
   font-size: 22px;
+  text-align: center;
 }
 .posts-sidenav a {
   color: #EFFCFF;
   padding: 7px;
-  margin: 7px;
+  margin: 7px auto;
   display: inline-block;
   width: 200px;
   text-align: center;
@@ -273,6 +270,7 @@ body {
   text-decoration: none;
   height: 50px;
   transition: all 250ms;
+  max-width: 100%;
 }
 .posts-sidenav .user-button {
   background-color: #619194;
@@ -302,6 +300,10 @@ body {
 }
 .page-slider .right {
   float: right;
+}
+
+.sticky-top {
+  z-index: initial;
 }
 
 ::-webkit-scrollbar {

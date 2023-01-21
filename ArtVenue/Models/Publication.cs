@@ -37,6 +37,8 @@ namespace ArtVenue.Models
         [NotMapped]
         public List<Comment> PostComments { get; set; }
         [NotMapped]
+        public List<int> CategoriesIds { get; set; }
+        [NotMapped]
         public bool IsSavedByUser { get; set; }
     }
 }
