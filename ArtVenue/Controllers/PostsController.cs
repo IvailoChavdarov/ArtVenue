@@ -102,7 +102,12 @@ namespace ArtVenue.Controllers
             }
             return View(data);
         }
-
+        public IActionResult Discover()
+        {
+            PostsDiscoverViewModel data = new PostsDiscoverViewModel();
+            data.Categories = _db.Categories.ToList();
+            return View();
+        }
         [Authorize]
         public async Task<IActionResult> Saved(int page = 1)
         {
@@ -339,7 +344,27 @@ namespace ArtVenue.Controllers
                 await _db.Saved.AddAsync(connection);
             }
             await _db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddInterest(int id)
+        {
+            string userId = _userManager.GetUserId(User);
+            Users_Interests connection = new Users_Interests();
+            connection.CategoryId = id;
+            connection.UserId = userId;
+            if (_db.Interests.Contains(connection))
+            {
+                _db.Interests.Remove(connection);
+            }
+            else
+            {
+                await _db.Interests.AddAsync(connection);
+            }
+            await _db.SaveChangesAsync();
+            return RedirectToAction("index");
         }
 
         private List<Group> GetUserGroups()
