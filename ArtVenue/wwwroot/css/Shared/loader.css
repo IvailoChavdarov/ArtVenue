@@ -9,7 +9,7 @@
   display: none;
 }
 
-section {
+.loader-section {
   width: 30%;
   display: inline-block;
   min-height: 215px;
@@ -22,7 +22,7 @@ section {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-section .loader {
+.loader-section .loader {
   position: relative;
   width: 100px;
   height: 100px;
@@ -31,13 +31,13 @@ section .loader {
   display: inline-block;
   vertical-align: middle;
 }
-section .loader-4 {
+.loader-section .loader-4 {
   border: 10px double #eb6600;
   -webkit-animation: ball-turn 1s linear infinite;
   animation: ball-turn 1s linear infinite;
 }
-section .loader-4:before,
-section .loader-4:after {
+.loader-section .loader-4:before,
+.loader-section .loader-4:after {
   content: "";
   position: absolute;
   width: 20px;
@@ -47,13 +47,13 @@ section .loader-4:after {
   bottom: -12px;
   right: 40px;
 }
-section .loader-4:after {
+.loader-section .loader-4:after {
   left: 40px;
   top: -12px;
 }
 
 @media only screen and (max-width: 600px) {
-  section {
+  .loader-section {
     min-width: 350px;
   }
 }

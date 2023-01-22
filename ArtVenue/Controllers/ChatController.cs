@@ -131,7 +131,7 @@ namespace ArtVenue.Controllers
                 RecieverFirstName= reciever.FirstName,
                 RecieverLastName= reciever.LastName,
                 RecieverId = reciever.Id,
-                RecieverProfileImage = reciever.ProfileImage
+                RecieverProfileImage = reciever.GetProfileImage()
             };
             return View(data);
         }

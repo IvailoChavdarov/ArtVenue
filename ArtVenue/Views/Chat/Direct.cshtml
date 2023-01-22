@@ -1,54 +1,67 @@
-﻿@{
-    ViewData["Title"] = "Chat Page";
+﻿@model ChatDirectViewModel
+@{
+    ViewData["Title"] = Model.RecieverFirstName + " " + Model.RecieverLastName;
 }
-@model ChatDirectViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Chat/chat.css" asp-append-version="true" />
+}
+<div class="row chat-container">
+    <div class="col-lg-3 col-12">
 
-    <div class="container">
-        <div class="row p-1">
-            <div class="col-1">User</div>
-            <div class="col-5"><input type="text" id="userInput" value="@Model.UserId"/></div>
-        </div>
-        <div class="row p-1">
-            <div class="col-1">Message</div>
-            <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
-        </div>
-        <div class="row p-1">
-            <div class="col-6 text-end">
-                <input type="text" id="recieverIdInput" value="@Model.RecieverId"/>
-            </div>
-        </div>
-
-        <div class="row p-1">
-            <div class="col-6 text-end">
-                <input type="button" id="sendButton" value="Send Message" />
-            </div>
-        </div>
-
-        <div class="row p-1">
-            <div class="col-6">
-                <hr />
-            </div>
-        </div>
-        <div class="row p-1">
-            <div class="col-6">
-                <h2>@Model.RecieverFirstName @Model.RecieverLastName</h2>
-                <ul id="messagesList">
-                    @foreach(Message message in Model.Messages){
-                        if(message.SenderId == Model.UserId){
-                            <li style="text-align:right;background-color:rgba(10,10,255,0.6); color:white;"><span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
-                        }
-                        else
-                        {
-                           <li style="background-color:rgba(180,50,0); color:aqua;">@Model.RecieverFirstName says <span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
-                        }
-                    
-                    }
-                </ul>
-            </div>
-        </div>
     </div>
-    <script>
-        var inGroupChat = false;
-    </script>
+    <div class="col-lg-9 col-12">
+        <section class="msger">
+            <header class="msger-header">
+                <div class="msger-header-title">
+                    <img src="@Model.RecieverProfileImage" height="60" width="60"/> 
+                    <a asp-controller="posts" asp-action="users" asp-route-id="@Model.RecieverId">@Model.RecieverFirstName @Model.RecieverLastName</a>
+                </div>
+            </header>
+
+            <div class="msger-chat">
+                @foreach (var message in Model.Messages)
+                {
+                    if (message.SenderId == Model.UserId)
+                    {
+                        <div class="msg right-msg">
+                            <div class="msg-bubble">
+                                <div class="msg-text">
+                                    @message.MessageContent
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="msg left-msg">
+                            <div class="msg-img"
+                            style="background-image: url(@Model.RecieverProfileImage)"></div>
+
+                            <div class="msg-bubble">
+                                <div class="msg-info">
+                                    <div class="msg-info-name">@Model.RecieverFirstName</div>
+                                    <div class="msg-info-time">@message.SendTime</div>
+                                </div>
+
+                                <div class="msg-text">
+                                    @message.MessageContent
+                                </div>
+                            </div>
+                        </div>
+                    }
+                } 
+            </div>
+            <div class="msger-inputarea">
+                <input type="hidden" id="userInput" value="@Model.UserId" />
+                <input type="hidden" id="recieverIdInput" value="@Model.RecieverId" />
+                <input type="text" class="msger-input" id="messageInput" placeholder="Enter your message..." />
+                <input type="button" class="msger-send-btn" id="sendButton" value="Send" />
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    var inGroupChat = false;
+</script>
 <script src="~/lib/microsoft-signalr/signalr.js"></script>
 <script src="~/js/chat.js"></script>

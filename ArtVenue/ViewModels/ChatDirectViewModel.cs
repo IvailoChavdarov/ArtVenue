@@ -8,7 +8,7 @@ namespace ArtVenue.ViewModels
         public string RecieverFirstName { get; set; }
         public string RecieverLastName { get; set; }
         public string RecieverId { get; set; }
-        public string? RecieverProfileImage { get; set; }
+        public string RecieverProfileImage { get; set; }
         public List<Message> Messages { get; set; }
     }
 }

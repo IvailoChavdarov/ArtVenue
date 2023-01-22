@@ -18,20 +18,13 @@ namespace ArtVenue.Hubs
         public async Task SendMessageToUser(Message message, string recieverId)
         {
             message.SendTime = DateTime.Now.ToString();
-            message.Sender = await _userManager.FindByIdAsync(message.SenderId);
-            message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
+            AppUser sender = await _userManager.FindByIdAsync(message.SenderId);
+            message.SenderName = sender.FirstName;
+            message.SenderProfileImage = sender.GetProfileImage();
             await Clients.User(recieverId).SendAsync("ReceiveMessage", message);
             message.DirectChatId = await GetDirectChatId(message.SenderId, recieverId);
             AddMessageToDatabase(message);
         }
-        //public async Task SendMessage(Message message)
-        //{
-        //    message.SendTime = DateTime.Now.ToString();
-        //    message.Sender = await _userManager.FindByIdAsync(message.SenderId);
-        //    message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
-        //    await Clients.All.SendAsync("ReceiveMessage", message);
-        //    AddMessageToDatabase(message);
-        //}
         public async Task SendMessageToGroup(Message message, int groupId)
         {
             message.SendTime = DateTime.Now.ToString();

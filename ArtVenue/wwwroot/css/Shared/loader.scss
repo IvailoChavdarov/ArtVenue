@@ -9,7 +9,7 @@
     background-color: rgba(255,255,255,.4);
     display: none;
 }
-section {
+.loader-section {
     width: 30%;
     display: inline-block;
     min-height: 215px;
@@ -56,7 +56,7 @@ section {
     }
 }
 @media only screen and (max-width: 600px) {
-    section {
+    .loader-section {
         min-width: 350px;
     }
 }

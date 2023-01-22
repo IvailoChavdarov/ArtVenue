@@ -5,7 +5,7 @@ function toggleMobileMenu() {
     $('body').toggleClass('overflow-hidden');
     $('#mobileMenuToggler').toggleClass('open');
 }
-if (document.getElementsByTagName('body')[0].clientHeight < window.innerHeight) {
-    document.getElementById('pageFooter').style.position = "absolute"
+//if (document.getElementsByTagName('body')[0].clientHeight < window.innerHeight) {
+//    document.getElementById('pageFooter').style.position = "absolute"
 
-}
+//}
