@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="~/css/Chat/chat.css" asp-append-version="true" />
 }
 <div class="row chat-container">
-    <div class="col-lg-3 col-12">
-
+    <div class="col-lg-3 col-12 msger-sideBar">
+        <partial name="_ChatSideBarPartial"/>
     </div>
     <div class="col-lg-9 col-12">
         <section class="msger">
@@ -60,8 +60,11 @@
         </section>
     </div>
 </div>
-<script>
-    var inGroupChat = false;
-</script>
-<script src="~/lib/microsoft-signalr/signalr.js"></script>
-<script src="~/js/chat.js"></script>
+@section Scripts{
+    <script>
+        var inGroupChat = false;
+    </script>
+    <script src="~/js/chatsSidenav.js"></script>
+    <script src="~/lib/microsoft-signalr/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+}

@@ -13,6 +13,7 @@ namespace ArtVenue.Models
         [Required]
         public string CategoryName { get; set; }
         public string? CategoryImage { get; set; }
+        public string CategoryDescription { get; set; }
 
         public HashSet<Publications_Categories> Publications { get; set; }
         public HashSet<Users_Interests> Interested { get; set; }

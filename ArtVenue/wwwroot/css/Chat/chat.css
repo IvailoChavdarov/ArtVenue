@@ -10,6 +10,7 @@
   display: inline-block;
   border: 2px solid #619194;
   border-left: none;
+  border-top: 0px;
   box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
   font-family: Helvetica, sans-serif;
   width: 100%;
@@ -78,7 +79,7 @@
 
 .msg-bubble {
   max-width: 450px;
-  padding: 15px;
+  padding: 10px 15px;
   border-radius: 15px;
   background: #619194;
   color: #EFFCFF;
@@ -141,13 +142,115 @@
 
 .msger-send-btn {
   margin-left: 10px;
-  background: rgb(0, 196, 65);
+  background: #eb6600;
+  opacity: 0.8;
   color: #EFFCFF;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.23s;
+  margin-right: 10px;
+  width: 100px;
 }
 
 .msger-send-btn:hover {
-  background: rgb(0, 180, 50);
+  opacity: 1;
+}
+
+.msger-sideBar {
+  height: calc(100vh - 68px);
+  overflow-y: auto;
+  border-right: 2px solid #619194;
+}
+.msger-sideBar::-webkit-scrollbar {
+  width: 4px;
+}
+.msger-sideBar::-webkit-scrollbar-track {
+  background: #EFFCFF;
+}
+.msger-sideBar::-webkit-scrollbar-thumb {
+  background: #619194;
+}
+.msger-sideBar::-webkit-scrollbar-thumb:hover {
+  background: #eb6600;
+}
+.msger-sideBar .show {
+  animation: fadeOut backwards 0.2s;
+}
+
+.sidenav-chatType {
+  font-size: 0;
+}
+.sidenav-chatType button {
+  background-color: transparent;
+  border: none;
+  color: #28363d;
+  border-bottom: 3px solid #619194;
+  padding: 10px;
+  width: 50%;
+  margin: 0;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 400;
+}
+.sidenav-chatType button:focus {
+  outline: none;
+}
+.sidenav-chatType .active {
+  border-bottom: 3px solid #eb6600;
+}
+
+.chat-sidenav-chat {
+  position: relative;
+}
+.chat-sidenav-chat #directChatsContainer, .chat-sidenav-chat #groupChatsContainer {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.chat-sidenav-chat #directChatsContainer.hidden, .chat-sidenav-chat #groupChatsContainer.hidden {
+  display: none;
+}
+.chat-sidenav-chat .chat-sidenav-profileImage {
+  display: inline-block;
+  width: 70px;
+  margin-right: 10px;
+}
+.chat-sidenav-chat .chat-sidenav-profileImage img {
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 20px;
+}
+.chat-sidenav-chat a {
+  padding-top: 20px;
+  color: #28363d;
+  text-decoration: none;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #619194;
+  display: inline-block;
+  width: 100%;
+  height: 90px;
+}
+.chat-sidenav-chat a:hover {
+  text-decoration: none;
+  background-color: #EFFCFF;
+}
+.chat-sidenav-chat .activeChat {
+  background-color: #EFFCFF;
+}
+.chat-sidenav-chat .chat-sidenav-name {
+  display: inline-block;
+  line-height: 60px;
+}
+.chat-sidenav-chat .chat-sidenav-name h2 {
+  font-size: x-large;
+}
+
+.theme-dark .msger-header, .theme-dark .msger-inputarea {
+  background-color: #619194;
+}
+.theme-dark .msger-header a, .theme-dark .msger-inputarea a {
+  color: #EFFCFF;
+}
+.theme-dark .msger-header a:hover, .theme-dark .msger-inputarea a:hover {
+  color: #eb6600;
 }

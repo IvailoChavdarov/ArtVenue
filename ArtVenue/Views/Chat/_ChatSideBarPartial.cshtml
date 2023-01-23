@@ -1,0 +1,75 @@
+﻿@model ViewModelWithChatsSidenav
+<div class="sidenav-chatType">
+    <button id="directChatButton" class="NoLoader active">Direct</button>
+    <button id="groupChatButton" class="NoLoader">Group</button>
+</div>
+<div class="chat-sidenav-chat">
+    <div id="directChatsContainer">
+    @foreach (var directChat in Model.DirectChats)
+    {
+        if (directChat.User.Id == Model.ChatWithId)
+        {
+            <a asp-controller="chat" asp-action="direct" asp-route-id="@directChat.ChatId" class="activeChat">
+            <div class="chat-sidenav-profileImage">
+                <img src="@directChat.User.ProfileImage" height="50" width="50"/>
+            </div>
+            <div class="chat-sidenav-name">
+                <h2>@directChat.User.FirstName @directChat.User.LastName</h2>
+            </div>
+            </a>
+        }
+        else
+        {
+            <a asp-controller="chat" asp-action="direct" asp-route-id="@directChat.ChatId">
+            <div class="chat-sidenav-profileImage">
+                <img src="@directChat.User.ProfileImage" height="50" width="50"/>
+            </div>
+            <div class="chat-sidenav-name">
+                <h2>@directChat.User.FirstName @directChat.User.LastName</h2>
+            </div>
+            </a>
+        }
+    }
+    </div>
+     <div id="groupChatsContainer" class="hidden">
+        @foreach (var groupChat in Model.GroupChats)
+        {
+            if (Model.ChatGroupId.HasValue)
+            {
+                if (groupChat.Key.Id == Model.ChatGroupId)
+                {
+                    <a asp-controller="chat" asp-action="group" asp-route-id="@groupChat.Key.Id" class="activeChat">
+                        <div class="chat-sidenav-profileImage">
+                            <img src="@groupChat.Key.GroupPicture" height="50" width="50" />
+                        </div>
+                        <div class="chat-sidenav-name">
+                            <h2>@groupChat.Key.GroupName</h2>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="chat" asp-action="group" asp-route-id="@groupChat.Key.Id">
+                        <div class="chat-sidenav-profileImage">
+                            <img src="@groupChat.Key.GroupPicture" height="50" width="50" />
+                        </div>
+                        <div class="chat-sidenav-name">
+                            <h2>@groupChat.Key.GroupName</h2>
+                        </div>
+                    </a>
+                }
+            }
+            else
+            {
+                <a asp-controller="chat" asp-action="group" asp-route-id="@groupChat.Key.Id">
+                    <div class="chat-sidenav-profileImage">
+                        <img src="@groupChat.Key.GetGroupPicture()" height="50" width="50" />
+                    </div>
+                    <div class="chat-sidenav-name">
+                        <h2>@groupChat.Key.GroupName</h2>
+                    </div>
+                    </a>
+            }
+        }
+    </div>
+</div>

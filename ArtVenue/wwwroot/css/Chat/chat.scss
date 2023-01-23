@@ -3,13 +3,16 @@
 main{
     min-height:initial;
 }
+
 .chat-container .col-12 {
     padding: 0;
 }
+
 .msger {
     display: inline-block;
     border: 2px solid $secondaryColor-light;
     border-left: none;
+    border-top:0px;
     box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
     font-family: Helvetica, sans-serif;
     width: 100%;
@@ -81,7 +84,7 @@ main{
 
 .msg-bubble {
     max-width: 450px;
-    padding: 15px;
+    padding: 10px 15px;
     border-radius: 15px;
     background: $secondaryColor-light;
     color: $textColor;
@@ -144,13 +147,140 @@ main{
 
 .msger-send-btn {
     margin-left: 10px;
-    background: rgb(0, 196, 65);
+    background: $mainColor;
+    opacity:0.8;
     color: $textColor;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.23s;
+    margin-right:10px;
+    width:100px;
 }
 
 .msger-send-btn:hover {
-    background: rgb(0, 180, 50);
+  opacity:1;
+}
+
+.msger-sideBar {
+    height: calc(100vh - 68px);
+    overflow-y: auto;
+    border-right: 2px solid $secondaryColor-light;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $textColor;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $secondaryColor-light;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $mainColor;
+    }
+
+    .hidden {
+        
+    }
+
+    .show {
+        animation: fadeOut backwards .2s;
+    }
+}
+
+.sidenav-chatType {
+    font-size: 0;
+
+    button {
+        background-color: transparent;
+        border: none;
+        color: $secondaryColor-dark;
+        border-bottom: 3px solid $secondaryColor-light;
+        padding: 10px;
+        width: 50%;
+        margin: 0;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    .active {
+        border-bottom: 3px solid $mainColor;
+    }
+}
+
+.chat-sidenav-chat {
+    position: relative;
+
+    #directChatsContainer, #groupChatsContainer {
+        position: absolute;
+        top: 0;
+        width: 100%;
+
+        &.hidden {
+            display:none;
+        }
+    }
+
+    .chat-sidenav-profileImage {
+        display: inline-block;
+        width: 70px;
+        margin-right: 10px;
+
+        img {
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 20px;
+        }
+    }
+
+    a {
+        padding-top: 20px;
+        color: $secondaryColor-dark;
+        text-decoration: none;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $secondaryColor-light;
+        display: inline-block;
+        width: 100%;
+        height: 90px;
+    }
+
+    a:hover {
+        text-decoration: none;
+        background-color: $textColor;
+    }
+
+    .activeChat {
+        background-color: $textColor;
+    }
+
+    .chat-sidenav-name {
+        display: inline-block;
+        line-height: 60px;
+
+        h2 {
+            font-size: x-large;
+        }
+    }
+}
+
+.theme-dark {
+    .msger-header, .msger-inputarea {
+        background-color: $secondaryColor-light;
+
+        a {
+            color: $textColor;
+        }
+
+        a:hover {
+            color: $mainColor;
+        }
+    }
 }

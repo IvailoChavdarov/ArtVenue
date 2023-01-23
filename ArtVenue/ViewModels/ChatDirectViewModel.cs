@@ -2,7 +2,7 @@
 
 namespace ArtVenue.ViewModels
 {
-    public class ChatDirectViewModel
+    public class ChatDirectViewModel : ViewModelWithChatsSidenav
     {
         public string UserId { get; set; }
         public string RecieverFirstName { get; set; }

@@ -1,57 +1,70 @@
-﻿@{
-    ViewData["Title"] = "Group Chat Page";
+﻿@model ChatGroupViewModel
+@{
+    ViewData["Title"] = Model.GroupName;
 }
-@model GroupChatViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Chat/chat.css" asp-append-version="true" />
+}
+<div class="row chat-container">
+    <div class="col-lg-3 col-12 msger-sideBar">
+        <partial name="_ChatSideBarPartial" />
+    </div>
+    <div class="col-lg-9 col-12">
+        <section class="msger">
+            <header class="msger-header">
+                <div class="msger-header-title">
+                    <img src="@Model.GroupPicture" height="60" width="60" />
+                    <a asp-controller="posts" asp-action="group" asp-route-id="@Model.GroupChatId">@Model.GroupName</a>
+                </div>
+            </header>
 
-<div class="container">
-    <div class="row p-1">
-        <div class="col-1">User</div>
-        <div class="col-5"><input type="text" id="userInput" value="@Model.UserId" /></div>
-    </div>
-    <div class="row p-1">
-        <div class="col-1">Message</div>
-        <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6 text-end">
-            <input type="text" id="recieverIdInput" />
-        </div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6 text-end">
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
-    <h1>CHATID IS @Model.GroupChatId</h1>
-    <div class="row p-1">
-        <div class="col-6">
-            <hr />
-        </div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6">
-            <ul id="messagesList">
-                @foreach (Message message in Model.Messages)
+            <div class="msger-chat">
+                @foreach (var message in Model.Messages)
                 {
                     if (message.SenderId == Model.UserId)
                     {
-                        <li style="text-align:right;background-color:rgba(10,10,255,0.6); color:white;">@message.SenderName says <span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
+                        <div class="msg right-msg">
+                            <div class="msg-bubble">
+                                <div class="msg-text">
+                                    @message.MessageContent
+                                </div>
+                            </div>
+                        </div>
                     }
                     else
                     {
-                        <li style="background-color:rgba(180,180,180); color:black;">@message.SenderName says <span>@message.MessageContent</span> at <span>@message.SendTime</span></li>
-                    }
+                        <div class="msg left-msg">
+                            <div class="msg-img"
+                         style="background-image: url(@message.SenderProfileImage)"></div>
 
+                            <div class="msg-bubble">
+                                <div class="msg-info">
+                                    <div class="msg-info-name">@message.SenderName</div>
+                                    <div class="msg-info-time">@message.SendTime</div>
+                                </div>
+
+                                <div class="msg-text">
+                                    @message.MessageContent
+                                </div>
+                            </div>
+                        </div>
+                    }
                 }
-            </ul>
-        </div>
+            </div>
+            <div class="msger-inputarea">
+                <input type="hidden" id="userInput" value="@Model.UserId" />
+                <input type="hidden" id="recieverIdInput" value="@Model.GroupChatId" />
+                <input type="text" class="msger-input" id="messageInput" placeholder="Enter your message..." />
+                <input type="button" class="msger-send-btn" id="sendButton" value="Send" />
+            </div>
+        </section>
     </div>
 </div>
-<script>
-    var ChatId = @Model.GroupChatId.ToString();
-    console.log("chatId is definetly" + ChatId);
-    var inGroupChat = true;
-
-</script>
-<script src="~/lib/microsoft-signalr/signalr.js"></script>
-<script src="~/js/chat.js"></script>
+@section Scripts{
+    <script>
+        var inGroupChat = false;
+    </script>
+    <script src="~/js/chatsSidenav.js"></script>
+    <script src="~/lib/microsoft-signalr/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+}
