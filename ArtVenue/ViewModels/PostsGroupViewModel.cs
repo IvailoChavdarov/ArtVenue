@@ -4,6 +4,9 @@ namespace ArtVenue.ViewModels
 {
     public class PostsGroupViewModel : ViewModelWithPublicationList
     {
-        public Group Group { get; set; } 
+        public Group Group { get; set; }
+        public bool HasRequestedToJoin { get; set; }
+        public bool IsInGroup { get; set; }
+        public bool HasAccess { get; set; }
     }
 }

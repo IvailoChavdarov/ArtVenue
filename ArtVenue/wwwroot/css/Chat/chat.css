@@ -173,15 +173,12 @@
 .msger-sideBar::-webkit-scrollbar-thumb:hover {
   background: #eb6600;
 }
-.msger-sideBar .show {
-  animation: fadeOut backwards 0.2s;
-}
 
 .sidenav-chatType {
   font-size: 0;
 }
 .sidenav-chatType button {
-  background-color: transparent;
+  background-color: #EFFCFF;
   border: none;
   color: #28363d;
   border-bottom: 3px solid #619194;
@@ -189,8 +186,8 @@
   width: 50%;
   margin: 0;
   display: inline-block;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 500;
 }
 .sidenav-chatType button:focus {
   outline: none;
@@ -253,4 +250,21 @@
 }
 .theme-dark .msger-header a:hover, .theme-dark .msger-inputarea a:hover {
   color: #eb6600;
+}
+.theme-dark .sidenav-chatType button {
+  color: #EFFCFF;
+  background-color: #619194;
+  border-bottom: 3px solid #EFFCFF;
+}
+.theme-dark .sidenav-chatType .active {
+  border-bottom-color: #eb6600;
+}
+.theme-dark .chat-sidenav-chat a {
+  color: #EFFCFF;
+}
+.theme-dark .chat-sidenav-chat a:hover {
+  background-color: #619194;
+}
+.theme-dark .chat-sidenav-chat .activeChat {
+  background-color: #619194;
 }

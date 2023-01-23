@@ -22,60 +22,12 @@ namespace ArtVenue.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<DirectChatCollectionItem> directMessages = new List<DirectChatCollectionItem>();
-            Dictionary<Models.Group, Message> groupMessages = new Dictionary<Models.Group, Message>();
-            string userId = _userManager.GetUserId(User);
-            foreach (var group_member in _db.Groups_Members.Where(x=>x.MemberId == userId))
-            {
-                var allGroupMessages = _db.Messages.Where(x => x.GroupId == group_member.GroupId);
-                if (allGroupMessages.Any())
-                {
-                    Message lastMessage = allGroupMessages.OrderByDescending(x => x.SendTime).First();
-
-                    if (lastMessage.SenderId != userId)
-                    {
-                        AppUser lastMessageSender = await _userManager.FindByIdAsync(lastMessage.SenderId);
-                        lastMessage.SenderName = lastMessageSender.FirstName + " " + lastMessageSender.LastName;
-                    }
-
-                    groupMessages.Add(
-                        _db.Groups.Where(x => x.Id == group_member.GroupId).First(),
-                        lastMessage
-                    );
-                }
-                else
-                {
-                    groupMessages.Add(
-                        _db.Groups.Where(x => x.Id == group_member.GroupId).First(),
-                        null);
-                }
-            }
-            foreach (var directChat in _db.DirectChats.Where(x=>x.FirstUserId==userId||x.SecondUserId==userId)) 
-            {
-                Message lastMessage = _db.Messages.Where(x => x.DirectChatId == directChat.Id).OrderByDescending(x => x.SendTime).First();
-                AppUser chatWith;
-                if (directChat.FirstUserId == userId)
-                {
-                    chatWith = await _userManager.FindByIdAsync(directChat.SecondUserId);
-                }
-                else
-                {
-                    chatWith = await _userManager.FindByIdAsync(directChat.FirstUserId);
-                }
-                directMessages.Add(new DirectChatCollectionItem
-                {
-                    ChatId=directChat.Id,
-                    LastMessage=lastMessage,
-                    User=chatWith
-                });
-            }
-            groupMessages.OrderByDescending(x => x.Value.SendTime);
-            directMessages.OrderByDescending(x => x.LastMessage.SendTime);
+            ViewModelWithChatsSidenav userChats = await GetUserChats();
             ChatIndexViewModel data = new ChatIndexViewModel()
             {
-                DirectChats = directMessages,
-                GroupChats = groupMessages,
-                UserId = userId
+                DirectChats = userChats.DirectChats,
+                GroupChats = userChats.GroupChats,
+                UserId = _userManager.GetUserId(User)
             };
             return View(data);
         }
@@ -83,6 +35,11 @@ namespace ArtVenue.Controllers
         {
             Dictionary<string, UsernameProfilePicPair> userNames = new Dictionary<string, UsernameProfilePicPair>();
             List<Message> messages = new List<Message>();
+            string userId = _userManager.GetUserId(User);
+            if (!_db.Groups_Members.Where(x=>x.GroupId==id && x.MemberId==userId).Any())
+            {
+                return Unauthorized();
+            }
             foreach (var message in _db.Messages.Where(message => message.GroupId == id))
             {
                 if (userNames.ContainsKey(message.SenderId))
@@ -106,7 +63,6 @@ namespace ArtVenue.Controllers
                 }
                 messages.Add(message);
             }
-            string userId = _userManager.GetUserId(User);
             Group group = _db.Groups.Where(x => x.Id == id).FirstOrDefault();
             ViewModelWithChatsSidenav sidenavData = await GetUserChats();
             ChatGroupViewModel data = new ChatGroupViewModel();
@@ -152,6 +108,12 @@ namespace ArtVenue.Controllers
             };
             return View(data);
         }
+        public async Task<IActionResult> ChatWith(string id)
+        {
+            int chatId = await GetDirectChatWithId(id);
+
+            return RedirectToAction("direct", new { id = chatId});
+        }
         [HttpPost]
         public async Task<IActionResult> AddPersonToGroup(string userId, int groupId)
         {
@@ -162,7 +124,7 @@ namespace ArtVenue.Controllers
             await _db.SaveChangesAsync();
             return View("Index");
         }
-        public async Task<ViewModelWithChatsSidenav> GetUserChats()
+        private async Task<ViewModelWithChatsSidenav> GetUserChats()
         {
             List<DirectChatCollectionItem> directMessages = new List<DirectChatCollectionItem>();
             Dictionary<Models.Group, Message> groupMessages = new Dictionary<Models.Group, Message>();
@@ -199,7 +161,7 @@ namespace ArtVenue.Controllers
             }
             foreach (var directChat in _db.DirectChats.Where(x => x.FirstUserId == userId || x.SecondUserId == userId))
             {
-                Message lastMessage = _db.Messages.Where(x => x.DirectChatId == directChat.Id).OrderByDescending(x => x.SendTime).First();
+                Message lastMessage = _db.Messages.Where(x => x.DirectChatId == directChat.Id).OrderByDescending(x => x.SendTime).FirstOrDefault();
                 AppUser chatWith;
                 if (directChat.FirstUserId == userId)
                 {
@@ -222,6 +184,28 @@ namespace ArtVenue.Controllers
             result.DirectChats = directMessages;
             result.GroupChats = groupMessages;
             return result;
+        }
+        private async Task<int> GetDirectChatWithId(string recieverId)
+        {
+            string currentUserId = _userManager.GetUserId(User);
+            var connection = _db.DirectChats
+                .Where(x => (x.FirstUserId == recieverId && x.SecondUserId == currentUserId) || (x.FirstUserId == currentUserId && x.SecondUserId == recieverId));
+            if (connection.Any())
+            {
+                return connection.First().Id;
+            }
+            else
+            {
+                DirectChat newConnection = new DirectChat()
+                {
+                    FirstUserId = currentUserId,
+                    SecondUserId = recieverId
+                };
+                await _db.DirectChats.AddAsync(newConnection);
+                _db.SaveChanges();
+                return _db.DirectChats
+                .Where(x => x.FirstUserId == currentUserId && x.SecondUserId == recieverId).First().Id;
+            }
         }
     }
 }

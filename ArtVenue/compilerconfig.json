@@ -38,5 +38,9 @@
   {
     "outputFile": "wwwroot/css/Chat/chat.css",
     "inputFile": "wwwroot/css/Chat/chat.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Chat/chatList.css",
+    "inputFile": "wwwroot/css/Chat/chatList.scss"
   }
 ]

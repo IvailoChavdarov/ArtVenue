@@ -1,22 +1,67 @@
 ﻿@model PostsGroupViewModel
 @section Heads{
     <link rel="stylesheet" href="~/css/Posts/index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Posts/user.css" asp-append-version="true" />
 }
 @{
     ViewData["Title"] = Model.Group.GroupName;
 }
-@*<header>
-    
-</header>*@
 <div class="row">
-    <div class="posts-sidenav-container col-12 col-lg-3 col-md-3">
+    <div class="posts-sidenav-container col-12 col-lg-2">
         <partial name="_PostsSideNavPartial" />
     </div>
-    <div class="col-6">
-        <partial name="_PostsListPartial" />
-        <partial name="_PostsPageSliderPartial" />
+    <div class="col-8">
+        <header class="user-header">
+            <div class="user-cover-container">
+                @if (!string.IsNullOrEmpty(Model.Group.GroupBackground))
+                {
+                    <img src="@Model.Group.GroupBackground" />
+                }
+                @if (Model.IsInGroup)
+                {
+                    <a class="btn-danger" asp-controller="posts" asp-action="leavegroup" asp-route-groupId="@Model.Group.Id"><i class="fa-solid fa-right-to-bracket" style="-webkit-transform: scaleX(-1);transform: scaleX(-1);"></i> Leave @Model.Group.GroupName</a>
+                }
+                else
+                {
+                    if (Model.Group.IsPrivate)
+                    {
+                        if (Model.HasRequestedToJoin)
+                        {
+                            <a class="btn-danger" asp-controller="posts" asp-action="canceljoinrequest" asp-route-groupId="@Model.Group.Id"><i class="fa-solid fa-door-closed" ></i> Cancel request to join @Model.Group.GroupName</a>
+                        }
+                        else
+                        {
+                            <a class="btn-success" asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id"><i class="fa-solid fa-door-open"></i> Request to join @Model.Group.GroupName</a>
+                        }
+                    }
+                    else
+                    {
+                        <a class="btn-success" asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id"><i class="fa-solid fa-right-to-bracket"></i> Join @Model.Group.GroupName</a>
+                    }
+                }
+            </div>
+            <div class="profile-name-container">
+                <img src="@Model.Group.GroupPicture" height="160" width="160" />
+                <h1>@Model.Group.GroupName</h1>
+            </div>
+            <div class="user-info-container">
+                @if (!string.IsNullOrEmpty(Model.Group.Description))
+                {
+                    <p>@Model.Group.Description</p>
+                }
+            </div>
+        </header>
+        @if (Model.HasAccess)
+        {
+            <partial name="_PostsListPartial" />
+            <partial name="_PostsPageSliderPartial" />
+        }
+        else
+        {
+            <div class="private-group-text">You have to join the group to see the publications</div>
+        }
     </div>
-    <div class="posts-sidenav-container col-12 col-lg-3 col-md-3">
+    <div class="posts-sidenav-container col-12 col-lg-2">
         <partial name="_PostsGroupsSideNavPartial" />
     </div>
 </div>

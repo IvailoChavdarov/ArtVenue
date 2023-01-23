@@ -1,0 +1,94 @@
+﻿@import "../Utility/_colors.scss";
+@import "../Utility/_timings.scss";
+.container {
+    border: 2px solid transparent;
+    transition:border-color $changeThemeAnimationTime;
+    margin-top: 50px;
+}
+.chatsContainer {
+    background-color: $secondaryColor-light;
+    padding: 20px;
+
+    * {
+        transition: all $changeThemeAnimationTime;
+    }
+
+    h2 {
+        text-align: center;
+        color: $textColor;
+    }
+
+    .chatList {
+        padding: 15px;
+
+
+        .chat-item {
+            background-color: $textColor;
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            padding-left: 15px;
+            margin-bottom: 15px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+
+            img {
+                object-fit: cover;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+
+            text-decoration: none;
+            color: $secondaryColor-dark;
+
+            .chatName {
+                font-size: x-large;
+            }
+
+            p {
+                padding: 0;
+                margin: 0;
+                margin-top: 15px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            .chat-lastDate {
+                text-align: right;
+                opacity: 0.7;
+                margin-top: 0;
+            }
+
+            border-radius: 20px;
+        }
+
+        .chat-item:hover {
+            .chatName {
+                color: $mainColor;
+            }
+        }
+    }
+}
+.theme-dark {
+    .container {
+        border-color: $secondaryColor-light;
+    }
+
+    .chatsContainer {
+        background-color: $secondaryColor-dark;
+
+        .chatList {
+            .text-muted {
+                color:$textColor!important;
+                opacity:0.7;
+            }
+
+            .chat-item {
+                background-color: $secondaryColor-light;
+                color: $textColor;
+            }
+        }
+    }
+}

@@ -328,6 +328,14 @@ body {
     z-index:initial;
 }
 
+.private-group-text{
+    font-size:larger;
+    color:$mainColor;
+    text-align:center;
+    margin-top:30px;
+    font-weight:bold;
+}
+
 ::-webkit-scrollbar {
     height: 0;
 }

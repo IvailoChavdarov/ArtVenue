@@ -49,6 +49,22 @@ namespace ArtVenue.Data
                 .HasForeignKey(gm => gm.GroupId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Groups_Requests>()
+               .HasKey(gm => new { gm.MemberId, gm.GroupId });
+
+            modelBuilder.Entity<Groups_Requests>()
+                .HasOne(user => user.Member)
+                .WithMany(userGroups => userGroups.GroupsJoinRequested)
+                .HasForeignKey(gm => gm.MemberId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Groups_Requests>()
+                .HasOne(user => user.Group)
+                .WithMany(groupMembers => groupMembers.Requests)
+                .HasForeignKey(gm => gm.GroupId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
             modelBuilder.Entity<Publication>()
                 .HasOne(publication => publication.Creator)
                 .WithMany(user => user.PublicationsPosted)
@@ -171,6 +187,7 @@ namespace ArtVenue.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Groups_Members> Groups_Members { get; set; }
+        public DbSet<Groups_Requests> Groups_Requests { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<GalleryImage> GalleryImages { get; set; }
         public DbSet<Category> Categories { get; set; }

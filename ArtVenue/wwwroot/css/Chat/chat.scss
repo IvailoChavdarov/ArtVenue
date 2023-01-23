@@ -181,21 +181,13 @@ main{
     &::-webkit-scrollbar-thumb:hover {
         background: $mainColor;
     }
-
-    .hidden {
-        
-    }
-
-    .show {
-        animation: fadeOut backwards .2s;
-    }
 }
 
 .sidenav-chatType {
     font-size: 0;
 
     button {
-        background-color: transparent;
+        background-color: $textColor;
         border: none;
         color: $secondaryColor-dark;
         border-bottom: 3px solid $secondaryColor-light;
@@ -203,8 +195,8 @@ main{
         width: 50%;
         margin: 0;
         display: inline-block;
-        font-size: 18px;
-        font-weight: 400;
+        font-size: 20px;
+        font-weight: 500;
     }
 
     button:focus {
@@ -281,6 +273,31 @@ main{
 
         a:hover {
             color: $mainColor;
+        }
+    }
+
+    .sidenav-chatType {
+        button {
+            color: $textColor;
+            background-color: $secondaryColor-light;
+            border-bottom: 3px solid $textColor;
+        }
+        .active{
+            border-bottom-color:$mainColor;
+        }
+    }
+
+    .chat-sidenav-chat {
+        a {
+            color: $textColor;
+        }
+
+        a:hover {
+            background-color: $secondaryColor-light
+        }
+
+        .activeChat {
+            background-color: $secondaryColor-light;
         }
     }
 }

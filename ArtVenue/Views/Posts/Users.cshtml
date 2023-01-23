@@ -21,6 +21,10 @@
                 {
                     <a asp-area="identity" asp-page="/account/manage/index"><i class="fa-solid fa-gear"></i> Account settings</a>
                 }
+                else
+                {
+                    <a asp-controller="chat" asp-action="chatwith" asp-route-id="@Model.User.Id"><i class="fa-solid fa-message"></i> Message @Model.User.FirstName</a>
+                }
             </div>
             <div class="profile-name-container">
                 <img src="@Model.User.ProfileImage" height="160" width="160" />

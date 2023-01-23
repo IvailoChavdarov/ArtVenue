@@ -180,55 +180,65 @@ namespace ArtVenue.Controllers
         {
             Dictionary<string, PostCreator> userNames = new Dictionary<string, PostCreator>();
             PostsGroupViewModel data = new PostsGroupViewModel();
-            int pageSize = 25;
-            page -= 1;
-            List<Publication> publications = _db.Publications.Where(x=>x.GroupId==id).OrderByDescending(x => x.PostedTime).ToList();
-            List<Publication> sortedPublications = publications.Skip(page * pageSize).Take(pageSize).ToList();
-            foreach (var publication in sortedPublications)
+            AppUser currentUser = await _userManager.GetUserAsync(User);
+            data.Group = _db.Groups.Where(x => x.Id == id).First();
+            data.Group.GroupPicture = data.Group.GetGroupPicture();
+            data.IsInGroup = _db.Groups_Members.Where(x => x.GroupId == id && x.MemberId == currentUser.Id).Any();
+            data.HasAccess = data.IsInGroup || !data.Group.IsPrivate;
+            data.PrevPage = false;
+            data.NextPage = false;
+            data.HasRequestedToJoin = _db.Groups_Requests.Where(x => x.GroupId == id && x.MemberId == currentUser.Id).Any();
+            if (data.HasAccess)
             {
-                if (userNames.ContainsKey(publication.CreatorId))
+                int pageSize = 25;
+                page -= 1;
+                List<Publication> publications = _db.Publications.Where(x => x.GroupId == id).OrderByDescending(x => x.PostedTime).ToList();
+                List<Publication> sortedPublications = publications.Skip(page * pageSize).Take(pageSize).ToList();
+                foreach (var publication in sortedPublications)
                 {
-                    publication.PostedBy = userNames[publication.CreatorId];
-                }
-                else
-                {
-                    AppUser user = await _userManager.FindByIdAsync(publication.CreatorId);
-                    PostCreator createdBy = new PostCreator(user);
-                    userNames.Add(publication.CreatorId, createdBy);
-                    publication.PostedBy = createdBy;
-                }
-                if (publication.HasManyImages)
-                {
-                    publication.Images = _db.GalleryImages.Where(x => x.PublicationId == publication.Id).Select(x => x.ImageLink).ToList<string>();
-                }
-
-                List<Comment> comments = _db.Comments.Where(x => x.PublicationId == publication.Id).ToList();
-                foreach (Comment comment in comments)
-                {
-                    if (userNames.ContainsKey(comment.UserId))
+                    if (userNames.ContainsKey(publication.CreatorId))
                     {
-                        comment.Sender = userNames[comment.UserId];
+                        publication.PostedBy = userNames[publication.CreatorId];
                     }
                     else
                     {
-                        AppUser user = await _userManager.FindByIdAsync(comment.UserId);
+                        AppUser user = await _userManager.FindByIdAsync(publication.CreatorId);
                         PostCreator createdBy = new PostCreator(user);
-                        userNames.Add(comment.UserId, createdBy);
-                        comment.Sender = createdBy;
+                        userNames.Add(publication.CreatorId, createdBy);
+                        publication.PostedBy = createdBy;
+                    }
+                    if (publication.HasManyImages)
+                    {
+                        publication.Images = _db.GalleryImages.Where(x => x.PublicationId == publication.Id).Select(x => x.ImageLink).ToList<string>();
                     }
 
+                    List<Comment> comments = _db.Comments.Where(x => x.PublicationId == publication.Id).ToList();
+                    foreach (Comment comment in comments)
+                    {
+                        if (userNames.ContainsKey(comment.UserId))
+                        {
+                            comment.Sender = userNames[comment.UserId];
+                        }
+                        else
+                        {
+                            AppUser user = await _userManager.FindByIdAsync(comment.UserId);
+                            PostCreator createdBy = new PostCreator(user);
+                            userNames.Add(comment.UserId, createdBy);
+                            comment.Sender = createdBy;
+                        }
+
+                    }
+                    publication.PostComments = comments.ToList();
+                    publication.IsSavedByUser = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User) && x.PublicationId == publication.Id).Any();
+                    data.Publications.Add(publication);
                 }
-                publication.PostComments = comments.ToList();
-                publication.IsSavedByUser = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User) && x.PublicationId == publication.Id).Any();
-                data.Publications.Add(publication);
+                data.PrevPage = page > 0;
+                data.NextPage = publications.Count() > (page + 1) * pageSize;
             }
-            AppUser currentUser = await _userManager.GetUserAsync(User);
+           
             data.UserProfilePicture = currentUser.GetProfileImage();
             data.UserName = currentUser.FirstName;
-            data.PrevPage = page > 0;
-            data.NextPage = publications.Count() > (page + 1) * pageSize;
             data.CurrentPage = page + 1;
-            data.Group = _db.Groups.Where(x => x.Id == id).First();
             List<Group> groups = GetUserGroups();
             foreach (var group in groups)
             {
@@ -347,6 +357,74 @@ namespace ArtVenue.Controllers
             return RedirectToAction("index");
         }
 
+        [Authorize]
+        public async Task<IActionResult> AddToGroup(int groupId)
+        {
+            string userId = _userManager.GetUserId(User);
+            if (_db.Groups.Where(x => x.Id == groupId).FirstOrDefault().IsPrivate)
+            {
+                Groups_Requests request = new Groups_Requests();
+                request.MemberId = userId;
+                request.GroupId = groupId;
+                _db.Groups_Requests.Add(request);
+            }
+            else
+            {
+                Groups_Members connection = new Groups_Members();
+                connection.GroupId = groupId;
+                connection.MemberId = userId;
+                connection.JoinedDate = DateTime.Today.ToString();
+                await _db.Groups_Members.AddAsync(connection);
+            }
+            await _db.SaveChangesAsync();
+            return RedirectToAction("group", new { Id=groupId });
+        }
+        [Authorize]
+        public async Task<IActionResult> LeaveGroup(int groupId)
+        {
+            string userId = _userManager.GetUserId(User);
+
+            Groups_Members connection = _db.Groups_Members.Where(x=>x.GroupId==groupId&&x.MemberId==userId).First();
+            _db.Groups_Members.Remove(connection);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("group", new { Id = groupId });
+        }
+        [Authorize]
+        public async Task<IActionResult> CancelJoinRequest(int groupId)
+        {
+            string userId = _userManager.GetUserId(User);
+
+            Groups_Requests connection = _db.Groups_Requests.Where(x => x.GroupId == groupId && x.MemberId == userId).First();
+            _db.Groups_Requests.Remove(connection);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("group", new { Id = groupId });
+        }
+        //copy to manage controller
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AcceptAddToGroup(int groupId, string userId)
+        {
+            Groups_Members connection = new Groups_Members();
+            connection.GroupId = groupId;
+            connection.MemberId = userId;
+            connection.JoinedDate = DateTime.Today.ToString();
+            await _db.Groups_Members.AddAsync(connection);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("group", new { Id = groupId });
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> RemoveFromGroup(int groupId, string userId)
+        {
+            Groups_Members connection = new Groups_Members();
+            connection.GroupId = groupId;
+            connection.MemberId = userId;
+            connection.JoinedDate = DateTime.Today.ToString();
+            _db.Groups_Members.Remove(connection);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("group", new { Id = groupId });
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> AddInterest(int id)
@@ -378,5 +456,6 @@ namespace ArtVenue.Controllers
             }
             return groups;
         }
+        
     }
 }
