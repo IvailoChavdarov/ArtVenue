@@ -1,0 +1,33 @@
+﻿@model DiscoverIndexViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Discover/categories.css" asp-append-version="true" />
+}
+@{
+    ViewData["Title"] = "Discover";
+}
+<div class="categories-container">
+    @foreach(Category category in Model.Categories){
+          <div class="category-card" style="background-image:url('@category.CategoryImage')">
+            <a href="categorypublications.html" class="card-link">Linkasdasdasd</a>
+
+            @if (category.UserIsInterested)
+            {
+                <form asp-action="ChangeInterest">
+                    <input asp-for="CategoryToToggleId" value="@category.Id" type="hidden">
+                    <input type="submit" class="button remove-interest" value="Remove interest">
+                </form>
+            }
+            else
+            {
+                <form asp-action="ChangeInterest">
+                    <input asp-for="CategoryToToggleId" value="@category.Id" type="hidden">
+                    <input type="submit" class="button add-interest" value="Add interest">
+                </form>
+            }
+            <div class="content">
+                <h2>@category.CategoryName</h2>
+                <p>@category.CategoryDescription</p>
+            </div>
+          </div>
+    }
+</div>

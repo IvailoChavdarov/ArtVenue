@@ -53,8 +53,15 @@
         </header>
         @if (Model.HasAccess)
         {
-            <partial name="_PostsListPartial" />
-            <partial name="_PostsPageSliderPartial" />
+            @if (Model.Publications.Any())
+            {
+                <partial name="_PostsListPartial" />
+                <partial name="_PostsPageSliderPartial" />
+            }
+            else
+            {
+                <div class="no-items-message">No publications in this group yet.</div>
+            }
         }
         else
         {

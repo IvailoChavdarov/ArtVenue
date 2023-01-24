@@ -42,5 +42,9 @@
   {
     "outputFile": "wwwroot/css/Chat/chatList.css",
     "inputFile": "wwwroot/css/Chat/chatList.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Discover/categories.css",
+    "inputFile": "wwwroot/css/Discover/categories.scss"
   }
 ]

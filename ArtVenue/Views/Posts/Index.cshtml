@@ -3,15 +3,23 @@
     <link rel="stylesheet" href="~/css/Posts/index.css" asp-append-version="true" />
 }
 @{
-    ViewData["Title"] = "Posts";
+    ViewData["Title"] = "Suggested posts";
 }
 <div class="row">
     <div class="posts-sidenav-container col-12 col-lg-2">
         <partial name="_PostsSideNavPartial"/>
     </div>
     <div class="col-8">
-        <partial name="_PostsListPartial" />
-        <partial name="_PostsPageSliderPartial" />
+        <h1 class="publication-list-title">Suggested publications</h1>
+        @if (Model.Publications.Any())
+        {
+             <partial name="_PostsListPartial" />
+             <partial name="_PostsPageSliderPartial" />  
+        }
+        else
+        {
+           <div class="no-items-message">No items here. Try adding <a asp-controller="discover">new interests</a> to see publications here.</div> 
+        }
     </div>
     <div class="posts-sidenav-container col-12 col-lg-2">
         <partial name="_PostsGroupsSideNavPartial" />

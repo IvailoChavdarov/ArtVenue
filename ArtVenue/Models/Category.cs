@@ -17,5 +17,8 @@ namespace ArtVenue.Models
 
         public HashSet<Publications_Categories> Publications { get; set; }
         public HashSet<Users_Interests> Interested { get; set; }
+
+        [NotMapped]
+        public bool UserIsInterested { get; set; } = false;
     }
 }

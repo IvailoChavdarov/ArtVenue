@@ -1,0 +1,117 @@
+﻿@import "../Utility/_colors.scss";
+.categories-container{
+    display:flex;
+    width:90%;
+    margin:20px auto;
+    align-items:center;
+    justify-content:space-evenly;
+    flex-wrap:wrap;
+}
+.button {
+    background-color: $mainColor;
+    border-radius: 4px;
+    color: $textColor;
+    font-size: 14px;
+    min-width: 100px;
+    opacity: 0.75;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    transition: box-shadow 0.3s, opacity 0.3s ease-in-out, background-color .3s;
+    border:none;
+    &.add-interest, &.remove-interest {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 2;
+        text-decoration:none;
+    }
+}
+
+.category-card {
+    background-color: $secondaryColor-light;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    height: 240px;
+    padding: 20px;
+    position: relative;
+    width: 380px;
+    margin: 10px 30px;
+    /*    flex: 0 0 33.333333%;*/
+
+    &::after {
+        background-image: linear-gradient(to right, rgba(36, 57, 83, 0.8), rgba(72, 98, 132, 0.8));
+        border-radius: 4px;
+        content: '';
+        height: 100%;
+        left: 0;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        transition: opacity 0.2s ease-in-out;
+        width: 100%;
+        z-index: 0;
+    }
+
+    &:hover {
+
+        &::after {
+            opacity: 0.95;
+        }
+
+        .content p {
+            max-height: 120px;
+            overflow-y: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .add-interest, .remove-interest {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            opacity: 1;
+        }
+
+        .add-interest:hover {
+            background-color: $successColor;
+            color: $textColor;
+        }
+
+        .remove-interest:hover {
+            background-color: #dc3545;
+            color: $textColor;
+        }
+    }
+
+    .card-link {
+        border-radius: 4px;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        text-indent: -9999em;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+    }
+
+    .content {
+        margin-top: auto;
+        z-index: 1;
+
+        h2 {
+            color: $textColor;
+            font-size: 32px;
+            margin-bottom: 0;
+        }
+
+        p {
+            color: $textColor;
+            font-size: 18px;
+            line-height: 24px;
+            margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: height 0.2s, max-height 0.2s ease-in-out;
+        }
+    }
+}
