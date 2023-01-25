@@ -3,6 +3,15 @@
     @foreach (Publication publication in Model.Publications)
         {
             <div class="post hiddenComments">
+                @if (!string.IsNullOrEmpty(Model.UserId))
+                {
+                    if (publication.CreatorId == Model.UserId)
+                    {
+                        <form asp-action="deletepublication" asp-route-id="@publication.Id" class="delete-publication-form">
+                            <button type="submit" class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Delete publication</button>
+                        </form>
+                    }
+                }
                 <div class="post-content">
                     <a class="post-account" asp-controller="posts" asp-action="users" asp-route-id="@publication.PostedBy.UserId">
                         <img class="post-avatar" src="@publication.PostedBy.ProfileImage">

@@ -7,6 +7,7 @@ namespace ArtVenue.ViewModels
         public List<Publication> Publications { get; set; } = new List<Publication>();
         public string UserProfilePicture { get; set; }
         public string UserName { get; set; }
+        public string UserId { get; set; }
         public List<Group> Groups { get; set; } = new List<Group>();
         public bool NextPage { get; set; }
         public bool PrevPage { get; set; }

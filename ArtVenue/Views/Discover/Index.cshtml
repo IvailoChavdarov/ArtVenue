@@ -8,19 +8,17 @@
 <div class="categories-container">
     @foreach(Category category in Model.Categories){
           <div class="category-card" style="background-image:url('@category.CategoryImage')">
-            <a href="categorypublications.html" class="card-link">Linkasdasdasd</a>
+            <a asp-controller="posts" asp-action="category" asp-route-id="@category.Id" class="card-link">Linkasdasdasd</a>
 
             @if (category.UserIsInterested)
             {
-                <form asp-action="ChangeInterest">
-                    <input asp-for="CategoryToToggleId" value="@category.Id" type="hidden">
+                <form asp-action="ChangeInterest" asp-route-controllerName="discover" asp-route-actionName="index" asp-route-id="@category.Id">
                     <input type="submit" class="button remove-interest" value="Remove interest">
                 </form>
             }
             else
             {
-                <form asp-action="ChangeInterest">
-                    <input asp-for="CategoryToToggleId" value="@category.Id" type="hidden">
+                <form asp-action="ChangeInterest" asp-route-controllerName="discover" asp-route-actionName="index" asp-route-id="@category.Id">
                     <input type="submit" class="button add-interest" value="Add interest">
                 </form>
             }

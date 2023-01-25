@@ -92,7 +92,7 @@ namespace ArtVenue.Data
                 .HasOne(pc => pc.Publication)
                 .WithMany(publication => publication.Categories)
                 .HasForeignKey(gm => gm.PublicationId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Publications_Categories>()
                 .HasOne(pc => pc.Category)
@@ -107,7 +107,7 @@ namespace ArtVenue.Data
                 .HasOne(ui => ui.User)
                 .WithMany(user => user.Interests)
                 .HasForeignKey(ui => ui.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Users_Interests>()
                 .HasOne(ui => ui.Category)
@@ -122,25 +122,25 @@ namespace ArtVenue.Data
                 .HasOne(us => us.User)
                 .WithMany(user => user.Saved)
                 .HasForeignKey(us => us.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Users_Saved>()
                 .HasOne(us => us.Publication)
-                .WithMany(category => category.SavedBy)
+                .WithMany(publication => publication.SavedBy)
                 .HasForeignKey(us => us.PublicationId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Comment>()
                 .HasOne(comment => comment.Publication)
                 .WithMany(publication => publication.Comments)
                 .HasForeignKey(comment => comment.PublicationId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Comment>()
                 .HasOne(comment => comment.User)
                 .WithMany(user => user.Comments)
                 .HasForeignKey(comment => comment.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<DirectChat>()
                 .HasOne(us => us.FirstUser)

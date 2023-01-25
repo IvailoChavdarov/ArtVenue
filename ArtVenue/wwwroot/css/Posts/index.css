@@ -52,13 +52,14 @@
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 5px;
+  position: relative;
 }
 
 .post-content {
   display: block;
-  font-size: 14px;
   margin-left: 58px;
   font-size: 14px;
+  padding-bottom: 17px;
 }
 
 .post-account {
@@ -282,6 +283,16 @@
 .no-items-message a {
   color: #eb6600;
   text-decoration: none;
+}
+
+.delete-publication-form {
+  position: absolute;
+  right: 10px;
+}
+.delete-publication-form button {
+  border: none;
+  background-color: transparent;
+  font-size: xx-large;
 }
 
 ::-webkit-scrollbar {

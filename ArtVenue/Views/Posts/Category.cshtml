@@ -1,0 +1,48 @@
+﻿@model PostsCategoryViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Posts/index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Posts/user.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Posts/category.css" asp-append-version="true" />
+}
+@{
+    ViewData["Title"] = Model.Category.CategoryName;
+}
+<div class="row">
+    <div class="posts-sidenav-container col-12 col-lg-2">
+        @if (Model.IsLoggedIn)
+        {
+            <partial name="_PostsSideNavPartial" />
+        }
+    </div>
+    <div class="col-8">
+        <header class="category-header" style="background-image:url('@Model.Category.CategoryImage')">
+            <div class="category-header-filter">
+                <h1>@Model.Category.CategoryName</h1>
+                <p>@Model.Category.CategoryDescription</p>
+                @if (Model.IsInterestedIn)
+                {
+                    <form asp-controller="discover" asp-action="ChangeInterest" asp-route-id="@Model.Category.Id" asp-route-controllerName="posts" asp-route-actionName="category">
+                        <input type="submit" class="button bg-danger" value="Remove interest">
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="discover" asp-action="ChangeInterest" asp-route-id="@Model.Category.Id" asp-route-controllerName="posts" asp-route-actionName="category">
+                        <input type="submit" class="button bg-success" value="Add interest">
+                    </form>
+                }
+            </div>
+        </header>
+        <partial name="_PostsListPartial" />
+        <partial name="_PostsPageSliderPartial" />
+    </div>
+    <div class="posts-sidenav-container col-12 col-lg-2">
+        @if (Model.IsLoggedIn)
+        {
+            <partial name="_PostsGroupsSideNavPartial" />
+        }
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/posts.js"></script>
+}

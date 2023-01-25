@@ -41,11 +41,11 @@ namespace ArtVenue.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> ChangeInterest(DiscoverIndexViewModel data)
+        public async Task<IActionResult> ChangeInterest(int id, string controllerName, string actionName)
         {
             string userId = _userManager.GetUserId(User);
             Users_Interests connection = new Users_Interests();
-            connection.CategoryId = data.CategoryToToggleId;
+            connection.CategoryId = id;
             connection.UserId = userId;
             if (_db.Interests.Contains(connection))
             {
@@ -56,7 +56,11 @@ namespace ArtVenue.Controllers
                 await _db.Interests.AddAsync(connection);
             }
             await _db.SaveChangesAsync();
-            return RedirectToAction("index");
+            if (actionName=="category")
+            {
+                return RedirectToAction(actionName, controllerName, new {Id=id});
+            }
+            return RedirectToAction(actionName, controllerName);
         }
     }
 }

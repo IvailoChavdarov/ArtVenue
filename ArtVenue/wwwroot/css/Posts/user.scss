@@ -40,6 +40,36 @@
             }
         }
 
+        form {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+
+            i {
+                margin-right: 5px;
+                position: absolute;
+                top: 8px;
+                left: 12px;
+                color: $textColor;
+            }
+        }
+
+        input {
+            border-radius: 10px;
+            line-height: 20px;
+            display: inline-block;
+            width: 200px;
+            color: $textColor;
+            padding: 7px 15px;
+            text-decoration: none;
+            border: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-left: 32px;
+        }
+
+
+
         a:hover {
             opacity: 1;
         }

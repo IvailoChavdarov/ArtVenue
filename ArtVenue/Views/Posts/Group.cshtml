@@ -19,7 +19,9 @@
                 }
                 @if (Model.IsInGroup)
                 {
-                    <a class="btn-danger" asp-controller="posts" asp-action="leavegroup" asp-route-groupId="@Model.Group.Id"><i class="fa-solid fa-right-to-bracket" style="-webkit-transform: scaleX(-1);transform: scaleX(-1);"></i> Leave @Model.Group.GroupName</a>
+                    <form asp-controller="posts" asp-action="leavegroup" asp-route-groupId="@Model.Group.Id">
+                        <i class="fa-solid fa-right-to-bracket" style="-webkit-transform: scaleX(-1);transform: scaleX(-1);"></i><input type="submit" class="btn-danger" value="Leave @Model.Group.GroupName">
+                    </form>
                 }
                 else
                 {
@@ -27,16 +29,22 @@
                     {
                         if (Model.HasRequestedToJoin)
                         {
-                            <a class="btn-danger" asp-controller="posts" asp-action="canceljoinrequest" asp-route-groupId="@Model.Group.Id"><i class="fa-solid fa-door-closed" ></i> Cancel request to join @Model.Group.GroupName</a>
+                            <form asp-controller="posts" asp-action="canceljoinrequest" asp-route-groupId="@Model.Group.Id">
+                                <i class="fa-solid fa-door-closed"></i><input type="submit" class="btn-danger" value="Cancel request to join @Model.Group.GroupName">
+                            </form>
                         }
                         else
                         {
-                            <a class="btn-success" asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id"><i class="fa-solid fa-door-open"></i> Request to join @Model.Group.GroupName</a>
+                            <form asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id">
+                                <i class="fa-solid fa-door-open"></i><input type="submit" class="btn-success" value="Request to join @Model.Group.GroupName">
+                            </form>
                         }
                     }
                     else
                     {
-                        <a class="btn-success" asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id"><i class="fa-solid fa-right-to-bracket"></i> Join @Model.Group.GroupName</a>
+                        <form asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id">
+                            <i class="fa-solid fa-right-to-bracket"></i><input type="submit" class="btn-success" value="Join @Model.Group.GroupName">
+                        </form>
                     }
                 }
             </div>

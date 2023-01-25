@@ -34,6 +34,31 @@
 .user-header .user-cover-container a i {
   margin-right: 5px;
 }
+.user-header .user-cover-container form {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+}
+.user-header .user-cover-container form i {
+  margin-right: 5px;
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  color: #EFFCFF;
+}
+.user-header .user-cover-container input {
+  border-radius: 10px;
+  line-height: 20px;
+  display: inline-block;
+  width: 200px;
+  color: #EFFCFF;
+  padding: 7px 15px;
+  text-decoration: none;
+  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 32px;
+}
 .user-header .user-cover-container a:hover {
   opacity: 1;
 }
