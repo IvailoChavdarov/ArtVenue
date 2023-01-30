@@ -209,7 +209,7 @@ body {
     right: 0px;
     bottom: 10vh;
     animation: slideInFromRight $noticeAnimationTiming;
-    height: fit-content;
+    height: 105px;
     width: 400px;
     color: $textColor;
     padding: 25px;
@@ -227,12 +227,12 @@ body {
 .notice::before {
     position: absolute;
     left: 12px;
-    font-family: "Font Awesome 5 Free";
+    font: var(--fa-font-solid);
     content: "\f058";
     color: white;
     font-weight: 900;
     font-size: 60px;
-    top: 5px;
+    top: 15px;
     bottom: 0;
     width: 100px;
 }
@@ -255,7 +255,6 @@ body {
     bottom: 0;
     left: 0;
     transform-origin: right;
-    /*transform:wid*/
 }
 
 .notice.bg-danger::after {
@@ -310,5 +309,94 @@ main {
     background-color:$secondaryColor-dark;
     .bg-secondary-dark {
         border-color: $mainColor;
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%)
+    }
+
+    to {
+        transform: translateX(0)
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%)
+    }
+
+    to {
+        transform: translateX(0)
+    }
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn-small {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes slideOutToLeft {
+    from {
+        transform: translateX(0)
+    }
+
+    to {
+        transform: translateX(-120%)
+    }
+}
+
+@keyframes slideOutToRight {
+    from {
+        transform: translateX(0)
+    }
+
+    to {
+        transform: translateX(120%)
+    }
+}
+
+@keyframes slideOutToRightNotice {
+    0% {
+        transform: translateX(0)
+    }
+
+    100% {
+        transform: translateX(100%)
     }
 }

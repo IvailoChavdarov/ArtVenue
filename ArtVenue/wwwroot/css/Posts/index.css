@@ -292,7 +292,15 @@
 .delete-publication-form button {
   border: none;
   background-color: transparent;
-  font-size: xx-large;
+  font-size: large;
+  line-height: 26px;
+  vertical-align: top;
+}
+.delete-publication-form button i {
+  font-size: 22px;
+}
+.delete-publication-form button:hover {
+  color: darkred !important;
 }
 
 ::-webkit-scrollbar {

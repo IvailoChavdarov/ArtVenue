@@ -1,0 +1,45 @@
+﻿ol.numbered {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 3px solid #b3b3b3;
+  counter-reset: numbered-list;
+  margin-left: 10px;
+  position: relative;
+  margin-top: 50px;
+}
+ol.numbered li {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  padding-left: 30px;
+  padding-bottom: 50px;
+}
+ol.numbered li img {
+  display: block;
+  margin-top: 15px;
+}
+ol.numbered li:last-child {
+  border-left: 3px solid white;
+  margin-left: -3px;
+  padding-bottom: 0;
+}
+ol.numbered li:before {
+  background-color: #EFFCFF;
+  border: 3px solid white;
+  border-radius: 50%;
+  color: #619194;
+  content: counter(numbered-list, decimal);
+  counter-increment: numbered-list;
+  display: block;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  margin-top: -0.5em;
+  line-height: 30px;
+  position: absolute;
+  left: -19.5px;
+  text-align: center;
+}

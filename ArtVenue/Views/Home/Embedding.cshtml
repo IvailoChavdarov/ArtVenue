@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "How to embed YouTube videos";
+}
+@section Heads{
+    <link rel="stylesheet" href="~/css/Home/privacy.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/embedding.css" asp-append-version="true" />
+}
+<div class="container">
+    <h1>How to embed YouTube video in publication</h1>
+    <h3>To get embed YouTube video in the publication you want to post follow these steps:</h3>
+    <ol class="numbered">
+        <li>Go to the YouTube video you want to embed</li>
+        <li>Click on the "Share" button below the video
+            <img src="https://res.cloudinary.com/ddo3vrwcb/image/upload/v1675112649/embed_1_zveynn.png"/>
+        </li>
+        <li>Click on the "Embed" tab
+            <img src="https://res.cloudinary.com/ddo3vrwcb/image/upload/v1675112649/embed_2_ep8g3v.png" />
+        </li>
+        <li>Get the code provided in the box
+            <br/>
+            The code will look something like this:<br /><br />
+                &lt;iframe width="560" height="315"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                frameborder="0" allow="accelerometer; 
+                autoplay; encrypted-media; gyroscope; 
+                picture-in-picture" allowfullscreen&gt;
+                &lt;/iframe&gt;
+        </li>
+        <li>Get the link from the source:
+            <img src="https://res.cloudinary.com/ddo3vrwcb/image/upload/v1675112648/embed_3_ywvmct.png" />
+        </li>
+        <li>Paste this link in the embedded video URL field in the post form.
+            <img src="https://res.cloudinary.com/ddo3vrwcb/image/upload/v1675112649/embed_4_xhudup.png" />
+        </li>
+        <li>Now your publication with embedded video is ready to be posted with the "Post button"</li>
+    </ol>
+</div>

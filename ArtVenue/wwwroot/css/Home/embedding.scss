@@ -1,0 +1,55 @@
+﻿@import '../Utility/_colors.scss';
+
+ol.numbered {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    $bullet-line-width: 3px;
+    $bullet-color: #b3b3b3;
+    $bullet-border-width: $bullet-line-width;
+    $bullet-background-color: white;
+    $bullet-size: 30px;
+    border-left: $bullet-line-width solid $bullet-color;
+    counter-reset: numbered-list;
+    margin-left: 10px;
+    position: relative;
+    margin-top:50px;
+    li {
+        img {
+            display: block;
+            margin-top: 15px;
+        }
+
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        line-height: 1.2;
+        margin-bottom: 30px;
+        padding-left: 30px;
+        padding-bottom:50px;
+        &:last-child {
+            border-left: $bullet-line-width solid $bullet-background-color;
+            margin-left: -$bullet-line-width;
+            padding-bottom:0;
+        }
+
+        &:before {
+            $half-of-font-size: -0.5em;
+            background-color: $textColor;
+            border: $bullet-border-width solid $bullet-background-color;
+            border-radius: 50%;
+            color: $secondaryColor-light;
+            content: counter(numbered-list, decimal);
+            counter-increment: numbered-list;
+            display: block;
+            font-weight: bold;
+            width: $bullet-size;
+            height: $bullet-size;
+            margin-top: $half-of-font-size;
+            line-height: $bullet-size;
+            position: absolute;
+            left: -$bullet-size / 2 - $bullet-line-width / 2 - $bullet-border-width;
+            text-align: center;
+        }
+    }
+}

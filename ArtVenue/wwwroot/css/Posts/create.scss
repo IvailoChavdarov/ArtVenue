@@ -1,0 +1,206 @@
+﻿@import '../Utility/_colors.scss';
+@import '../Utility/_timings.scss';
+#activateFormButtonsContainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 65%;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: $textColor;
+    padding: 20px;
+    color: $secondaryColor-dark;
+
+    h2 {
+        text-align: center;
+    }
+
+    button {
+        background-color: transparent;
+        border: none;
+        font-size: x-large;
+        font-weight: bold;
+        color: inherit;
+        border-color: rgba(0,0,0,0.4);
+        border-style: solid;
+        border-width:0;
+        p {
+            font-size: medium;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        a {
+            display: block;
+        }
+    }
+
+    button:hover {
+        color: $mainColor;
+    }
+
+    button:nth-child(2) {
+        border-bottom-width: 1px;
+    }
+
+    button:nth-child(3) {
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+    }
+
+    button:nth-child(4) {
+        border-bottom-width: 1px;
+    }
+
+    button:nth-child(5) {
+        border-right-width: 1px;
+    }
+
+    .col-lg-12 {
+        height: 125px;
+    }
+
+    .col-lg-6 {
+        height: 250px;
+    }
+
+    &.hide {
+        animation: slideOutToLeft 1.1s;
+    }
+}
+input[type="file"] {
+    display: none;
+}
+.postForm {
+    h3 {
+        text-align: center;
+        color: $mainColor;
+    }
+
+    input:focus, select:focus {
+        border-color: $mainColor;
+        box-shadow: 0 0 10px opacify($mainColor, .5)
+    }
+
+    select:focus > option:checked {
+        background: $mainColor;
+        color: $textColor
+    }
+
+    label {
+        font-size: larger;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .categoires-inputs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        label {
+            flex-basis: 100%;
+        }
+
+        .category-selector-container {
+            display: inline-block;
+            width: 400px;
+
+            select {
+            }
+        }
+    }
+
+    .form-group {
+        font-size: 16px;
+    }
+
+    font-size: 0;
+
+    .btn {
+        font-size: 22px;
+        margin-top: 20px;
+        width: 33.33%;
+    }
+
+    .btn-mainColor {
+        background-color: $mainColor;
+        color: $textColor;
+    }
+
+    .btn-mainColor:hover {
+        background-color: darken($mainColor, 5%)
+    }
+
+    &.show {
+        animation: slideInFromRight 1.2s;
+    }
+}
+.custom-file-upload {
+    border: 3px solid $mainColor;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    pointer-events: all;
+    height: 45px;
+    color: $mainColor;
+    margin-left: 30px;
+    transition:all .2s;
+    .fas {
+        color: $mainColor;
+    }
+    &:hover{
+        background-color:$mainColor;
+        color:$textColor;
+        .fas{
+            color:$textColor;
+        }
+    }
+}
+.theme-dark {
+    #activateFormButtonsContainer {
+        background-color: $secondaryColor-dark-semiTransparent;
+        color: $textColor;
+
+        button {
+            border-color: rgba(255,255,255,0.4);
+        }
+    }
+
+    .postForm {
+        color: $textColor;
+        transition: all $changeThemeAnimationTime;
+
+        input, select {
+            transition: background-color $changeThemeAnimationTime ease;
+            background-color: $secondaryColor-dark;
+            color: $textColor;
+
+            &:focus {
+                background-color: darken($secondaryColor-light, 10%);
+                color: $textColor;
+            }
+        }
+    }
+}
+
+@keyframes slideOutToLeft {
+    from {
+        transform: translateX(0)
+    }
+
+    to {
+        transform: translateX(-140%)
+    }
+}
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(140%)
+    }
+
+    to {
+        transform: translateX(0)
+    }
+}

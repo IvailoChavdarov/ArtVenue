@@ -1,0 +1,248 @@
+﻿@model PostsCreateViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Posts/create.css" asp-append-version="true" />
+}
+@{
+    ViewData["Title"] = "Post";
+}
+<div class="container create-forms-container mb-3 mt-5">
+    <div class="row" id="activateFormButtonsContainer">
+        <h2>Choose publication type:</h2>
+        <button data-formToActivate="postTextPublicationForm" class="activateFormButton NoLoader col-12 col-lg-12">
+            Text publication
+            <p>Post simple text publication.</p>
+        </button>
+        <button data-formToActivate="postSingleImagePublicationForm" class="activateFormButton NoLoader col-12 col-lg-6"><i class="fa-regular fa-image"></i>
+            Publication with image
+            <p>Post publication with single image through URL or uploading local PNG, JPG, JPEG or GIF file.</p>
+        </button>
+        <button data-formToActivate="postMultipleImagePublicationForm" class="activateFormButton NoLoader col-12 col-lg-6"><i class="fa-regular fa-images"></i>
+            Gallery publication
+            <p>Post publication with up to 5 images through URL or uploading local files.</p>
+        </button>
+        <button data-formToActivate="postVideoPublicationForm" class="activateFormButton NoLoader col-12 col-lg-6"><i class="fa-solid fa-video"></i>
+            Publication with video
+            <p>Post publication with video through URL or uploading from local MP4, OGG or WebM file.</p>
+            </button>
+        <button data-formToActivate="postEmbededVideoPublicationForm" class="activateFormButton NoLoader col-12 col-lg-6"><i class="fa-brands fa-youtube"></i>
+            Publication with embedded YouTube video
+            <p>Post publication with embedded YouTube video. <a asp-controller="home" asp-action="embedding">Learn more here</a></p>
+            </button>
+    </div>
+    <form method="post" asp-action="create" class="postForm" id="postTextPublicationForm" style="display:none">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group ">
+            <h3>Post text publication</h3>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublicationToPost.PublicationText"></label>
+            <input asp-for="PublicationToPost.PublicationText" class="form-control" />
+            <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
+        </div>
+            <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden/>
+        <div class="form-group categoires-inputs">
+            <label asp-for="PublicationToPost.Categories">Categories</label>
+            @for (int i = 0; i < Model.PublicationToPostCategoriesIds.Length; i++)
+            {
+                <div class="category-selector-container">
+                    <select asp-for="PublicationToPostCategoriesIds[i]" class="form-select">
+                        <option value="-1">None</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.CategoryName</option>
+                        }
+                    </select>
+                </div>
+            }
+
+        </div>
+        <button type="submit" class="btn btn-success">Post</button>
+        <button class="NoLoader btn btn-danger" type="reset">Clear</button>
+        <a asp-action="index" class="btn btn-mainColor">Back</a>
+    </form>
+
+    <form method="post" asp-action="create" class="postForm" id="postSingleImagePublicationForm" style="display:none">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group ">
+            <h3>Post image publication</h3>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublicationToPost.PublicationText"></label>
+            <input asp-for="PublicationToPost.PublicationText" class="form-control" />
+            <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
+        </div>
+        <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden />
+        <div class="form-group categoires-inputs">
+            <label asp-for="PublicationToPost.Categories">Categories</label>
+            @for (int i = 0; i < Model.PublicationToPostCategoriesIds.Length; i++)
+            {
+                <div class="category-selector-container">
+                    <select asp-for="PublicationToPostCategoriesIds[i]" class="form-select">
+                        <option value="-1">None</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.CategoryName</option>
+                        }
+                    </select>
+                </div>
+            }
+
+        </div>
+        <div id="single-image-inputs">
+            <div class="form-group">
+                <label asp-for="PublicationToPost.ImageLink"></label>
+                <input asp-for="PublicationToPost.ImageLink" id="singleImageName" class="form-control" placeholder="Image URL" />
+                <span asp-validation-for="PublicationToPost.ImageLink" class="text-danger"></span>
+            </div>
+            <div class="form-group image-upload-input">
+                <span> or </span>
+                <label for="singleImageUpload" class="custom-file-upload">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload image
+                </label>
+                <input class="form-control" type="file" id="singleImageUpload" hidden />
+                <span id="singleImageValidationText" class="text-danger"></span>
+            </div>
+        </div>
+        <a asp-action="index" class="btn btn-mainColor">Back</a>
+        <button type="button" class="btn btn-success" id="singleImageCreateButton">Post</button>
+        <button class="NoLoader btn btn-danger" type="reset">Clear</button>
+    </form>
+
+    <form method="post" asp-action="create" class="postForm" id="postMultipleImagePublicationForm" style="display:none">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <h3>Post gallery publication</h3>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublicationToPost.PublicationText"></label>
+            <input asp-for="PublicationToPost.PublicationText" class="form-control" />
+            <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
+        </div>
+        <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden checked/>
+        <div class="form-group categoires-inputs">
+            <label asp-for="PublicationToPost.Categories">Categories</label>
+            @for (int i = 0; i < Model.PublicationToPostCategoriesIds.Length; i++)
+            {
+                <div class="category-selector-container">
+                    <select asp-for="PublicationToPostCategoriesIds[i]" class="form-select">
+                        <option value="-1">None</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.CategoryName</option>
+                        }
+                    </select>
+                </div>
+            }
+
+        </div>
+        <div id="multiple-images-inputs">
+            <div class="form-group">
+                @for (int i = 0; i < Model.PublicationToPostImages.Length; i++)
+                {
+                    <label asp-for="PublicationToPostImages[i]"></label>
+                    <input asp-for="PublicationToPostImages[i]" id="@("multipleImagesInput-"+i)" class="form-control multiple-image-input" placeholder="Image URL" />
+                    <span asp-validation-for="PublicationToPostImages[i]" class="text-danger"></span>
+                }
+            </div>
+            <div class="form-group image-upload-input">
+                <span> or </span>
+                <label for="multipleImagesUpload" class="custom-file-upload">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload images
+                </label>
+                <input class="form-control" type="file" id="multipleImagesUpload" multiple max="5" />
+                <span id="multipleImagesValidationText" class="text-danger"></span>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success" id="multipleImagesCreateButton">Post</button>
+        <button class="NoLoader btn btn-danger" type="reset">Clear</button>
+        <a asp-action="index" class="btn btn-mainColor">Back</a>
+    </form>
+
+    <form method="post" asp-action="create" class="postForm" id="postVideoPublicationForm" style="display:none">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <h3>Post video publication</h3>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublicationToPost.PublicationText"></label>
+            <input asp-for="PublicationToPost.PublicationText" class="form-control" />
+            <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
+        </div>
+        <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden />
+        <div class="form-group categoires-inputs">
+            <label asp-for="PublicationToPost.Categories">Categories</label>
+            @for (int i = 0; i < Model.PublicationToPostCategoriesIds.Length; i++)
+            {
+                <div class="category-selector-container">
+                    <select asp-for="PublicationToPostCategoriesIds[i]" class="form-select">
+                        <option value="-1">None</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.CategoryName</option>
+                        }
+                    </select>
+                </div>
+            }
+
+        </div>
+        <div id="video-inputs">
+            <div class="form-group">
+                <label asp-for="PublicationToPost.VideoLink"></label>
+                <input asp-for="PublicationToPost.VideoLink" id="videoName" class="form-control" placeholder="Video URL" />
+                <span asp-validation-for="PublicationToPost.VideoLink" class="text-danger"></span>
+            </div>
+            <div class="form-group video-upload-input">
+                <span> or </span>
+                <label for="videoUpload" class="custom-file-upload">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload video
+                </label>
+                <input class="form-control" type="file" id="videoUpload" hidden />
+                <span id="videoValidationText" class="text-danger"></span>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success" id="videoCreateButton">Post</button>
+        <button class="NoLoader btn btn-danger" type="reset">Clear</button>
+        <a asp-action="index" class="btn btn-mainColor">Back</a>
+    </form>
+
+    <form method="post" asp-action="create" class="postForm" id="postEmbededVideoPublicationForm" style="display:none">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group ">
+            <h3>Post video publication</h3>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublicationToPost.PublicationText"></label>
+            <input asp-for="PublicationToPost.PublicationText" class="form-control" />
+            <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
+        </div>
+        <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden />
+        <div class="form-group categoires-inputs">
+            <label asp-for="PublicationToPost.Categories">Categories</label>
+            @for (int i = 0; i < Model.PublicationToPostCategoriesIds.Length; i++)
+            {
+                <div class="category-selector-container">
+                    <select asp-for="PublicationToPostCategoriesIds[i]" class="form-select">
+                        <option value="-1">None</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.CategoryName</option>
+                        }
+                    </select>
+                </div>
+            }
+
+        </div>
+        <div class="form-group">
+            <label asp-for="PublicationToPost.EmbeddedVideoLink"></label>
+            <input asp-for="PublicationToPost.EmbeddedVideoLink" class="form-control" placeholder="Youtube embed video URL" />
+            <span asp-validation-for="PublicationToPost.EmbeddedVideoLink" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Post</button>
+        <button class="NoLoader btn btn-danger" type="reset">Clear</button>
+        <a asp-action="index" class="btn btn-mainColor">Back</a>
+    </form>
+
+</div>
+@section Scripts{
+    <script src="~/js/postPublication.js"></script>
+}

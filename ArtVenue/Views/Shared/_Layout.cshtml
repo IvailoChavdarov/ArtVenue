@@ -22,7 +22,23 @@
         <main role="main">
             @RenderBody()
         </main>
+    @if (!string.IsNullOrEmpty((string)TempData["notice"]))
+    {
+        <span class="notice @TempData["noticeBackground"]" id="noticeBox"><span>@TempData["notice"]</span></span>
+    }
 
+    <script>
+        var noticeBox = document.getElementById("noticeBox")
+        if (noticeBox) {
+            noticeBox.addEventListener('click', () => {
+                noticeBox.classList.add("closed")
+            })
+            setTimeout(() => {
+                noticeBox.classList.add("closed")
+            }, 4800);
+            noticeBox.classList.add("activated")
+        }
+    </script>
     <partial name="_Footer" />
     <partial name="_Loader" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

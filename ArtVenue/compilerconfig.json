@@ -50,5 +50,13 @@
   {
     "outputFile": "wwwroot/css/Posts/category.css",
     "inputFile": "wwwroot/css/Posts/category.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Posts/create.css",
+    "inputFile": "wwwroot/css/Posts/create.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Home/embedding.css",
+    "inputFile": "wwwroot/css/Home/embedding.scss"
   }
 ]

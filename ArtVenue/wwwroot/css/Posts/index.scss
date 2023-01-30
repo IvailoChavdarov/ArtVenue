@@ -310,7 +310,15 @@ body {
     button {
         border: none;
         background-color: transparent;
-        font-size:xx-large;
+        font-size:large;
+        line-height:26px;
+        vertical-align:top;
+        i{
+            font-size:22px;
+        }
+    }
+    button:hover{
+        color:darkred!important;
     }
 }
 ::-webkit-scrollbar {

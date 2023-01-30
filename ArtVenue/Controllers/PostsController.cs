@@ -28,14 +28,14 @@ namespace ArtVenue.Controllers
             int pageSize = 25;
             page -= 1;
             AppUser currentUser = await _userManager.GetUserAsync(User);
-            List<int> categoriesInterestedInId = _db.Interests.Where(x=>x.UserId==currentUser.Id).Select(x=>x.CategoryId).ToList();
+            List<int> categoriesInterestedInId = _db.Interests.Where(x => x.UserId == currentUser.Id).Select(x => x.CategoryId).ToList();
             List<Publication> publications = _db.Publications.OrderByDescending(x => x.PostedTime).ToList();
             for (int i = 0; i < publications.Count; i++)
             {
                 publications[i].CategoriesIds = _db.Publications_Categories
                     .Where(x => x.PublicationId == publications[i].Id)
-                    .Select(x=>x.CategoryId)
-                    .ToList(); 
+                    .Select(x => x.CategoryId)
+                    .ToList();
             }
 
             List<Publication> filteredPublications = new List<Publication>();
@@ -104,13 +104,14 @@ namespace ArtVenue.Controllers
             }
             return View(data);
         }
+
         public async Task<IActionResult> Category(int id, int page = 1)
         {
             Dictionary<string, PostCreator> userNames = new Dictionary<string, PostCreator>();
             PostsCategoryViewModel data = new PostsCategoryViewModel();
             int pageSize = 25;
             page -= 1;
-            
+
             List<Publication> publications = _db.Publications.OrderByDescending(x => x.PostedTime).ToList();
             for (int i = 0; i < publications.Count; i++)
             {
@@ -165,7 +166,7 @@ namespace ArtVenue.Controllers
                 AppUser currentUser = await _userManager.GetUserAsync(User);
                 data.UserProfilePicture = currentUser.GetProfileImage();
                 data.UserName = currentUser.FirstName;
-                data.IsInterestedIn = _db.Interests.Where(x=>x.UserId==currentUser.Id&&x.CategoryId==id).Any();
+                data.IsInterestedIn = _db.Interests.Where(x => x.UserId == currentUser.Id && x.CategoryId == id).Any();
                 data.UserId = currentUser.Id;
             }
 
@@ -173,7 +174,7 @@ namespace ArtVenue.Controllers
             data.NextPage = publications.Count() > (page + 1) * pageSize;
             data.CurrentPage = page + 1;
             data.Category = _db.Categories.Where(x => x.Id == id).FirstOrDefault();
-            if (data.Category==null)
+            if (data.Category == null)
             {
                 return NotFound();
             }
@@ -195,7 +196,7 @@ namespace ArtVenue.Controllers
             string userId = currentUser.Id;
             int pageSize = 25;
             page -= 1;
-            List<int> savedPublicationsIds = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User)).Select(x=>x.PublicationId).Skip(page * pageSize).Take(pageSize).ToList();
+            List<int> savedPublicationsIds = _db.Saved.Where(x => x.UserId == _userManager.GetUserId(User)).Select(x => x.PublicationId).Skip(page * pageSize).Take(pageSize).ToList();
             List<Publication> savedPublications = new List<Publication>();
             foreach (var publicationId in savedPublicationsIds)
             {
@@ -315,7 +316,7 @@ namespace ArtVenue.Controllers
                 data.PrevPage = page > 0;
                 data.NextPage = publications.Count() > (page + 1) * pageSize;
             }
-           
+
             data.UserProfilePicture = currentUser.GetProfileImage();
             data.UserName = currentUser.FirstName;
             data.CurrentPage = page + 1;
@@ -403,6 +404,64 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult Create()
+        {
+            PostsCreateViewModel data = new PostsCreateViewModel();
+            data.Categories = _db.Categories.ToList();
+            data.UserGroups = GetUserGroups();
+            return View(data);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Create(PostsCreateViewModel data)
+        {
+            data.PublicationToPost.CreatorId = _userManager.GetUserId(User);
+            data.PublicationToPost.PostedTime = DateTime.Today.Day.ToString();
+            data.PublicationToPost.Categories = new HashSet<Publications_Categories>();
+            try
+            {
+                foreach (var categoryId in data.PublicationToPostCategoriesIds.Where(x=>x>=0))
+                {
+                    Publications_Categories connection = new Publications_Categories();
+                    connection.PublicationId = data.PublicationToPost.Id;
+                    connection.CategoryId = categoryId;
+                    data.PublicationToPost.Categories.Add(connection);
+                }
+                Publication publicationToAdd = data.PublicationToPost;
+                _db.Publications.Add(publicationToAdd);
+                if (data.PublicationToPost.HasManyImages)
+                {
+                    foreach (string imgUrl in data.PublicationToPostImages)
+                    {
+                        if (!string.IsNullOrEmpty(imgUrl))
+                        {
+                            _db.GalleryImages.Add(new GalleryImage()
+                            {
+                                ImageLink = imgUrl,
+                                Publication = publicationToAdd
+                            });
+                        }
+                    }
+                }
+                await _db.SaveChangesAsync();
+                TempData["notice"] = $"Successfully posted publication!";
+                TempData["noticeBackground"] = "bg-success";
+                return RedirectToAction("users");
+            }
+            catch (Exception)
+            {
+                data.Categories = _db.Categories.ToList();
+                data.UserGroups = GetUserGroups();
+                TempData["notice"] = $"Couldn't post publication!";
+                TempData["noticeBackground"] = "bg-danger";
+                return View(data);
+            }
+        }
+    
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> PostComment(ViewModelWithCommentInput data)
@@ -428,6 +487,8 @@ namespace ArtVenue.Controllers
             {
                 _db.Publications.Remove(publicationToDelete);
                 await _db.SaveChangesAsync();
+                TempData["notice"] = $"Successfully removed publication!";
+                TempData["noticeBackground"] = "bg-success";
             }
             else
             {
@@ -444,7 +505,9 @@ namespace ArtVenue.Controllers
             Users_Saved connection = new Users_Saved();
             connection.PublicationId = id;
             connection.UserId = userId;
-            if (_db.Saved.Contains(connection))
+            bool isRemoveAction = _db.Saved.Contains(connection);
+
+            if (isRemoveAction)
             {
                 _db.Saved.Remove(connection);
             }
@@ -453,6 +516,16 @@ namespace ArtVenue.Controllers
                 await _db.Saved.AddAsync(connection);
             }
             await _db.SaveChangesAsync();
+            if (isRemoveAction)
+            {
+                TempData["notice"] = $"Successfully removed publication from saved!";
+                TempData["noticeBackground"] = "bg-success";
+            }
+            else
+            {
+                TempData["notice"] = $"Successfully added publication to saved!";
+                TempData["noticeBackground"] = "bg-success";
+            }
             return RedirectToAction("index");
         }
 
@@ -467,6 +540,8 @@ namespace ArtVenue.Controllers
                 request.MemberId = userId;
                 request.GroupId = groupId;
                 _db.Groups_Requests.Add(request);
+                TempData["notice"] = $"Sent request to join group!";
+                TempData["noticeBackground"] = "bg-success";
             }
             else
             {
@@ -475,6 +550,8 @@ namespace ArtVenue.Controllers
                 connection.MemberId = userId;
                 connection.JoinedDate = DateTime.Today.ToString();
                 await _db.Groups_Members.AddAsync(connection);
+                TempData["notice"] = $"Successfully joined group!";
+                TempData["noticeBackground"] = "bg-success";
             }
             await _db.SaveChangesAsync();
             return RedirectToAction("group", new { Id=groupId });
@@ -489,6 +566,8 @@ namespace ArtVenue.Controllers
             Groups_Members connection = _db.Groups_Members.Where(x=>x.GroupId==groupId&&x.MemberId==userId).First();
             _db.Groups_Members.Remove(connection);
             await _db.SaveChangesAsync();
+            TempData["notice"] = $"Successfully left group!";
+            TempData["noticeBackground"] = "bg-success";
             return RedirectToAction("group", new { Id = groupId });
         }
 
@@ -501,6 +580,8 @@ namespace ArtVenue.Controllers
             Groups_Requests connection = _db.Groups_Requests.Where(x => x.GroupId == groupId && x.MemberId == userId).First();
             _db.Groups_Requests.Remove(connection);
             await _db.SaveChangesAsync();
+            TempData["notice"] = $"Successfully canceled join request!";
+            TempData["noticeBackground"] = "bg-success";
             return RedirectToAction("group", new { Id = groupId });
         }
 
