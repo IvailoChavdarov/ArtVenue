@@ -1,7 +1,9 @@
 ﻿@import '../Utility/_colors.scss';
 body {
     background-image: linear-gradient( 108.5deg, #EB6600 21.1%, #FF7E51 80.4% );
-    background-image: url('https://wallup.net/wp-content/uploads/2016/03/09/281185-digital_art-nature-trees-painting-park-bench-lamps-fall-leaves-modern_impressionism-artwork.jpg');
+    background-image:url(../../img/login-bg-2.jpg);
+    background-size:cover;
+    background-position: center -250px;
     text-align: center;
 }
 main{
@@ -10,14 +12,18 @@ main{
 .user-form-container {
     width: 750px;
     max-width: 90vw;
-    background-color: $secondaryColor-dark;
+    background-color: transparentize($secondaryColor-dark, 0.3);
     display: inline-block;
     margin: 50px;
+    margin-top:70px;
+    margin-bottom: 150px;
     padding: 60px;
     color: $textColor;
-    a{
-        color:$mainColor;
+
+    a {
+        color: $mainColor;
     }
+
     form {
         text-align: left;
 
@@ -115,15 +121,17 @@ main{
             pointer-events: all;
             height: 40px;
             color: $mainColor;
-            margin-left:30px;
+            margin-left: 30px;
+
             .fas {
                 color: $mainColor;
             }
         }
     }
-    p{
-        margin-top:20px;
-        text-align:left;
+
+    p {
+        margin-top: 20px;
+        text-align: left;
     }
 }
 

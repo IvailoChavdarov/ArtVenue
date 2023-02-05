@@ -92,7 +92,7 @@ input[type=file] {
 }
 .postForm .categoires-inputs .category-selector-container {
   display: inline-block;
-  width: 400px;
+  width: 33%;
 }
 .postForm .form-group {
   font-size: 16px;

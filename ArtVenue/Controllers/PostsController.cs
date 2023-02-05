@@ -2,10 +2,10 @@
 using ArtVenue.Models;
 using ArtVenue.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Drawing.Printing;
 using System.Threading.Tasks;
 
 namespace ArtVenue.Controllers
@@ -411,6 +411,23 @@ namespace ArtVenue.Controllers
             PostsCreateViewModel data = new PostsCreateViewModel();
             data.Categories = _db.Categories.ToList();
             data.UserGroups = GetUserGroups();
+            return View(data);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            PostDetailsViewModel data = new PostDetailsViewModel();
+            data.Post = _db.Publications.Where(x => x.Id == id).FirstOrDefault();
+            if (data.Post == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                data.Creator = await _userManager.FindByIdAsync(data.Post.CreatorId);
+            }
             return View(data);
         }
 

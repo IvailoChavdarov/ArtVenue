@@ -1,0 +1,58 @@
+﻿@model PostDetailsViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Posts/details.css" asp-append-version="true" />
+}
+<div class="row">
+    <div class="col-12 col-lg-2"><a id="backbutton">Back</a></div>
+    <div class="col-12 col-lg-10">
+        <div class="post-container">
+            @if (!string.IsNullOrEmpty(Model.Post.VideoLink) || !string.IsNullOrEmpty(Model.Post.EmbeddedVideoLink) || !string.IsNullOrEmpty(Model.Post.ImageLink))
+            {
+                <div class="post-image">
+                    @if (!string.IsNullOrEmpty(Model.Post.VideoLink))
+                    {
+                        <video controls>
+                            <source src="@Model.Post.VideoLink">
+                            Could not load video
+                        </video>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.Post.EmbeddedVideoLink))
+                    {
+                        <iframe src="@Model.Post.EmbeddedVideoLink" width="300" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.Post.ImageLink))
+                    {
+                        <img src="@Model.Post.ImageLink" alt="post image">
+                    }
+                </div>
+            }
+            <div class="post-info">
+                <h2>Post Title</h2>
+                <p>@Model.Post.PublicationText</p>
+                <div class="post-meta">
+                    <div class="post-author-image">
+                        <img src="@Model.Creator.GetProfileImage()" alt="author">
+                    </div>
+                    <div class="post-author-info">
+                        <h3><a asp-controller="posts" asp-action="users" asp-route-id="@Model.Creator.Id">@Model.Creator.FirstName @Model.Creator.LastName</a></h3>
+                        <p>@Model.Creator.Bio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<script>
+    if(document.referrer){
+        if(document.referrer == window.location.href){
+            document.getElementById("backbutton").href = "/posts/index"
+        }
+        else{
+            document.getElementById("backbutton").href = document.referrer;
+        }
+    }
+    else{
+        document.getElementById("backbutton").href = "/posts/index"
+    }
+</script>

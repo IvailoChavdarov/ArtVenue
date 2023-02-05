@@ -171,10 +171,6 @@ namespace ArtVenue.Data
                 .IsRequired(false);
 
             modelBuilder.Entity<Publication>()
-                .Property(publication => publication.OutsideLink)
-                .IsRequired(false);
-
-            modelBuilder.Entity<Publication>()
                 .Property(publication => publication.PublicationText)
                 .IsRequired(false);
 

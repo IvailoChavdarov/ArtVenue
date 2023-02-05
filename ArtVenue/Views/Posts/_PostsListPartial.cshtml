@@ -2,8 +2,8 @@
 <div class="postContainer">
     @foreach (Publication publication in Model.Publications)
         {
-            <div class="post hiddenComments">
-                @if (!string.IsNullOrEmpty(Model.UserId))
+        <div class="post hiddenComments" id="@("post-"+publication.Id)">
+            @if (!string.IsNullOrEmpty(Model.UserId))
                 {
                     if (publication.CreatorId == Model.UserId)
                     {
@@ -57,10 +57,11 @@
                     </div>
                 }
                 <div class="post-text-container">
-                    @publication.PublicationText
+                    <h5>@publication.PublicationTitle</h5>
+                    <p>@publication.PublicationText</p>
                 </div>
-                <div class="post-action-list" style="line-height:24px;color: #b1bbc3;">
-                    <a asp-asp-controller="posts" asp-action="post" asp-route-id="@publication.Id">
+                <div class="post-action-list" style="line-height:24px">
+                <a asp-asp-controller="posts" asp-action="details" asp-route-id="@publication.Id">
                         <i class="fa-solid fa-share"></i>
                     </a>
 

@@ -1,1 +1,181 @@
-﻿
+﻿@model HomeIndexViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+@section Heads{
+    <link rel="stylesheet" href="~/css/Home/homepage.css" asp-append-version="true" />
+}
+<div class="banner">
+    <div class="dark-filter">
+        <div class="banner-text">
+            <h1>Welcome to ArtVenue</h1>
+        <div class="welcome-msg-divider">
+            <hr>
+                <i class="fa-solid fa-paintbrush"></i>
+                <i class="fa-solid fa-masks-theater"></i>
+                <i class="fa-solid fa-music"></i>
+                <i class="fa-solid fa-pen-fancy"></i>
+                <i class="fa-solid fa-camera-retro"></i>
+            <hr>
+        </div>
+
+        <p>Unleash your creativity and join the vibrant community of artists on ArtVenue. Our platform is designed to help you showcase your work, connect with fellow creatives, and discover new inspiration every day. Whether you're a painter, poet, musician, or photographer, ArtVenue provides a space for you to share your passion with the world. With direct chats, groups, and the ability to save your favorite works for later, ArtVenue is a hub for artists to connect, grow, and inspire one another.</p>
+        <p>So why wait? Join ArtVenue today and start sharing your art with the world!</p>
+        <a class="banner-button-register" asp-area="identity" asp-page="/account/login">Get started</a>
+            <a class="banner-button-learn" asp-controller="home" asp-action="about">Learn more</a>
+        </div>
+    </div>
+</div>
+<div class="quote-container intro-quote">
+    <img src="~/img/dove.png" class="bg-image"/>
+    <p class="quote">"Art is the highest form of hope."<span class="quote-creator">- Gerhard Richter</span></p>
+    ArtVenue was founded with the idea that art is not just a hobby, but a way to express emotions and experiences. We believe that art is limitless, and it takes many different forms. We believe that art is a way to connect with others, to share emotions and experiences, and to express ideas in a unique and powerful way. By showcasing a wide variety of art, we hope to inspire people to create their own masterpieces, and to see just how limitless the world of art truly is.
+</div>
+<div class="service-cards-container row">
+    <h2>ArtVenue offers</h2>
+    <div class="col-12 com-md-6 col-lg-3">
+        <div class="service-card">
+            <img src="~/img/publications.png" />
+            <h3>Publications</h3>
+            <p>Share your work with the world and receive feedback and support.</p>
+        </div>
+    </div>
+    <div class="col-12 com-md-6 col-lg-3">
+        <div class="service-card">
+            <img src="~/img/save.png" />
+            <h3>Save for Later</h3>
+            <p>Keep track of your favorite pieces and come back to them later.</p>
+        </div>
+    </div>
+    <div class="col-12 com-md-6 col-lg-3">
+        <div class="service-card">
+            <img src="~/img/group.png" />
+            <h3>Groups</h3>
+            <p>Join or create groups with like-minded artists.</p>
+        </div>
+    </div>
+    <div class="col-12 com-md-6 col-lg-3">
+        <div class="service-card">
+            <img src="~/img/direct.png" />
+            <h3>Direct Chats</h3>
+            <p>Connect with other artists and have private conversations.</p>
+        </div>
+    </div>
+</div>
+<div class="arts-icons-bg">
+    <div class="quote-container">
+        <p class="quote"><span class="quote-text-half">"Art is not a handicraft, it is the transmission of feeling the artist has experienced."</span><span class="quote-creator">- Leo Tolstoy</span></p>
+        This quote captures the essence of ArtVenue's mission - to inspire and encourage people to create art. At ArtVenue, we believe that art has the power to bring hope, joy, and positivity into our lives, and we want to create a platform where artists can showcase their work and connect with others who share their passion for creativity. Our aim is to create a community of artists and art lovers, where everyone feels inspired to explore their artistic potential and make their mark on the world. So join us on this journey and let's create a brighter future, one masterpiece at a time.
+    </div>
+</div>
+<div class="interests-showcase">
+    <h2>Discover and follow new interests</h2>
+    <div class="category-cards-container">
+        @foreach (var category in Model.MainCategories)
+        {
+            <a asp-controller="posts" asp-action="category" asp-route-id="@category.Id" class="category-card">
+                <img src="@category.CategoryImage" />
+                <div class="category-card-text">
+                    <h3>@category.CategoryName</h3>
+                    <p>@category.CategoryDescription</p>
+                </div>
+            </a>
+        }
+    </div>
+    <a asp-controller="discover" asp-action="index">See all categories</a>
+</div>
+
+@section Scripts{
+    <script>
+        // Set variables for tracking mouse position and element scrolling
+        var currentX = 0, currentY = 0, startX = 0, startY = 0, distanceX = 0, distanceY = 0, isDragging = false;
+
+        // Listen for mousedown event on the category cards container
+        document.querySelector('.category-cards-container').addEventListener('mousedown', function (e) {
+            // Prevent default behavior for mousedown event
+            e.preventDefault();
+            document.querySelector('.category-cards-container').style.cursor = "grabbing"
+            // Set start position for mouse and set isDragging to true
+            startX = e.pageX;
+            startY = e.pageY;
+            isDragging = true;
+        });
+
+        // Listen for mousemove event on the document
+        document.addEventListener('mousemove', function (e) {
+            // If isDragging is true, update current mouse position and calculate distance
+            if (isDragging) {
+                currentX = e.pageX;
+                currentY = e.pageY;
+                distanceX = currentX - startX;
+                distanceY = currentY - startY;
+
+                // Scroll the category cards container by the distance of the mouse movement
+                document.querySelector('.category-cards-container').scrollLeft -= distanceX;
+
+                // Reset start position for mouse to current position
+                startX = currentX;
+                startY = currentY;
+            }
+        });
+
+        // Listen for mouseup event on the document
+        document.addEventListener('mouseup', function (e) {
+            // Set isDragging to false
+            document.querySelector('.category-cards-container').style.cursor = "grab"
+            isDragging = false;
+        });
+    </script>
+}
+
+
+    @*
+    <div class="card-container">
+        <div class="card">
+            <i class="fa fa-comments"></i>
+            <h3>Direct Chats</h3>
+            <p>Connect with other artists and have private conversations.</p>
+        </div>
+        <div class="card">
+            <i class="fa fa-users"></i>
+            <h3>Groups</h3>
+            <p>Join or create groups with like-minded artists.</p>
+        </div>
+        <div class="card">
+            <i class="fa fa-book"></i>
+        <h3>Publications</h3>
+        <p>Share your work with the world and receive feedback and support.</p>
+    </div>
+    <div class="card">
+        <i class="fa fa-bookmark"></i>
+        <h3>Save for Later</h3>
+        <p>Keep track of your favorite pieces and come back to them later.</p>
+    </div>
+
+</div>
+<div class="main-section">
+    <h2>Discover the Artistic Community</h2>
+    <p>Join our platform and become part of a vibrant and supportive community of artists. Share your work, connect with others, and grow your audience.</p>
+</div>
+<div class="category-container">
+    <div class="category">
+        <img src="https://via.placeholder.com/50x50" alt="painting">
+        <h3>Painting</h3>
+        <p>Discover and share stunning paintings from artists all over the world.</p>
+    </div>
+    <div class="category">
+        <img src="https://via.placeholder.com/50x50" alt="poetry">
+        <h3>Poetry</h3>
+        <p>Read and share moving and powerful poems written by talented poets.</p>
+    </div>
+    <div class="category">
+        <img src="https://via.placeholder.com/50x50" alt="music">
+        <h3>Music</h3>
+        <p>Listen to and share beautiful and unique pieces of music created by artists.</p>
+    </div>
+    <div class="category">
+        <img src="https://via.placeholder.com/50x50" alt="photography">
+        <h3>Photography</h3>
+        <p>View and share stunning photographs captured by talented photographers.</p>
+    </div>
+</div>*@

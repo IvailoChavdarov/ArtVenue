@@ -1,4 +1,6 @@
-﻿using ArtVenue.Models;
+﻿using ArtVenue.Data;
+using ArtVenue.Models;
+using ArtVenue.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +9,18 @@ namespace ArtVenue.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _db;
+        public HomeController(ApplicationDbContext db, ILogger<HomeController> logger)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomeIndexViewModel data = new HomeIndexViewModel();
+            data.MainCategories = _db.Categories.Take(8).ToArray();
+            return View(data);
         }
 
         public IActionResult Privacy()

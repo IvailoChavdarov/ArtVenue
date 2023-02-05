@@ -58,5 +58,13 @@
   {
     "outputFile": "wwwroot/css/Home/embedding.css",
     "inputFile": "wwwroot/css/Home/embedding.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Home/homepage.css",
+    "inputFile": "wwwroot/css/Home/homepage.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Posts/details.css",
+    "inputFile": "wwwroot/css/Posts/details.scss"
   }
 ]
