@@ -262,15 +262,12 @@ body {
     &::-webkit-scrollbar {
         height: 5px;
     }
-    /* Track */
     &::-webkit-scrollbar-track {
         background: $secondaryColor-light;
     }
-    /* Handle */
     &::-webkit-scrollbar-thumb {
         background: #ffeccf;
     }
-    /* Handle on hover */
     &:hover::-webkit-scrollbar-thumb {
         background: $mainColor;
     }
@@ -313,6 +310,7 @@ body {
         height:600px;
     }
 }
+
 .arts-icons-bg {
     position: relative;
     height: 820px;
@@ -325,9 +323,111 @@ body {
         background-size: cover;
     }
 }
+
+.faq {
+    padding:100px 0;
+    h1{
+        color:$mainColor;
+        margin-bottom:35px;
+    }
+    .accordion-button {
+        height: 75px;
+
+        &::after {
+            background-image: none;
+            font-family: 'FontAwesome';
+            content: "\f059";
+            color: $mainColor;
+            font-size: large;
+        }
+    }
+
+    .accordion-button:not(.collapsed) {
+        color: $textColor;
+        background-color: $secondaryColor-light;
+        box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+
+        &::after {
+            content: "\f06a";
+            color: $textColor;
+        }
+    }
+
+    b {
+        margin-right: 10px;
+        letter-spacing:2px;
+    }
+
+    .accordion-body {
+        padding: 30px;
+        padding-left: 50px;
+    }
+}
+
+.register-section {
+    height: 670px;
+    background-color: transparentize($secondaryColor-dark, 0.5);
+    color: $textColor;
+    padding: 100px 250px;
+    position: relative;
+    text-align: center;
+
+    h2 {
+        margin-bottom: 30px;
+        margin-top: 60px;
+    }
+
+    a {
+        display: inline-block;
+        padding: 17px 30px;
+        background-color: $mainColor;
+        color: $textColor;
+        text-decoration: none;
+        border-radius: 7px;
+        box-shadow: 0 0 50px $mainColor;
+        font-size: larger;
+        font-weight: bold;
+        margin-top: 100px;
+        transition:all .2s ease;
+        &:hover {
+            background-color: $successColor;
+            box-shadow: 0 0 50px $successColor;
+        }
+    }
+    p{
+        font-size:large;
+    }
+    &:before {
+        content: '';
+        background-image: url(/img/gathering.png);
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+    }
+}
+
 .theme-dark {
     main {
         color: $textColor;
+    }
+
+    .faq {
+        .accordion-button {
+            background-color: $secondaryColor-dark;
+            color: $textColor;
+        }
+
+        .accordion-body {
+            background-color: $secondaryColor-dark;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: $secondaryColor-light;
+        }
     }
 
     .service-cards-container {

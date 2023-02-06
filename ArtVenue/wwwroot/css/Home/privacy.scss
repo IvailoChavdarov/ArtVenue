@@ -1,10 +1,11 @@
 ﻿@import '../Utility/_colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@300&family=Sacramento&display=swap');
 .container {
     margin: 50px auto;
     padding: 40px;
     background-color: $secondaryColor-dark;
     color: $textColor;
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', Arial, sans-serif;
 }
 .shield-list {
     list-style: none;

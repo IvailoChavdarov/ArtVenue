@@ -84,7 +84,65 @@
     </div>
     <a asp-controller="discover" asp-action="index">See all categories</a>
 </div>
-
+<div class="container faq">
+    <h1>Frequently asked questions:</h1>
+    <div class="accordion accordion-flush" id="faqAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-headingOne">
+                <button class="accordion-button collapsed NoLoader" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapseOne" aria-expanded="false" aria-controls="faq-collapseOne">
+                    <b>Q:</b> What is ArtVenue?
+                </button>
+            </h2>
+            <div id="faq-collapseOne" class="accordion-collapse collapse" aria-labelledby="faq-headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body"><b>A:</b> ArtVenue is a platform where artists and art lovers can connect, showcase their work, and discover new art.</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-headingTwo">
+                <button class="accordion-button collapsed NoLoader" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapseTwo" aria-expanded="false" aria-controls="faq-collapseTwo">
+                    <b>Q:</b> Who can use ArtVenue?
+                </button>
+            </h2>
+            <div id="faq-collapseTwo" class="accordion-collapse collapse" aria-labelledby="faq-headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body"><b>A:</b> ArtVenue is open to anyone who loves art and wants to share their creativity with the world. This includes artists, art enthusiasts, collectors, and more.</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-headingThree">
+                <button class="accordion-button collapsed NoLoader" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapseThree" aria-expanded="false" aria-controls="faq-collapseThree">
+                    <b>Q:</b> How do I showcase my art on ArtVenue?
+                </button>
+            </h2>
+            <div id="faq-collapseThree" class="accordion-collapse collapse" aria-labelledby="faq-headingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body"><b>A:</b> Simply create an account and start uploading your art to your profile. You can add details about your art, such as title, description, and medium, to help others discover and appreciate your work.</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-headingFour">
+                <button class="accordion-button collapsed NoLoader" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapseFour" aria-expanded="false" aria-controls="faq-collapseFour">
+                    <b>Q:</b> How do I discover new art on ArtVenue?
+                </button>
+            </h2>
+            <div id="faq-collapseFour" class="accordion-collapse collapse" aria-labelledby="faq-headingFour" data-bs-parent="#faqAccordion">
+                <div class="accordion-body"><b>A:</b> You can browse through the many categories of art on the site, or use the search bar to find specific artists or types of art. You can also follow your favorite artists to see their latest work.</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-headingFive">
+                <button class="accordion-button collapsed NoLoader" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapseFive" aria-expanded="false" aria-controls="faq-collapseFive">
+                    <b>Q:</b> Is ArtVenue free to use?
+                </button>
+            </h2>
+                <div id="faq-collapseFive" class="accordion-collapse collapse" aria-labelledby="faq-headingFive" data-bs-parent="#faqAccordion">
+                <div class="accordion-body"><b>A:</b> Yes, ArtVenue is free to use and there are no hidden fees. You can sign up and start showcasing your art right away.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="register-section">
+    <h2>Join the ArtVenue community today and be a part of the limitless world of art.</h2> <p>Explore new art styles and techniques, connect with like-minded artists and showcase your own creations to a world of art lovers. With ArtVenue, the possibilities are endless. Register now and see where your artistic journey can take you!</p>
+    <a asp-area="identity" asp-page="/account/login">Sign up for free</a>
+</div>
 @section Scripts{
     <script>
         // Set variables for tracking mouse position and element scrolling

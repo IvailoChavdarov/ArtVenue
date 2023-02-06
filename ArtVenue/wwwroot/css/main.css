@@ -1,4 +1,5 @@
-﻿body::-webkit-scrollbar {
+﻿@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@300&family=Sacramento&display=swap");
+body::-webkit-scrollbar {
   width: 0px;
 }
 
@@ -28,10 +29,6 @@
     display: none;
   }
 }
-body {
-  overflow-x: hidden;
-}
-
 .margin-md {
   margin-left: 110px;
   margin-right: 0;
@@ -103,7 +100,7 @@ body {
   overflow-x: hidden;
   transition: background-color 250ms ease;
   background-color: #EFFCFF;
-  background: url("../../img/backgrounds/icons_pattern.png");
+  font-family: "Montserrat";
 }
 
 @media only screen and (max-width: 667px) {

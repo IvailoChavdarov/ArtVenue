@@ -190,9 +190,6 @@ body {
   overflow-y: hidden;
   position: relative;
   /* width */
-  /* Track */
-  /* Handle */
-  /* Handle on hover */
 }
 .category-cards-container .category-card {
   display: inline-block;
@@ -295,8 +292,97 @@ body {
   }
 }
 
+.faq {
+  padding: 100px 0;
+}
+.faq h1 {
+  color: #eb6600;
+  margin-bottom: 35px;
+}
+.faq .accordion-button {
+  height: 75px;
+}
+.faq .accordion-button::after {
+  background-image: none;
+  font-family: "FontAwesome";
+  content: "\f059";
+  color: #eb6600;
+  font-size: large;
+}
+.faq .accordion-button:not(.collapsed) {
+  color: #EFFCFF;
+  background-color: #619194;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.13);
+}
+.faq .accordion-button:not(.collapsed)::after {
+  content: "\f06a";
+  color: #EFFCFF;
+}
+.faq b {
+  margin-right: 10px;
+  letter-spacing: 2px;
+}
+.faq .accordion-body {
+  padding: 30px;
+  padding-left: 50px;
+}
+
+.register-section {
+  height: 670px;
+  background-color: rgba(40, 54, 61, 0.5);
+  color: #EFFCFF;
+  padding: 100px 250px;
+  position: relative;
+  text-align: center;
+}
+.register-section h2 {
+  margin-bottom: 30px;
+  margin-top: 60px;
+}
+.register-section a {
+  display: inline-block;
+  padding: 17px 30px;
+  background-color: #eb6600;
+  color: #EFFCFF;
+  text-decoration: none;
+  border-radius: 7px;
+  box-shadow: 0 0 50px #eb6600;
+  font-size: larger;
+  font-weight: bold;
+  margin-top: 100px;
+  transition: all 0.2s ease;
+}
+.register-section a:hover {
+  background-color: #22BB33;
+  box-shadow: 0 0 50px #22BB33;
+}
+.register-section p {
+  font-size: large;
+}
+.register-section:before {
+  content: "";
+  background-image: url(/img/gathering.png);
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
 .theme-dark main {
   color: #EFFCFF;
+}
+.theme-dark .faq .accordion-button {
+  background-color: #28363d;
+  color: #EFFCFF;
+}
+.theme-dark .faq .accordion-body {
+  background-color: #28363d;
+}
+.theme-dark .faq .accordion-button:not(.collapsed) {
+  background-color: #619194;
 }
 .theme-dark .service-cards-container .service-card {
   box-shadow: 0 0 20px #4d7375;
