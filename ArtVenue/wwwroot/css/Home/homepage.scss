@@ -1,9 +1,10 @@
 ﻿@import '../Utility/_colors.scss';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@300&family=Sacramento&display=swap');
-#topNav{
-    background-color:transparent;
-    i.fas:not(.fa-sun):not(.fa-moon){
-        color:$textColor;
+#topNav {
+    background-color: transparent;
+
+    i.fas:not(.fa-sun):not(.fa-moon):not(.fa-user-cog):not(.fa-sign-out-alt) {
+        color: $textColor;
     }
 }
 body {

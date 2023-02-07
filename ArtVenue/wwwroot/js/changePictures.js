@@ -3,7 +3,7 @@ const CLOUDINARY_UPLOAD_PRESET = 'k4nawbiw';
 const image = document.querySelector('#fileupload');
 const background = document.querySelector('#backgroundUpload');
 
-document.getElementById('registerButton').addEventListener('click', (e) => {
+document.getElementById('update-profile-button').addEventListener('click', (e) => {
     e.preventDefault();
     if (image.files.length > 0 || background.files.length > 0) {
         if (image.files.length > 0) {
@@ -23,7 +23,7 @@ document.getElementById('registerButton').addEventListener('click', (e) => {
                     }
                 }).then(() => {
                     if (!background.files.length > 0) {
-                        document.getElementById('submitButtonHidden').click()
+                        document.getElementById('profile-form').submit()
                     }
 
                 })
@@ -44,12 +44,12 @@ document.getElementById('registerButton').addEventListener('click', (e) => {
                         document.getElementById('profileBackgroundInput').value = uploadedFileUrl;
                     }
                 }).then(() => {
-                        document.getElementById('submitButtonHidden').click()
+                    document.getElementById('profile-form').submit()
                 })
         }
     }
     else {
-        document.getElementById('submitButtonHidden').click()
+        document.getElementById('profile-form').submit()
     }
 
 })
@@ -59,16 +59,16 @@ image.addEventListener('change', (e) => {
             document.getElementById('profileImageInput').value = e.target.files[0].name
             document.getElementById('imageValidationText').innerText = ""
         }
-        else{
+        else {
             document.getElementById('imageValidationText').innerText = "Image is too large"
             image.value = null;
             document.getElementById('profileImageInput').value = ""
         }
     }
     else {
-            document.getElementById('imageValidationText').innerText = "Image should be in png, jpg, jpeg or gif format"
-            image.value = null;
-            document.getElementById('profileImageInput').value = ""
+        document.getElementById('imageValidationText').innerText = "Image should be in png, jpg, jpeg or gif format"
+        image.value = null;
+        document.getElementById('profileImageInput').value = ""
     }
 })
 

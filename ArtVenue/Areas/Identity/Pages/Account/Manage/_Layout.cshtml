@@ -8,13 +8,17 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
+@section Heads{
+    @RenderSection("Heads", required: false)
+    <link rel="stylesheet" href="~/css/Identity/manage.css" asp-append-version="true" />
+}
 
-<h1>Manage your account</h1>
 
-<div>
+<div class="container">
+    <h1>Manage your account</h1>
     <h2>Change your account settings</h2>
     <hr />
-    <div class="row">
+    <div class="row user-settings-container">
         <div class="col-md-3">
             <partial name="_ManageNav" />
         </div>

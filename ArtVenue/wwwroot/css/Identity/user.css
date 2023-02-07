@@ -1,0 +1,50 @@
+﻿.user-header {
+  margin: 40px auto;
+  position: relative;
+  margin-top: 0;
+}
+.user-header .user-cover-container {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+  background-color: #619194;
+  border-radius: 20px;
+}
+.user-header .user-cover-container img {
+  width: 100%;
+  max-height: 500px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+.user-header .profile-name-container {
+  position: relative;
+  height: 110px;
+}
+.user-header .profile-name-container img {
+  border-radius: 50%;
+  border: 3px solid #EFFCFF;
+  object-fit: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  top: -90px;
+}
+
+.form-floating input[type=file] {
+  display: none;
+}
+.form-floating .custom-file-upload {
+  border: 3px solid #eb6600;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  pointer-events: all;
+  height: 40px;
+  color: #eb6600;
+  margin-left: 30px;
+}
+.form-floating .custom-file-upload .fas {
+  color: #eb6600;
+}

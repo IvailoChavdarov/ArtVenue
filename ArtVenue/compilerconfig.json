@@ -66,5 +66,13 @@
   {
     "outputFile": "wwwroot/css/Posts/details.css",
     "inputFile": "wwwroot/css/Posts/details.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Identity/manage.css",
+    "inputFile": "wwwroot/css/Identity/manage.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Identity/user.css",
+    "inputFile": "wwwroot/css/Identity/user.scss"
   }
 ]

@@ -115,6 +115,9 @@ namespace ArtVenue.Areas.Identity.Pages.Account
 
             [Display(Name = "Profile image")]
             public string ProfileImage { get; set; }
+
+            [Display(Name = "Profile background image")]
+            public string ProfileBackground { get; set; }
         }
 
 
@@ -130,7 +133,7 @@ namespace ArtVenue.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.ThirdName, IsPublic = Input.IsPublic, ProfileImage = Input.ProfileImage };
+                var user = new AppUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.ThirdName, IsPublic = Input.IsPublic, ProfileImage = Input.ProfileImage, ProfileBackground=Input.ProfileBackground };
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 

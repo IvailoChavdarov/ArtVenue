@@ -2,7 +2,7 @@
 #topNav {
   background-color: transparent;
 }
-#topNav i.fas:not(.fa-sun):not(.fa-moon) {
+#topNav i.fas:not(.fa-sun):not(.fa-moon):not(.fa-user-cog):not(.fa-sign-out-alt) {
   color: #EFFCFF;
 }
 

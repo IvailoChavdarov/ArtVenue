@@ -1,0 +1,62 @@
+﻿@import "../Utility/_colors.scss";
+.user-settings-container {
+    .nav-link {
+        color: $mainColor;
+
+        &.active {
+            color: $textColor;
+            background-color: $mainColor;
+        }
+    }
+
+    .user-options-form-container {
+        font-size: 0;
+
+        .form-floating {
+            font-size: large;
+        }
+    }
+
+    .btn-mainColor {
+        background-color: $mainColor;
+        color: $textColor;
+    }
+
+    #download-data {
+        display: inline-block;
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    input:disabled {
+        background-color: $secondaryColor-light;
+        color: $textColor;
+    }
+
+    .reset-button {
+        color: $mainColor;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+    margin-bottom:50px;
+}
+.theme-dark{
+    .user-settings-container{
+        color:$textColor;
+        input{
+            background-color:$secondaryColor-dark;
+            color:$textColor;
+        }
+
+    }
+}

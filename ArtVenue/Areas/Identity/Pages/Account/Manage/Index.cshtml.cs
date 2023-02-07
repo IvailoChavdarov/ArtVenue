@@ -31,6 +31,8 @@ namespace ArtVenue.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public string Username { get; set; }
+        public string ProfileImage { get; set; }
+        public string ProfileBackground { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -45,7 +47,6 @@ namespace ArtVenue.Areas.Identity.Pages.Account.Manage
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
-
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -59,6 +60,25 @@ namespace ArtVenue.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Bio")]
+            public string Bio { get; set; }
+
+            [Display(Name = "Type of art")]
+            public string ArtType { get; set; }
+
+            [Display(Name = "Website")]
+            public string OutsideLink { get; set; }
+            [Display(Name = "Profile image")]
+            public string ProfileImage { get; set; }
+            [Display(Name = "Profile background")]
+            public string ProfileBackground { get; set; }
         }
 
         private async Task LoadAsync(AppUser user)
@@ -67,10 +87,18 @@ namespace ArtVenue.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
-
+            ProfileImage = user.GetProfileImage();
+            ProfileBackground = user.ProfileBackground;
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Bio = user.Bio,
+                ArtType= user.ArtType,
+                OutsideLink = user.OutsideLink,
+                ProfileImage = user.ProfileImage,
+                ProfileBackground = user.ProfileBackground
             };
         }
 
@@ -110,7 +138,35 @@ namespace ArtVenue.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+            if (Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+            }
+            if (Input.Bio != user.Bio)
+            {
+                user.Bio = Input.Bio;
+            }
+            if (Input.ArtType != user.ArtType)
+            {
+                user.ArtType = Input.ArtType;
+            }
+            if (Input.OutsideLink != user.OutsideLink)
+            {
+                user.OutsideLink = Input.OutsideLink;
+            }
+            if (Input.ProfileImage != user.ProfileImage)
+            {
+                user.ProfileImage = Input.ProfileImage;
+            }
+            if (Input.ProfileBackground != user.ProfileBackground)
+            {
+                user.ProfileBackground = Input.ProfileBackground;
+            }
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
