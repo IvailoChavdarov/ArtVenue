@@ -1,65 +1,76 @@
-﻿@model IEnumerable<ArtVenue.Models.Group>
+﻿@model GroupsIndexViewModel
 
 @{
-    ViewData["Title"] = "Groups";
+    ViewData["Title"] = "Your groups";
 }
 
 
 <div class="container">
-    <h1>Groups</h1>
-
+    <h1>Your groups</h1>
     <p>
-        <a asp-action="Create">Create New</a>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
     </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.GroupName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsPrivate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GroupPicture)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GroupBackground)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GroupName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsPrivate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GroupPicture)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GroupBackground)
-                </td>
-                <td>
-                    <a class="btn btn-outline-warning" asp-action="edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-outline-info" asp-action="members" asp-route-id="@item.Id">Members</a>
-                    @if(item.IsPrivate){
-                            <a class="btn btn-outline-secondary" asp-action="requests" asp-route-id="@item.Id">Requests</a>
-                    }
-                    <a class="btn btn-danger" asp-action="delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+    <div class="row table-heading">
+        <div class="col-4">Group name</div>
+        <div class="col-2">Public group</div>
+        <div class="col-2">Go to</div>
+        <div class="col-4">Manage</div>
+    </div>
+    @foreach (var group in Model.GroupsCreated)
+    {
+        <div class="row">
+            <div class="col-4">
+                @group.GroupName
+            </div>
+            @if (group.IsPrivate)
+            {
+                <div class="col-2 bg-danger"></div>
+            }
+            else
+            {
+                <div class="col-2 bg-success"></div>
+            }
+            <div class="col-2">
+                <a class="btn btn-outline-info" asp-controller="posts" asp-action="group" asp-route-id="@group.Id">Posts</a>
+                <a class="btn btn-outline-warning" asp-controller="chat" asp-action="group" asp-route-id="@group.Id">Chat</a>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-outline-warning" asp-action="edit" asp-route-id="@group.Id">Edit</a>
+                <a class="btn btn-outline-info" asp-action="members" asp-route-id="@group.Id">Members</a>
+                @if (group.IsPrivate)
+                {
+                    <a class="btn btn-outline-secondary" asp-action="requests" asp-route-id="@group.Id">Requests</a>
+                }
+                <a class="btn btn-danger" asp-action="delete" asp-route-id="@group.Id">Delete</a>
+            </div>
+        </div>
     }
-        </tbody>
-    </table>
+
+    <hr />
+    <h1>Groups you have joined</h1>
+    <div class="row table-heading">
+        <div class="col-4">Group name</div>
+        <div class="col-2">Public group</div>
+        <div class="col-6">Go to</div>
+    </div>
+    @foreach (var group in Model.GroupsJoined)
+    {
+        <div class="row">
+            <div class="col-4">
+                @group.GroupName
+            </div>
+            @if (group.IsPrivate)
+            {
+                <div class="col-2 bg-danger"></div>
+            }
+            else
+            {
+                <div class="col-2 bg-success"></div>
+            }
+            <div class="col-6">
+                <a class="btn btn-outline-info" asp-controller="posts" asp-action="group" asp-route-id="@group.Id">Posts</a>
+                <a class="btn btn-outline-warning" asp-controller="chat" asp-action="group" asp-route-id="@group.Id">Chat</a>
+            </div>
+        </div>
+    }
 </div>

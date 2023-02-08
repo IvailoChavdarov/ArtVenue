@@ -9,6 +9,7 @@ using ArtVenue.Data;
 using ArtVenue.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using ArtVenue.ViewModels;
 
 namespace ArtVenue.Controllers
 {
@@ -29,11 +30,26 @@ namespace ArtVenue.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             List<Group> groupsCreated = new List<Group>();
+            List<Group> groupsJoined = new List<Group>();
             if (_db.Groups.Where(x => x.CreatorId == user.Id).Any())
             {
                 groupsCreated = await _db.Groups.Where(x => x.CreatorId == user.Id).ToListAsync();
             }
-            return View(groupsCreated);
+            int[] groupsCreatedIds = groupsCreated.Select(x => x.Id).ToArray();
+            foreach (var membership in _db.Groups_Members.Where(x=>x.MemberId == user.Id))
+            {
+                if (!groupsCreatedIds.Contains(membership.GroupId))
+                {
+                    Group groupJoined = await _db.Groups.FindAsync(membership.GroupId);
+                    groupsJoined.Add(groupJoined);
+                }
+            }
+            GroupsIndexViewModel data = new GroupsIndexViewModel()
+            {
+                GroupsCreated = groupsCreated,
+                GroupsJoined = groupsJoined
+            };
+            return View(data);
         }
 
         // GET: Groups/Create

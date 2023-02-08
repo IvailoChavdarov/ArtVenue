@@ -1,9 +1,9 @@
 ﻿const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/ddo3vrwcb/image/upload';
 const CLOUDINARY_UPLOAD_PRESET = 'k4nawbiw';
-const image = document.querySelector('#fileupload');
+const image = document.querySelector('#imageUpload');
 const background = document.querySelector('#backgroundUpload');
-
-document.getElementById('registerButton').addEventListener('click', (e) => {
+const groupForm = document.getElementById("groupForm");
+document.getElementById('groupFormButton').addEventListener('click', (e) => {
     e.preventDefault();
     if (image.files.length > 0 || background.files.length > 0) {
         if (image.files.length > 0) {
@@ -19,7 +19,7 @@ document.getElementById('registerButton').addEventListener('click', (e) => {
                 .then((data) => {
                     if (data.secure_url !== '') {
                         const uploadedFileUrl = data.secure_url;
-                        document.getElementById('profileImageInput').value = uploadedFileUrl;
+                        document.getElementById('groupImageInput').value = uploadedFileUrl;
                     }
                 }).then(() => {
                     if (background.files.length > 0) {
@@ -35,18 +35,18 @@ document.getElementById('registerButton').addEventListener('click', (e) => {
                             .then((data) => {
                                 if (data.secure_url !== '') {
                                     const uploadedFileUrl = data.secure_url;
-                                    document.getElementById('profileBackgroundInput').value = uploadedFileUrl;
+                                    document.getElementById('groupBackgroundInput').value = uploadedFileUrl;
                                 }
                             }).then(() => {
-                                document.getElementById('submitButtonHidden').click()
+                                groupForm.submit();
                             })
                     }
                     else {
-                        document.getElementById('submitButtonHidden').click()
+                        groupForm.submit();
                     }
                 })
         }
-        else{
+        else {
             const file = background.files[background.files.length - 1];
             const formData = new FormData();
             formData.append('file', file);
@@ -59,34 +59,34 @@ document.getElementById('registerButton').addEventListener('click', (e) => {
                 .then((data) => {
                     if (data.secure_url !== '') {
                         const uploadedFileUrl = data.secure_url;
-                        document.getElementById('profileBackgroundInput').value = uploadedFileUrl;
+                        document.getElementById('groupBackgroundInput').value = uploadedFileUrl;
                     }
                 }).then(() => {
-                        document.getElementById('submitButtonHidden').click()
+                    groupForm.submit();
                 })
         }
     }
     else {
-        document.getElementById('submitButtonHidden').click()
+        groupForm.submit();
     }
 
 })
 image.addEventListener('change', (e) => {
     if (e.target.files[image.files.length - 1].name.endsWith(".png") || e.target.files[image.files.length - 1].name.endsWith(".jpg") || e.target.files[image.files.length - 1].name.endsWith(".jpeg") | e.target.files[image.files.length - 1].name.endsWith(".gif")) {
         if (e.target.files[0].size < 1100000) {
-            document.getElementById('profileImageInput').value = e.target.files[0].name
+            document.getElementById('groupImageInput').value = e.target.files[0].name
             document.getElementById('imageValidationText').innerText = ""
         }
-        else{
+        else {
             document.getElementById('imageValidationText').innerText = "Image is too large"
             image.value = null;
-            document.getElementById('profileImageInput').value = ""
+            document.getElementById('groupImageInput').value = ""
         }
     }
     else {
-            document.getElementById('imageValidationText').innerText = "Image should be in png, jpg, jpeg or gif format"
-            image.value = null;
-            document.getElementById('profileImageInput').value = ""
+        document.getElementById('imageValidationText').innerText = "Image should be in png, jpg, jpeg or gif format"
+        image.value = null;
+        document.getElementById('groupImageInput').value = ""
     }
 })
 
@@ -94,18 +94,18 @@ image.addEventListener('change', (e) => {
 background.addEventListener('change', (e) => {
     if (e.target.files[background.files.length - 1].name.endsWith(".png") || e.target.files[background.files.length - 1].name.endsWith(".jpg") || e.target.files[background.files.length - 1].name.endsWith(".jpeg") | e.target.files[background.files.length - 1].name.endsWith(".gif")) {
         if (e.target.files[0].size < 1100000) {
-            document.getElementById('profileBackgroundInput').value = e.target.files[0].name
+            document.getElementById('groupBackgroundInput').value = e.target.files[0].name
             document.getElementById('backgroundValidationText').innerText = ""
         }
         else {
             document.getElementById('backgroundValidationText').innerText = "Image is too large"
             background.value = null;
-            document.getElementById('profileBackgroundInput').value = ""
+            document.getElementById('groupBackgroundInput').value = ""
         }
     }
     else {
         document.getElementById('backgroundValidationText').innerText = "Image should be in png, jpg, jpeg or gif format"
         background.value = null;
-        document.getElementById('profileBackgroundInput').value = ""
+        document.getElementById('groupBackgroundInput').value = ""
     }
 })

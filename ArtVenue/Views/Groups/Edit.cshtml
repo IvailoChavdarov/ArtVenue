@@ -3,13 +3,36 @@
 @{
     ViewData["Title"] = "Edit";
 }
+@section Heads{
+        <style>
+            input[type="file"] {
+                display: none;
+            }
+
+            .form-floating .custom-file-upload {
+                border: 3px solid #eb6600;
+                display: inline-block;
+                padding: 6px 12px;
+                cursor: pointer;
+                pointer-events: all;
+                height: 45px;
+                color: #eb6600;
+                margin-left: 30px;
+                transition: all .2s;
+            }
+
+            .custom-file-upload .fas {
+                color: #eb6600;
+            }
+        </style>
+}
 <div class="container">
     <h1>Edit</h1>
     <h4>Group</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="UpdateGroup">
+            <form asp-action="UpdateGroup" id="groupForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
@@ -27,19 +50,35 @@
                         <input class="form-check-input" asp-for="IsPrivate" /> Private group
                     </label>
                 </div>
-                <div class="form-group">
-                    <label asp-for="GroupPicture" class="control-label"></label>
-                    <input asp-for="GroupPicture" class="form-control" />
+                <div class="form-floating">
+                    <input asp-for="GroupPicture" class="form-control" id="groupImageInput" placeholder="Image URL" />
+                    <label asp-for="GroupPicture"></label>
                     <span asp-validation-for="GroupPicture" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="GroupBackground" class="control-label"></label>
-                    <input asp-for="GroupBackground" class="form-control" />
+                <div class="form-floating" style="height:50px">
+                    <span> or </span>
+                    <label for="imageUpload" class="custom-file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload image
+                    </label>
+                    <input type="file" id="imageUpload" />
+                    <span id="imageValidationText" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="GroupBackground" class="form-control" id="groupBackgroundInput" placeholder="Image URL" />
+                    <label asp-for="GroupBackground"></label>
                     <span asp-validation-for="GroupBackground" class="text-danger"></span>
+                </div>
+                <div class="form-floating" style="height:50px">
+                    <span> or </span>
+                    <label for="backgroundUpload" class="custom-file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload image
+                    </label>
+                    <input type="file" id="backgroundUpload" />
+                    <span id="backgroundValidationText" class="text-danger"></span>
                 </div>
                 <input asp-for="CreatorId" value="@Model.CreatorId" type="hidden">
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Save" id="groupFormButton" class="btn btn-primary" />
                 </div>
             </form>
         </div>
@@ -51,4 +90,5 @@
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/groupImages.js"></script>
 }
