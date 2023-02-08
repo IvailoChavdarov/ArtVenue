@@ -261,7 +261,11 @@ namespace ArtVenue.Controllers
             Dictionary<string, PostCreator> userNames = new Dictionary<string, PostCreator>();
             PostsGroupViewModel data = new PostsGroupViewModel();
             AppUser currentUser = await _userManager.GetUserAsync(User);
-            data.Group = _db.Groups.Where(x => x.Id == id).First();
+            data.Group = _db.Groups.Where(x => x.Id == id).FirstOrDefault();
+            if (data.Group == null)
+            {
+                return NotFound();
+            }
             data.Group.GroupPicture = data.Group.GetGroupPicture();
             data.IsInGroup = _db.Groups_Members.Where(x => x.GroupId == id && x.MemberId == currentUser.Id).Any();
             data.HasAccess = data.IsInGroup || !data.Group.IsPrivate;
@@ -269,6 +273,7 @@ namespace ArtVenue.Controllers
             data.NextPage = false;
             data.UserId = currentUser.Id;
             data.HasRequestedToJoin = _db.Groups_Requests.Where(x => x.GroupId == id && x.MemberId == currentUser.Id).Any();
+            data.IsGroupCreator = currentUser.Id == data.Group.CreatorId;
             if (data.HasAccess)
             {
                 int pageSize = 25;

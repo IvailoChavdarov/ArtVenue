@@ -17,36 +17,51 @@
                 {
                     <img src="@Model.Group.GroupBackground" />
                 }
-                @if (Model.IsInGroup)
+                @if (Model.IsGroupCreator)
                 {
-                    <form asp-controller="posts" asp-action="leavegroup" asp-route-groupId="@Model.Group.Id">
-                        <i class="fa-solid fa-right-to-bracket" style="-webkit-transform: scaleX(-1);transform: scaleX(-1);"></i><input type="submit" class="btn-danger" value="Leave @Model.Group.GroupName">
-                    </form>
+                    <div class="group-settings-buttons-container">
+                        <a asp-controller="groups" asp-action="edit" asp-route-id="@Model.Group.Id" class="btn-mainColor"><i class="fa-solid fa-gears"></i> Group settings</a>
+                        <a asp-controller="groups" asp-action="members" asp-route-id="@Model.Group.Id" class="bg-warning"><i class="fa-solid fa-users"></i> Group members</a>
+                        @if (Model.Group.IsPrivate)
+                        {
+                            <a asp-controller="groups" asp-action="requests" asp-route-id="@Model.Group.Id" class="bg-success"><i class="fa-regular fa-envelope"></i> Join requests</a>
+                        }
+                    </div>
                 }
                 else
                 {
-                    if (Model.Group.IsPrivate)
+                    @if (Model.IsInGroup)
                     {
-                        if (Model.HasRequestedToJoin)
+                        <form asp-controller="posts" asp-action="leavegroup" asp-route-groupId="@Model.Group.Id">
+                            <i class="fa-solid fa-right-to-bracket" style="-webkit-transform: scaleX(-1);transform: scaleX(-1);"></i><input type="submit" class="btn-danger" value="Leave @Model.Group.GroupName">
+                        </form>
+                    }
+                    else
+                    {
+                        if (Model.Group.IsPrivate)
                         {
-                            <form asp-controller="posts" asp-action="canceljoinrequest" asp-route-groupId="@Model.Group.Id">
-                                <i class="fa-solid fa-door-closed"></i><input type="submit" class="btn-danger" value="Cancel request to join @Model.Group.GroupName">
-                            </form>
+                            if (Model.HasRequestedToJoin)
+                            {
+                                <form asp-controller="posts" asp-action="canceljoinrequest" asp-route-groupId="@Model.Group.Id">
+                                    <i class="fa-solid fa-door-closed"></i><input type="submit" class="btn-danger" value="Cancel request to join @Model.Group.GroupName">
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id">
+                                    <i class="fa-solid fa-door-open"></i><input type="submit" class="btn-success" value="Request to join @Model.Group.GroupName">
+                                </form>
+                            }
                         }
                         else
                         {
                             <form asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id">
-                                <i class="fa-solid fa-door-open"></i><input type="submit" class="btn-success" value="Request to join @Model.Group.GroupName">
+                                <i class="fa-solid fa-right-to-bracket"></i><input type="submit" class="btn-success" value="Join @Model.Group.GroupName">
                             </form>
                         }
                     }
-                    else
-                    {
-                        <form asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id">
-                            <i class="fa-solid fa-right-to-bracket"></i><input type="submit" class="btn-success" value="Join @Model.Group.GroupName">
-                        </form>
-                    }
                 }
+                
             </div>
             <div class="profile-name-container">
                 <img src="@Model.Group.GroupPicture" height="160" width="160" />

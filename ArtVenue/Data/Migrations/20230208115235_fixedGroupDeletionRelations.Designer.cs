@@ -4,6 +4,7 @@ using ArtVenue.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtVenue.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230208115235_fixedGroupDeletionRelations")]
+    partial class fixedGroupDeletionRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,7 +138,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Comment", b =>
@@ -168,7 +170,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.DirectChat", b =>
@@ -193,7 +195,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("SecondUserId");
 
-                    b.ToTable("DirectChats", (string)null);
+                    b.ToTable("DirectChats");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.GalleryImage", b =>
@@ -215,7 +217,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("PublicationId");
 
-                    b.ToTable("GalleryImages", (string)null);
+                    b.ToTable("GalleryImages");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Group", b =>
@@ -251,7 +253,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Groups", (string)null);
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Groups_Members", b =>
@@ -271,7 +273,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Groups_Members", (string)null);
+                    b.ToTable("Groups_Members");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Groups_Requests", b =>
@@ -286,7 +288,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Groups_Requests", (string)null);
+                    b.ToTable("Groups_Requests");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Message", b =>
@@ -323,7 +325,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Publication", b =>
@@ -370,7 +372,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Publications", (string)null);
+                    b.ToTable("Publications");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Publications_Categories", b =>
@@ -385,7 +387,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Publications_Categories", (string)null);
+                    b.ToTable("Publications_Categories");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Users_Interests", b =>
@@ -400,7 +402,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Interests", (string)null);
+                    b.ToTable("Interests");
                 });
 
             modelBuilder.Entity("ArtVenue.Models.Users_Saved", b =>
@@ -415,7 +417,7 @@ namespace ArtVenue.Data.Migrations
 
                     b.HasIndex("PublicationId");
 
-                    b.ToTable("Saved", (string)null);
+                    b.ToTable("Saved");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

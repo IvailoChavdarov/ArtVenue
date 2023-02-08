@@ -226,7 +226,8 @@ body {
 .posts-sidenav {
     padding-top: 30px;
     font-size: 22px;
-    text-align:center;
+    text-align: center;
+
     a {
         color: $textColor;
         padding: 7px;
@@ -239,7 +240,7 @@ body {
         text-decoration: none;
         height: 50px;
         transition: all $changeThemeAnimationTime;
-        max-width:100%;
+        max-width: 100%;
     }
 
     .user-button {
@@ -257,12 +258,24 @@ body {
         background-color: #4bcf00;
     }
 
+    .groups-button {
+        background-color: $starColor;
+    }
+
     img {
         border-radius: 50%;
         object-fit: cover;
+        float: left;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
-    i, img {
+    .user-acc-button img {
+        float: initial;
+        margin-left: 0;
+    }
+
+    i, .user-acc-button img {
         margin-right: 15px;
         font-size: 24px;
     }
@@ -290,6 +303,7 @@ body {
     margin-top:30px;
     font-weight:bold;
 }
+
 .publication-list-title{
     text-align:center;
     color:$secondaryColor-dark;
@@ -326,6 +340,7 @@ body {
 }
 
 .theme-dark {
+    color:$textColor;
     .post-fullname {
         color: $textColor;
     }

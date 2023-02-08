@@ -15,10 +15,10 @@ namespace ArtVenue.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppUser>()
-                .HasMany(u => u.Messages_Sent)
-                .WithOne(m => m.Sender)
-                .IsRequired(true)
-                .OnDelete(DeleteBehavior.Cascade);
+                            .HasMany(u => u.Messages_Sent)
+                            .WithOne(m => m.Sender)
+                            .IsRequired(true)
+                            .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.DirectChat)
@@ -41,13 +41,13 @@ namespace ArtVenue.Data
                 .HasOne(user => user.Member)
                 .WithMany(userGroups => userGroups.GroupsJoined)
                 .HasForeignKey(gm => gm.MemberId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Groups_Members>()
                 .HasOne(user => user.Group)
                 .WithMany(groupMembers => groupMembers.Memberships)
                 .HasForeignKey(gm => gm.GroupId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Groups_Requests>()
                .HasKey(gm => new { gm.MemberId, gm.GroupId });
@@ -56,27 +56,27 @@ namespace ArtVenue.Data
                 .HasOne(user => user.Member)
                 .WithMany(userGroups => userGroups.GroupsJoinRequested)
                 .HasForeignKey(gm => gm.MemberId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Groups_Requests>()
                 .HasOne(user => user.Group)
                 .WithMany(groupMembers => groupMembers.Requests)
                 .HasForeignKey(gm => gm.GroupId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             modelBuilder.Entity<Publication>()
                 .HasOne(publication => publication.Creator)
                 .WithMany(user => user.PublicationsPosted)
                 .HasForeignKey(publication => publication.CreatorId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<Publication>()
                 .HasOne(publication => publication.Group)
                 .WithMany(group => group.Publications)
                 .HasForeignKey(publication => publication.GroupId)
                 .IsRequired(false)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<GalleryImage>()
                 .HasOne(image => image.Publication)
@@ -155,7 +155,7 @@ namespace ArtVenue.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Group>()
-                .Property(x=>x.GroupBackground)
+                .Property(x => x.GroupBackground)
                 .IsRequired(false);
 
             modelBuilder.Entity<Group>()

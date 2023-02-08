@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Groups_Requests>
+<div class="container">
+    <h1>Requests</h1>
+    <hr />
+    @foreach (var request in Model)
+    {
+        <div class="row">
+            <div class="col-6">
+                @request.Member.FirstName @request.Member.LastName
+            </div>
+            <div class="col-3">
+                <form asp-action="acceptrequest" asp-route-groupId="@request.GroupId" asp-route-userId="@request.MemberId">
+                    <input type="submit" value="Accept" class="btn btn-success" />
+                </form>
+            </div>
+            <div class="col-3">
+                <form asp-action="deleterequest" asp-route-groupId="@request.GroupId" asp-route-userId="@request.MemberId">
+                    <input type="submit" value="Decline" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+    }
+    <div>
+        <a asp-action="index">Back to your groups</a>
+    </div>
+</div>

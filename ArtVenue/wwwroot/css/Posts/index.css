@@ -239,11 +239,21 @@
 .posts-sidenav .saved-button {
   background-color: #4bcf00;
 }
+.posts-sidenav .groups-button {
+  background-color: rgb(245, 197, 24);
+}
 .posts-sidenav img {
   border-radius: 50%;
   object-fit: cover;
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-.posts-sidenav i, .posts-sidenav img {
+.posts-sidenav .user-acc-button img {
+  float: initial;
+  margin-left: 0;
+}
+.posts-sidenav i, .posts-sidenav .user-acc-button img {
   margin-right: 15px;
   font-size: 24px;
 }
@@ -307,6 +317,9 @@
   height: 0;
 }
 
+.theme-dark {
+  color: #EFFCFF;
+}
 .theme-dark .post-fullname {
   color: #EFFCFF;
 }

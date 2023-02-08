@@ -114,6 +114,39 @@
             border-bottom: 1px solid $mainColor;
         }
     }
+
+    .group-settings-buttons-container {
+        position: absolute;
+        bottom: 20px;
+        right: 40px;
+        padding: 20px;
+        width: 200px;
+
+        a {
+            border-radius: 10px;
+            line-height: 20px;
+            display: inline-block;
+            width: 200px;
+            color: $textColor;
+            padding: 7px 15px;
+            text-decoration: none;
+            border: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-left: 32px;
+            position: static;
+            opacity: 1;
+
+            i {
+                margin-right: 5px;
+                color: $textColor;
+            }
+        }
+
+        .btn-mainColor {
+            background-color: $mainColor;
+        }
+    }
 }
 .theme-dark {
     .user-header {

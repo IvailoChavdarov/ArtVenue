@@ -8,5 +8,6 @@ namespace ArtVenue.ViewModels
         public bool HasRequestedToJoin { get; set; }
         public bool IsInGroup { get; set; }
         public bool HasAccess { get; set; }
+        public bool IsGroupCreator { get; set; }
     }
 }

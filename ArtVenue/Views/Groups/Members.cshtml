@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Groups_Members>
+@{
+    ViewData["Title"] = "Members";
+}
+
+<div class="container">
+    <h1>Members</h1>
+    <hr />
+    @foreach (var membership in Model)
+    {
+        <div class="row">
+            <div class="col-6">
+                @membership.Member.FirstName @membership.Member.LastName
+            </div>
+            <div class="col-4">@membership.JoinedDate</div>
+            <div class="col-2">
+                <form asp-action="removemember" asp-route-groupId="@membership.GroupId" asp-route-userId="@membership.MemberId">
+                    <input type="submit" value="Remove member" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+    }
+    <div>
+        <a asp-action="index">Back to your groups</a>
+    </div>
+</div>

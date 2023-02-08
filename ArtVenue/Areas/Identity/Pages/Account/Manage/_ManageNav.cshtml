@@ -1,10 +1,27 @@
 ﻿@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    var user = await UserManager.GetUserAsync(User);
+    bool IsAdmin = await UserManager.IsInRoleAsync(user, "admin");
+    bool IsModerator = await UserManager.IsInRoleAsync(user, "moderator");
 }
 <ul class="nav nav-pills flex-column">
     <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
+    @if (IsAdmin||IsModerator)
+    {
+        <li class="nav-item">
+            @if (IsModerator)
+            {
+                <a class="nav-link" id="personal-data" asp-controller="admin" asp-action="index">Moderation</a>
+            }
+            else
+            {
+                <a class="nav-link" id="personal-data" asp-controller="admin" asp-action="index">Admin panel</a>
+            }
+        </li>
+    }
 </ul>

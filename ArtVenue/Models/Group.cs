@@ -17,9 +17,9 @@ namespace ArtVenue.Models
         [Required]
         public bool IsPrivate { get; set; }
         [AllowNull]
-        public string GroupPicture { get; set; }
+        public string? GroupPicture { get; set; }
         [AllowNull]
-        public string GroupBackground { get; set; }
+        public string? GroupBackground { get; set; }
         [Required]
         public string CreatorId { get; set; }
         public AppUser Creator { get; set; }

@@ -23,12 +23,30 @@ document.getElementById('registerButton').addEventListener('click', (e) => {
                     }
                 }).then(() => {
                     if (!background.files.length > 0) {
+                        const file = background.files[background.files.length - 1];
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+                        fetch(CLOUDINARY_URL, {
+                            method: 'POST',
+                            body: formData,
+                        })
+                            .then(response => response.json())
+                            .then((data) => {
+                                if (data.secure_url !== '') {
+                                    const uploadedFileUrl = data.secure_url;
+                                    document.getElementById('profileBackgroundInput').value = uploadedFileUrl;
+                                }
+                            }).then(() => {
+                                document.getElementById('submitButtonHidden').click()
+                            })
+                    }
+                    else {
                         document.getElementById('submitButtonHidden').click()
                     }
-
                 })
         }
-        if (background.files.length > 0) {
+        else{
             const file = background.files[background.files.length - 1];
             const formData = new FormData();
             formData.append('file', file);

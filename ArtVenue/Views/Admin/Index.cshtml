@@ -1,0 +1,14 @@
+﻿@model bool
+@{
+    ViewData["Title"] = Model? "Admin panel" : "Moderation";
+}
+<div class="container">
+    <a asp-controller="admin" asp-action="users">Users</a>
+    <a asp-controller="admin" asp-action="publications">Publications</a>
+    <a asp-controller="admin" asp-action="groups">Groups</a>
+    <a asp-controller="admin" asp-action="categories">Categories</a>
+    @if (Model)
+    {
+        <a asp-controller="admin" asp-action="managemoderators">Manage moderators</a>
+    }
+</div>

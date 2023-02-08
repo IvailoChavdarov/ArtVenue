@@ -95,6 +95,35 @@
 .user-header .user-info-container a:hover {
   border-bottom: 1px solid #eb6600;
 }
+.user-header .group-settings-buttons-container {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  padding: 20px;
+  width: 200px;
+}
+.user-header .group-settings-buttons-container a {
+  border-radius: 10px;
+  line-height: 20px;
+  display: inline-block;
+  width: 200px;
+  color: #EFFCFF;
+  padding: 7px 15px;
+  text-decoration: none;
+  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 32px;
+  position: static;
+  opacity: 1;
+}
+.user-header .group-settings-buttons-container a i {
+  margin-right: 5px;
+  color: #EFFCFF;
+}
+.user-header .group-settings-buttons-container .btn-mainColor {
+  background-color: #eb6600;
+}
 
 .theme-dark .user-header .profile-name-container img {
   border-color: #28363d;

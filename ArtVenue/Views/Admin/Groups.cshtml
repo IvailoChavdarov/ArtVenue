@@ -1,0 +1,14 @@
+﻿@model AdminGroupsViewModel
+@foreach (var group in Model.Groups)
+{
+    <div class="row">
+        <div class="col-8">
+            @group.GroupName
+        </div>
+        <div class="col-4">
+                <form asp-action="deletegroup" asp-route-id="@group.Id" method="post">
+                    <button type="submit" class="btn btn-danger">Delete group</button>
+                </form>
+        </div>
+    </div>
+}

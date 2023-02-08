@@ -30,13 +30,14 @@ namespace ArtVenue.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<AppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
         public RegisterModel(
             UserManager<AppUser> userManager,
             IUserStore<AppUser> userStore,
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager
+            )
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -162,6 +163,11 @@ namespace ArtVenue.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        var admins = await _userManager.GetUsersInRoleAsync("admin");
+                        if (admins.Count == 0)
+                        {
+                            await _userManager.AddToRoleAsync(user, "admin");
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }
