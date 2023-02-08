@@ -1,12 +1,12 @@
-﻿@model IEnumerable<Groups_Members>
+﻿@model GroupsMembersViewModel
 @{
-    ViewData["Title"] = "Members";
+    ViewData["Title"] = Model.GroupName + " members";
 }
 
 <div class="container">
-    <h1>Members</h1>
+    <h1>@Model.GroupName members</h1>
     <hr />
-    @foreach (var membership in Model)
+    @foreach (var membership in Model.Memberships)
     {
         <div class="row">
             <div class="col-6">

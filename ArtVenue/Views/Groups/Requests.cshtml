@@ -1,8 +1,11 @@
-﻿@model IEnumerable<Groups_Requests>
+﻿@model GroupsRequestsViewModel
+@{
+    ViewData["Title"] = Model.GroupName + " join requests";
+}
 <div class="container">
-    <h1>Requests</h1>
+    <h1>@Model.GroupName join requests</h1>
     <hr />
-    @foreach (var request in Model)
+    @foreach (var request in Model.Requests)
     {
         <div class="row">
             <div class="col-6">

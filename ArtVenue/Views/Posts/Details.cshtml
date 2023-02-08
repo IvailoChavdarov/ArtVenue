@@ -6,6 +6,7 @@
     <div class="col-12 col-lg-2"><a id="backbutton">Back</a></div>
     <div class="col-12 col-lg-10">
         <div class="post-container">
+            <h2>@Model.Post.PublicationTitle</h2>
             @if (!string.IsNullOrEmpty(Model.Post.VideoLink) || !string.IsNullOrEmpty(Model.Post.EmbeddedVideoLink) || !string.IsNullOrEmpty(Model.Post.ImageLink))
             {
                 <div class="post-image">
@@ -18,7 +19,7 @@
                     }
                     else if (!string.IsNullOrEmpty(Model.Post.EmbeddedVideoLink))
                     {
-                        <iframe src="@Model.Post.EmbeddedVideoLink" width="300" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="@Model.Post.EmbeddedVideoLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     }
                     else if (!string.IsNullOrEmpty(Model.Post.ImageLink))
                     {
@@ -26,9 +27,34 @@
                     }
                 </div>
             }
+            @if (Model.Post.HasManyImages)
+            {
+                <div class="galleryContainer">
+                    @for (int i = 0; i < Model.Post.Images.Count; i++)
+                    {
+                        <div class="gallerySlide">
+                            <div class="numbertext">@(i + 1) / @Model.Post.Images.Count</div>
+                            <img src="@Model.Post.Images[i]">
+                        </div> 
+                    }
+
+                    <a class="prev NoLoader" onclick="plusSlides(-1)">❮</a>
+                    <a class="next NoLoader" onclick="plusSlides(1)">❯</a>
+
+
+                    <div class="galleryFooter">
+                        @for (int i = 0; i < Model.Post.Images.Count; i++)
+                        {
+                            <div class="galleryFooter-column">
+                                <img class="demo cursor" src="@Model.Post.Images[i]" onclick="currentSlide(@(i+1))">
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
             <div class="post-info">
-                <h2>Post Title</h2>
                 <p>@Model.Post.PublicationText</p>
+                <p style="text-align:right">@Model.Post.PostedTime</p>
                 <div class="post-meta">
                     <div class="post-author-image">
                         <img src="@Model.Creator.GetProfileImage()" alt="author">
@@ -41,18 +67,7 @@
             </div>
         </div>
     </div>
-    </div>
-
-<script>
-    if(document.referrer){
-        if(document.referrer == window.location.href){
-            document.getElementById("backbutton").href = "/posts/index"
-        }
-        else{
-            document.getElementById("backbutton").href = document.referrer;
-        }
-    }
-    else{
-        document.getElementById("backbutton").href = "/posts/index"
-    }
-</script>
+</div>
+@section Scripts{
+    <script src="~/js/publicationDetails.js"></script>
+}

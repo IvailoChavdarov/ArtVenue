@@ -29,7 +29,7 @@ namespace ArtVenue.Controllers
             page -= 1;
             AppUser currentUser = await _userManager.GetUserAsync(User);
             List<int> categoriesInterestedInId = _db.Interests.Where(x => x.UserId == currentUser.Id).Select(x => x.CategoryId).ToList();
-            List<Publication> publications = _db.Publications.OrderByDescending(x => x.PostedTime).ToList();
+            List<Publication> publications = _db.Publications.Where(x=>x.GroupId==null).OrderByDescending(x => x.PostedTime).ToList();
             for (int i = 0; i < publications.Count; i++)
             {
                 publications[i].CategoriesIds = _db.Publications_Categories
@@ -112,7 +112,7 @@ namespace ArtVenue.Controllers
             int pageSize = 25;
             page -= 1;
 
-            List<Publication> publications = _db.Publications.OrderByDescending(x => x.PostedTime).ToList();
+            List<Publication> publications = _db.Publications.Where(x => x.GroupId == null).OrderByDescending(x => x.PostedTime).ToList();
             for (int i = 0; i < publications.Count; i++)
             {
                 publications[i].CategoriesIds = _db.Publications_Categories
@@ -350,7 +350,7 @@ namespace ArtVenue.Controllers
             {
                 userToFind = await _userManager.FindByIdAsync(id);
             }
-            List<Publication> publications = _db.Publications.Where(x => x.CreatorId == userToFind.Id).OrderByDescending(x => x.PostedTime).ToList();
+            List<Publication> publications = _db.Publications.Where(x => x.CreatorId == userToFind.Id && x.GroupId==null).OrderByDescending(x => x.PostedTime).ToList();
             List<Publication> sortedPublications = publications.Skip(page * pageSize).Take(pageSize).ToList();
             foreach (var publication in sortedPublications)
             {
@@ -431,6 +431,18 @@ namespace ArtVenue.Controllers
             }
             else
             {
+                if (data.Post.GroupId.HasValue)
+                {
+                    Group group = await _db.Groups.FindAsync(data.Post.GroupId.Value);
+                    if (!(_db.Groups_Members.Where(x => x.GroupId == group.Id && x.MemberId == _userManager.GetUserId(User)).Any() || !group.IsPrivate))
+                    {
+                        return Unauthorized();
+                    }
+                }
+                if (data.Post.HasManyImages)
+                {
+                    data.Post.Images = _db.GalleryImages.Where(x=>x.PublicationId==data.Post.Id).Select(x=>x.ImageLink).ToList();
+                }
                 data.Creator = await _userManager.FindByIdAsync(data.Post.CreatorId);
             }
             return View(data);
@@ -443,6 +455,10 @@ namespace ArtVenue.Controllers
             data.PublicationToPost.CreatorId = _userManager.GetUserId(User);
             data.PublicationToPost.PostedTime = DateTime.Today.Day.ToString();
             data.PublicationToPost.Categories = new HashSet<Publications_Categories>();
+            if (data.PublicationToPost.GroupId < 0)
+            {
+                data.PublicationToPost.GroupId = null;
+            }
             try
             {
                 foreach (var categoryId in data.PublicationToPostCategoriesIds.Where(x=>x>=0))
@@ -645,6 +661,6 @@ namespace ArtVenue.Controllers
             }
             return groups;
         }
-        
+
     }
 }

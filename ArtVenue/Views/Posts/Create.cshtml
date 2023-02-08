@@ -46,6 +46,19 @@
             <input asp-for="PublicationToPost.PublicationText" class="form-control" />
             <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
         </div>
+        @if (Model.UserGroups.Any())
+        {
+            <div class="form-group">
+                <label asp-for="PublicationToPost.GroupId">Group</label>
+                <select asp-for="PublicationToPost.GroupId" class="form-select">
+                    <option value="-1">None</option>
+                    @foreach (var group in Model.UserGroups)
+                    {
+                        <option value="@group.Id">@group.GroupName</option>
+                    }
+                </select>
+            </div>
+        }
             <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden/>
         <div class="form-group categoires-inputs">
             <label asp-for="PublicationToPost.Categories">Categories</label>
@@ -83,6 +96,19 @@
             <input asp-for="PublicationToPost.PublicationText" class="form-control" />
             <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
         </div>
+        @if (Model.UserGroups.Any())
+        {
+            <div class="form-group">
+                <label asp-for="PublicationToPost.GroupId">Group</label>
+                <select asp-for="PublicationToPost.GroupId" class="form-select">
+                    <option value="-1">None</option>
+                    @foreach (var group in Model.UserGroups)
+                    {
+                        <option value="@group.Id">@group.GroupName</option>
+                    }
+                </select>
+            </div>
+        }
         <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden />
         <div class="form-group categoires-inputs">
             <label asp-for="PublicationToPost.Categories">Categories</label>
@@ -135,6 +161,19 @@
             <input asp-for="PublicationToPost.PublicationText" class="form-control" />
             <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
         </div>
+        @if (Model.UserGroups.Any())
+        {
+            <div class="form-group">
+                <label asp-for="PublicationToPost.GroupId">Group</label>
+                <select asp-for="PublicationToPost.GroupId" class="form-select">
+                    <option value="-1">None</option>
+                    @foreach (var group in Model.UserGroups)
+                    {
+                        <option value="@group.Id">@group.GroupName</option>
+                    }
+                </select>
+            </div>
+        }
         <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden checked/>
         <div class="form-group categoires-inputs">
             <label asp-for="PublicationToPost.Categories">Categories</label>
@@ -190,6 +229,19 @@
             <input asp-for="PublicationToPost.PublicationText" class="form-control" />
             <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
         </div>
+                @if (Model.UserGroups.Any())
+        {
+            <div class="form-group">
+                <label asp-for="PublicationToPost.GroupId">Group</label>
+                <select asp-for="PublicationToPost.GroupId" class="form-select">
+                    <option value="-1">None</option>
+                    @foreach (var group in Model.UserGroups)
+                    {
+                        <option value="@group.Id">@group.GroupName</option>
+                    }
+                </select>
+            </div>
+        }
         <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden />
         <div class="form-group categoires-inputs">
             <label asp-for="PublicationToPost.Categories">Categories</label>
@@ -242,6 +294,19 @@
             <input asp-for="PublicationToPost.PublicationText" class="form-control" />
             <span asp-validation-for="PublicationToPost.PublicationText" class="text-danger"></span>
         </div>
+        @if (Model.UserGroups.Any())
+        {
+            <div class="form-group">
+                <label asp-for="PublicationToPost.GroupId">Group</label>
+                <select asp-for="PublicationToPost.GroupId" class="form-select">
+                    <option value="-1">None</option>
+                    @foreach (var group in Model.UserGroups)
+                    {
+                        <option value="@group.Id">@group.GroupName</option>
+                    }
+                </select>
+            </div>
+        }
         <input asp-for="PublicationToPost.HasManyImages" type="checkbox" hidden />
         <div class="form-group categoires-inputs">
             <label asp-for="PublicationToPost.Categories">Categories</label>

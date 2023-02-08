@@ -169,11 +169,18 @@ namespace ArtVenue.Controllers
             {
                 foreach (var membership in _db.Groups_Members.Where(x => x.GroupId == id).ToList())
                 {
-                    membership.Member = await _userManager.FindByIdAsync(membership.MemberId);
-                    memberships.Add(membership);
+                    if (membership.MemberId!=group.CreatorId)
+                    {
+                        membership.Member = await _userManager.FindByIdAsync(membership.MemberId);
+                        memberships.Add(membership);
+                    }
                 }
             }
-            return View(memberships);
+            GroupsMembersViewModel data = new GroupsMembersViewModel() {
+                GroupName = group.GroupName,
+                Memberships = memberships
+            };
+            return View(data);
         }
         [HttpPost]
         public async Task<IActionResult> RemoveMember(int groupId, string userId)
@@ -213,7 +220,12 @@ namespace ArtVenue.Controllers
                     requests.Add(request);
                 }
             }
-            return View(requests);
+            GroupsRequestsViewModel data = new GroupsRequestsViewModel()
+            {
+                GroupName = group.GroupName,
+                Requests = requests
+            };
+            return View(data);
         }
         [HttpPost]
         public async Task<IActionResult> DeleteRequest(int groupId, string userId)
