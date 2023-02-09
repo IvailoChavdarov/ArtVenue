@@ -61,10 +61,11 @@ sliders.forEach(function (slider) {
 const postResource = document.querySelectorAll('.optionalMedia img, .optionalMedia video, .optionalMedia iframe')
 postResource.forEach((resource) => {
     if (resource.clientWidth > resource.clientHeight) {
-        resource.style.width = "600px"
+        resource.style.width = "698px"
+        console.log("??");
     }
     else {
-        resource.style.height = "600px"
+        resource.style.height = "618px"
     }
 })
 

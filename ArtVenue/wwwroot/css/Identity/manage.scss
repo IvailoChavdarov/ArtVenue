@@ -51,6 +51,9 @@
     margin-bottom:50px;
 }
 .theme-dark{
+    .user-container{
+        color:$textColor;
+    }
     .user-settings-container{
         color:$textColor;
         input{

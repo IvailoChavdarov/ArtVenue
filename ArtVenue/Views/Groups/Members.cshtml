@@ -1,4 +1,7 @@
 ﻿@model GroupsMembersViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
+}
 @{
     ViewData["Title"] = Model.GroupName + " members";
 }
@@ -6,11 +9,16 @@
 <div class="container">
     <h1>@Model.GroupName members</h1>
     <hr />
+    <div class="row table-heading">
+        <div class="col-6">Member</div>
+        <div class="col-4">Join date</div>
+        <div class="col-2"></div>
+    </div>
     @foreach (var membership in Model.Memberships)
     {
         <div class="row">
             <div class="col-6">
-                @membership.Member.FirstName @membership.Member.LastName
+                <a asp-controller="posts" asp-action="users" asp-route-id="@membership.MemberId">@membership.Member.FirstName @membership.Member.LastName</a>
             </div>
             <div class="col-4">@membership.JoinedDate</div>
             <div class="col-2">

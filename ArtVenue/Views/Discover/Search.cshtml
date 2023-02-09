@@ -1,0 +1,46 @@
+﻿@model DiscoverSearchViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/Discover/search.css" asp-append-version="true" />
+}
+@{
+    ViewData["Title"] = $"Results for {Model.SearchQuery} {Model.SearchType}";
+}
+<div class="container results-container">
+    <form asp-controller="discover" asp-action="search" id="searchbar" method="get">
+        <select name="searchType">
+            <option value="categories">Categories</option>
+            <option value="users">Users</option>
+            <option value="groups">Groups</option>
+        </select>
+        <input type="search" id="topNavSearch" name="search" placeholder="Search..."/>
+        <button type="submit">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+    @if (Model.ResultItems.Any())
+    {
+        <h2>@ViewData["Title"]</h2>
+        <hr />
+        foreach (var result in Model.ResultItems)
+        {
+            <div class="row">
+                @if (Model.SearchType == "users")
+                {
+                    <a asp-controller="posts" asp-action="users" asp-route-id="@result.UserId">@result.Title</a>
+                }
+                else if(Model.SearchType == "groups")
+                {
+                    <a asp-controller="posts" asp-action="group" asp-route-id="@result.Id">@result.Title</a>
+                }
+                else if(Model.SearchType == "categories")
+                {
+                    <a asp-controller="posts" asp-action="category" asp-route-id="@result.Id">@result.Title</a>
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <h2 class="text-danger">No results for @Model.SearchQuery @Model.SearchType</h2>
+    }
+</div>

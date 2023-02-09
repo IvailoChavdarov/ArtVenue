@@ -2,14 +2,69 @@
 @import '../Utility/_timings.scss';
 $searchBarRounding: 3px;
 $searchBarHeight: 35px;
-
+main{
+    max-width:1920px;
+    margin:auto;
+}
 #topNav {
     background-color: $secondaryColor-dark;
     padding-bottom: 7px;
     padding-top: 7px;
     z-index: 5;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 68px;
+
+    #topNavOpenSearchButton {
+        background-color: transparent;
+        border: none;
+        height: 100%;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    #topNav-search {
+        font-size: 0;
+        padding-top: 16px;
+        transition: width 1s;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 0;
+
+
+        select, input, button {
+            font-size: 1.15rem;
+            height: 35px;
+            border: 0;
+            outline: 0;
+            vertical-align: middle;
+            background-color: transparentize($secondaryColor-light, 0.6);
+            color: $textColor;
+        }
+
+        input {
+            padding-left: 10px;
+            width: 350px;
+            border-left: 1px solid transparentize($secondaryColor-light, 0.3);
+
+            &::placeholder {
+                color: $textColor;
+                opacity: 0.7;
+            }
+        }
+
+        select {
+            padding: 0 10px;
+        }
+
+        option {
+            background-color: white;
+            color: $secondaryColor-dark;
+        }
+
+        display: inline-block;
+    }
+
     i.fas {
         margin-right: 3px;
     }
@@ -27,9 +82,14 @@ $searchBarHeight: 35px;
         margin-left: 10px;
     }
 
+    .nav-link:not(.dropdown-content *) {
+        line-height: 68px;
+        vertical-align: bottom;
+    }
+
     .navbar-brand {
         padding: 7px;
-        padding-right:0;
+        padding-right: 0;
         cursor: pointer;
     }
 
@@ -88,12 +148,20 @@ $searchBarHeight: 35px;
             color: #fd7e14;
         }
 
-        .fa-heart {
-            color: #e31b23;
+        .fa-circle-plus {
+            color: $secondaryColor-light;
         }
 
         .fa-user-cog {
             color: $mainColor;
+        }
+
+        .fa-message {
+            color: #03fff7;
+        }
+
+        .fa-user-group {
+            color: #ff6bae;
         }
 
         .fa-sign-out-alt {
@@ -109,7 +177,7 @@ $searchBarHeight: 35px;
 
     @media only screen and (max-width : 667px) {
         .navbar-brand {
-            margin-left: -17px;
+            margin-bottom: 3px;
             padding-left: 0;
         }
 
@@ -145,7 +213,7 @@ $searchBarHeight: 35px;
         border: 0;
         margin-left: 15px;
         margin-right: 20px;
-        width:26px
+        width: 26px
     }
 
     #themeIdenticator {
@@ -175,11 +243,10 @@ $searchBarHeight: 35px;
     #signInButton {
         background-color: $mainColor;
         padding: 10px;
-        padding-bottom: 7px;
-        padding-top: 7px;
         border-radius: 5px;
         border: none;
         margin-right: 5px;
+       line-height:initial;
     }
 
     .fas {
@@ -334,9 +401,18 @@ $searchBarHeight: 35px;
                     padding-left: 35px;
                 }
 
+                #mobileMenu-searchBar {
+                    select{
+                        width:100%;
+                        background-color:$secondaryColor-dark;
+                        border:none;
+                        outline:none;
+                        color:$mainColor;
+                    }
+                }
+
                 form {
                     display: block;
-                    white-space: nowrap;
 
                     button {
                         all: unset;
@@ -359,7 +435,7 @@ $searchBarHeight: 35px;
                     input[type="search"] {
                         all: unset;
                         white-space: nowrap;
-                        width: 85%;
+                        width: 80%;
                         color: $textColor;
                         margin-right: 0px;
                         padding-right: 0px;
@@ -368,7 +444,6 @@ $searchBarHeight: 35px;
                         -moz-transition: border-bottom 200ms ease-out;
                         -o-transition: border-bottom 200ms ease-out;
                         transition: border-bottom 200ms ease-out;
-                        padding-left: 10px;
                         padding-right: 10px;
                         border-bottom-left-radius: 3px;
                         border-bottom-right-radius: 3px;

@@ -172,6 +172,32 @@
   opacity: 1;
 }
 
+@media (max-width: 767px) {
+  .post-container {
+    padding: 10px;
+  }
+  .post-container h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .post-image {
+    height: auto;
+    max-height: 620px;
+    min-height: 180px;
+  }
+  #backbutton {
+    position: relative;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    font-size: xx-large;
+    display: block;
+    text-align: center;
+  }
+  .post-info {
+    padding: 20px;
+  }
+}
 .theme-dark .post-container {
   color: #EFFCFF;
 }

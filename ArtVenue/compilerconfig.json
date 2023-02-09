@@ -74,5 +74,17 @@
   {
     "outputFile": "wwwroot/css/Identity/user.css",
     "inputFile": "wwwroot/css/Identity/user.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Moderation/moderation.css",
+    "inputFile": "wwwroot/css/Moderation/moderation.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Moderation/controlPanel.css",
+    "inputFile": "wwwroot/css/Moderation/controlPanel.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Discover/search.css",
+    "inputFile": "wwwroot/css/Discover/search.scss"
   }
 ]

@@ -1,0 +1,52 @@
+﻿@import "../Utility/_colors.scss";
+.results-container {
+    margin-top: 40px;
+
+    #searchbar {
+        display: block;
+        font-size: 0;
+        background-color: $secondaryColor-dark;
+        padding:20px;
+        margin-bottom:30px;
+        select, input, button {
+            font-size: 1.4rem;
+            background-color: transparent;
+            border: none;
+            color: $textColor;
+            &:focus{
+                outline:none;
+
+            }
+        }
+
+        option {
+            background-color: $secondaryColor-dark;
+        }
+
+        select {
+            width: 25%;
+            padding:0 20px;
+            min-width:190px;
+        }
+
+        input {
+            width: 65%;
+            padding-left:20px;
+            min-width:240px;
+        }
+
+        buttton {
+            width: 5%;
+        }
+    }
+    a{
+        font-size:x-large;
+        text-decoration:none;
+        color:$mainColor;
+    }
+}
+.theme-dark{
+    .results-container{
+        color:$textColor;
+    }
+}

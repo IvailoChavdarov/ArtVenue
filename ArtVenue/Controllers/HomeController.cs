@@ -18,6 +18,10 @@ namespace ArtVenue.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "posts");
+            }
             HomeIndexViewModel data = new HomeIndexViewModel();
             data.MainCategories = _db.Categories.Take(8).ToArray();
             return View(data);

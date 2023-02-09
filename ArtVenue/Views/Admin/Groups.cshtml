@@ -1,14 +1,29 @@
 ﻿@model AdminGroupsViewModel
-@foreach (var group in Model.Groups)
-{
-    <div class="row">
-        <div class="col-8">
-            @group.GroupName
-        </div>
-        <div class="col-4">
-                <form asp-action="deletegroup" asp-route-id="@group.Id" method="post">
-                    <button type="submit" class="btn btn-danger">Delete group</button>
-                </form>
-        </div>
-    </div>
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
 }
+@{
+    ViewData["Title"] = "Moderate groups";
+}
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <div class="row table-heading">
+        <div class="col-8">Group</div>
+        <div class="col-4"></div>
+    </div>
+    @foreach (var group in Model.Groups)
+    {
+        <div class="row">
+            <div class="col-8">
+                <a asp-controller="posts" asp-action="group" asp-route-id="@group.Id">@group.GroupName</a>
+            </div>
+            <div class="col-4">
+                    <form asp-action="deletegroup" asp-route-id="@group.Id" method="post">
+                        <button type="submit" class="btn btn-danger">Delete group</button>
+                    </form>
+            </div>
+        </div>
+    }
+    <a asp-controller="admin" asp-action="index">Back to admin panel</a>
+</div>

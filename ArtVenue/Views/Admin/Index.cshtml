@@ -1,14 +1,57 @@
 ﻿@model bool
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/controlPanel.css" asp-append-version="true" />
+}
 @{
     ViewData["Title"] = Model? "Admin panel" : "Moderation";
 }
-<div class="container">
-    <a asp-controller="admin" asp-action="users">Users</a>
-    <a asp-controller="admin" asp-action="publications">Publications</a>
-    <a asp-controller="admin" asp-action="groups">Groups</a>
-    <a asp-controller="admin" asp-action="categories">Categories</a>
+<div class="container controlPanel" style="font-size:0;">
+    <h1 class="h1">@ViewData["Title"]</h1>
+    <hr />
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="control-card users">
+                <div class="icon-container">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <a class="btn" asp-controller="admin" asp-action="users">Users</a>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="control-card publications">
+                <div class="icon-container">
+                    <i class="fa-solid fa-note-sticky"></i>
+                </div>
+                <a class="btn" asp-controller="admin" asp-action="publications">Publications</a>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="control-card groups">
+                <div class="icon-container">
+                    <i class="fa-solid fa-people-group"></i>
+                </div>
+                <a class="btn" asp-controller="admin" asp-action="groups">Groups</a>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="control-card categories">
+                <div class="icon-container">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <a class="btn" asp-controller="admin" asp-action="categories">Categories</a>
+            </div>
+        </div>
+    </div>
+
     @if (Model)
     {
-        <a asp-controller="admin" asp-action="managemoderators">Manage moderators</a>
+        <div class="row">
+            <div class="col-12 control-card manageModerators-button">
+                <div class="icon-container">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <a asp-controller="admin" asp-action="managemoderators" class="btn">Manage moderators</a>
+            </div>
+        </div>
     }
 </div>

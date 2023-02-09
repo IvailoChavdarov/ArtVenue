@@ -1,18 +1,44 @@
 ﻿@model AdminManageModeratorsViewModel
-
-<form asp-action="managemoderators" method="post" class="edit-roles-form">
-    <h2>Add or remove users from researcher role</h2>
-    @for (int i = 0; i < Model.UsersRoles.Count; i++)
-    {
-        <div class="form-check m-1">
-            <input type="hidden" asp-for="@Model.UsersRoles[i].UserId" />
-            <input type="hidden" asp-for="@Model.UsersRoles[i].UserName" />
-            <input asp-for="@Model.UsersRoles[i].IsSelected" class="form-check-input" />
-            <label class="form-check-label" asp-for="@Model.UsersRoles[i].IsSelected">
-                @Model.UsersRoles[i].UserName
-            </label>
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
+}
+@{
+    ViewData["Title"] = "Manage moderators";
+}
+<div class="container">
+    <form asp-action="managemoderators" method="post" class="edit-roles-form">
+        <h2>Add or remove users from moderator role</h2>
+        <hr />
+        <div class="row table-heading">
+            <div class="col-8">                
+                User
+            </div>
+            <div class="col-4">
+                Moderator
+            </div>
         </div>
-    }
-    <input type="submit" value="Update" />
-    <a asp-action="Index">Cancel</a>
-</form>
+        @for (int i = 0; i < Model.UsersRoles.Count; i++)
+        {
+            <div class="row">
+                <input type="hidden" asp-for="@Model.UsersRoles[i].UserId" />
+                <input type="hidden" asp-for="@Model.UsersRoles[i].UserName" />
+                <div class="col-8">
+                    <a asp-controller="posts" asp-action="users" asp-route-id="@Model.UsersRoles[i].UserId">@Model.UsersRoles[i].UserName</a>
+                </div>
+                <div class="col-4">
+                    <div class="checkbox-container-sm">
+                        <label class="form-label">
+                             <input class="form-check-input" asp-for="@Model.UsersRoles[i].IsSelected" />
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        }
+        <div class="form-group form-buttons">
+            <input type="submit" class="btn btn-primary" value="Update" />
+            <a asp-controller="admin" asp-action="index">Back to admin panel</a>
+        </div>
+
+    </form>
+</div>

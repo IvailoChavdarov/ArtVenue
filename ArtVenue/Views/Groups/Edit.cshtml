@@ -1,37 +1,15 @@
 ﻿@model ArtVenue.Models.Group
-
-@{
-    ViewData["Title"] = "Edit";
-}
 @section Heads{
-        <style>
-            input[type="file"] {
-                display: none;
-            }
-
-            .form-floating .custom-file-upload {
-                border: 3px solid #eb6600;
-                display: inline-block;
-                padding: 6px 12px;
-                cursor: pointer;
-                pointer-events: all;
-                height: 45px;
-                color: #eb6600;
-                margin-left: 30px;
-                transition: all .2s;
-            }
-
-            .custom-file-upload .fas {
-                color: #eb6600;
-            }
-        </style>
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
+}
+@{
+    ViewData["Title"] = "Edit "+ Model.GroupName;
 }
 <div class="container">
     <h1>Edit</h1>
     <h4>Group @Model.GroupName</h4>
     <hr />
-    <div class="row">
-        <div class="col-md-4">
+    <div>
             <form asp-action="UpdateGroup" id="groupForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
@@ -77,15 +55,11 @@
                     <span id="backgroundValidationText" class="text-danger"></span>
                 </div>
                 <input asp-for="CreatorId" value="@Model.CreatorId" type="hidden">
-                <div class="form-group">
+                <div class="form-group form-buttons">
                     <input type="submit" value="Save" id="groupFormButton" class="btn btn-primary" />
+                    <a asp-action="index">Back to your groups</a>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <div>
-        <a asp-action="index">Back to your groups</a>
     </div>
 </div>
 @section Scripts {

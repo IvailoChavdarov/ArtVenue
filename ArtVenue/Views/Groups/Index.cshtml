@@ -1,5 +1,7 @@
 ﻿@model GroupsIndexViewModel
-
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
+}
 @{
     ViewData["Title"] = "Your groups";
 }
@@ -39,7 +41,7 @@
                 <a class="btn btn-outline-info" asp-action="members" asp-route-id="@group.Id">Members</a>
                 @if (group.IsPrivate)
                 {
-                    <a class="btn btn-outline-secondary" asp-action="requests" asp-route-id="@group.Id">Requests</a>
+                    <a class="btn btn-outline-success" asp-action="requests" asp-route-id="@group.Id">Requests</a>
                 }
                 <a class="btn btn-danger" asp-action="delete" asp-route-id="@group.Id">Delete</a>
             </div>

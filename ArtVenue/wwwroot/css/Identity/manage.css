@@ -40,6 +40,9 @@
   box-shadow: none;
 }
 
+.theme-dark .user-container {
+  color: #EFFCFF;
+}
 .theme-dark .user-settings-container {
   color: #EFFCFF;
 }

@@ -1,0 +1,61 @@
+﻿@import "../Utility/_colors.scss";
+@import "../Utility/_timings.scss";
+.controlPanel {
+    margin-top: 50px;
+
+    .control-card {
+        height: 300px;
+        margin: 30px auto;
+        border-radius: 10px;
+        color: $textColor;
+        width: 70%;
+
+        .icon-container {
+            font-size: 100px;
+            position: relative;
+            height: 70%;
+
+            i {
+                opacity: 0.8;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        a {
+            font-size: xx-large;
+            font-weight: bolder;
+            display: block;
+            text-align: center;
+            color: $textColor;
+        }
+    }
+
+    .users {
+        background-color: #EDC047;
+    }
+
+    .publications {
+        background-color: #59CDB1;
+    }
+
+    .groups {
+        background-color: #00A7D7;
+    }
+
+    .categories {
+        background-color: #AB82BC;
+    }
+
+    .manageModerators-button {
+        width: 84%;
+        background-color:$mainColor;
+    }
+}
+.theme-dark {
+    .controlPanel {
+        color: $textColor;
+    }
+}

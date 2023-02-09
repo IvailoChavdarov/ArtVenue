@@ -104,6 +104,9 @@ body {
 }
 
 @media only screen and (max-width: 667px) {
+  html {
+    overflow: hidden;
+  }
   .showcaseSectionTitle {
     padding: 0;
     margin: 0;

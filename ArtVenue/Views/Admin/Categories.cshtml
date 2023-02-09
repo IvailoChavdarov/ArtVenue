@@ -1,17 +1,33 @@
 ﻿@model AdminCategoriesViewModel
-@foreach (var category in Model.Categories)
-{
-    <div class="row">
-        <div class="col-8">
-            @category.CategoryName
-        </div>
-        <div class="col-2">
-            <a class="btn btn-outline-warning" asp-controller="admin" asp-action="category" asp-route-id="@category.Id">Modify</a>
-        </div>
-        <div class="col-2">
-            <form asp-action="deletecategory" asp-route-id="@category.Id" method="post">
-                <button type="submit" class="btn btn-danger">Delete category</button>
-            </form>
-        </div>
-    </div>
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
 }
+@{
+    ViewData["Title"] = "Edit categories";
+}
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <h2><a class="btn btn-success" asp-controller="admin" asp-action="addcategory">Add category</a></h2>
+    <div class="row table-heading">
+        <div class="col-8">Category</div>
+        <div class="col-4"></div>
+    </div>
+    @foreach (var category in Model.Categories)
+    {
+        <div class="row">
+            <div class="col-8">
+                @category.CategoryName
+            </div>
+            <div class="col-2">
+                <a class="btn btn-outline-warning" asp-controller="admin" asp-action="category" asp-route-id="@category.Id">Modify</a>
+            </div>
+            <div class="col-2">
+                <form asp-action="deletecategory" asp-route-id="@category.Id" method="post">
+                    <button type="submit" class="btn btn-danger">Delete category</button>
+                </form>
+            </div>
+        </div>
+    }
+    <a asp-controller="admin" asp-action="index">Back to admin panel</a>
+</div>

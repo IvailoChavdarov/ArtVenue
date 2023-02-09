@@ -1,44 +1,49 @@
 ﻿@model ArtVenue.Models.Category
-
-@{
-    ViewData["Title"] = "Category";
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
 }
-
-<h1>Category</h1>
-
-<h4>@Model.CategoryName</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="modifycategory">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="CategoryName" class="control-label"></label>
-                <input asp-for="CategoryName" class="form-control" />
-                <span asp-validation-for="CategoryName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryImage" class="control-label"></label>
-                <input asp-for="CategoryImage" class="form-control" />
-                <span asp-validation-for="CategoryImage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryDescription" class="control-label"></label>
-                <input asp-for="CategoryDescription" class="form-control" />
-                <span asp-validation-for="CategoryDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+@{
+    ViewData["Title"] = "Edit "+ Model.CategoryName;
+}
+<div class="container">
+    <h1>Category</h1>
+    <h4>@Model.CategoryName</h4>
+    <hr />
+    <div>
+        <form asp-action="modifycategory" id="category-form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="CategoryName" class="control-label"></label>
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryImage" class="control-label"></label>
+                    <input asp-for="CategoryImage" id="categoryImageInput" class="form-control" />
+                    <span asp-validation-for="CategoryImage" class="text-danger"></span>
+                </div>
+                <div class="form-floating" style="height:50px">
+                    <span> or </span>
+                    <label for="categoryImageUpload" class="custom-file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload image
+                    </label>
+                    <input type="file" id="categoryImageUpload" />
+                    <span id="imageValidationText" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryDescription" class="control-label"></label>
+                    <input asp-for="CategoryDescription" class="form-control" />
+                    <span asp-validation-for="CategoryDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group form-buttons">
+                <input type="button" id="categorySubmitButton" value="Save" class="btn btn-primary" />
+                    <a asp-action="categories" asp-controller="admin">Back to all categories</a>
+                </div>
+            </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="categories" asp-controller="admin">Back to all categories</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/categoryImageUpload.js"></script>
 }

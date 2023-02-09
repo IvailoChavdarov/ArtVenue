@@ -1,10 +1,57 @@
-﻿#topNav {
+﻿main {
+  max-width: 1920px;
+  margin: auto;
+}
+
+#topNav {
   background-color: #28363d;
   padding-bottom: 7px;
   padding-top: 7px;
   z-index: 5;
   padding-left: 10px;
   padding-right: 10px;
+  height: 68px;
+}
+#topNav #topNavOpenSearchButton {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+#topNav #topNav-search {
+  font-size: 0;
+  padding-top: 16px;
+  transition: width 1s;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  display: inline-block;
+}
+#topNav #topNav-search select, #topNav #topNav-search input, #topNav #topNav-search button {
+  font-size: 1.15rem;
+  height: 35px;
+  border: 0;
+  outline: 0;
+  vertical-align: middle;
+  background-color: rgba(97, 145, 148, 0.4);
+  color: #EFFCFF;
+}
+#topNav #topNav-search input {
+  padding-left: 10px;
+  width: 350px;
+  border-left: 1px solid rgba(97, 145, 148, 0.7);
+}
+#topNav #topNav-search input::placeholder {
+  color: #EFFCFF;
+  opacity: 0.7;
+}
+#topNav #topNav-search select {
+  padding: 0 10px;
+}
+#topNav #topNav-search option {
+  background-color: white;
+  color: #28363d;
 }
 #topNav i.fas {
   margin-right: 3px;
@@ -19,6 +66,10 @@
   margin: 0;
   padding: 0;
   margin-left: 10px;
+}
+#topNav .nav-link:not(.dropdown-content *) {
+  line-height: 68px;
+  vertical-align: bottom;
 }
 #topNav .navbar-brand {
   padding: 7px;
@@ -71,11 +122,17 @@
 #topNav .dropdown-content .fa-bookmark {
   color: #fd7e14;
 }
-#topNav .dropdown-content .fa-heart {
-  color: #e31b23;
+#topNav .dropdown-content .fa-circle-plus {
+  color: #619194;
 }
 #topNav .dropdown-content .fa-user-cog {
   color: #eb6600;
+}
+#topNav .dropdown-content .fa-message {
+  color: #03fff7;
+}
+#topNav .dropdown-content .fa-user-group {
+  color: #ff6bae;
 }
 #topNav .dropdown-content .fa-sign-out-alt {
   color: #28363d;
@@ -87,7 +144,7 @@
 }
 @media only screen and (max-width: 667px) {
   #topNav .navbar-brand {
-    margin-left: -17px;
+    margin-bottom: 3px;
     padding-left: 0;
   }
   #topNav .dropdownNav-link {
@@ -143,11 +200,10 @@
 #topNav #signInButton {
   background-color: #eb6600;
   padding: 10px;
-  padding-bottom: 7px;
-  padding-top: 7px;
   border-radius: 5px;
   border: none;
   margin-right: 5px;
+  line-height: initial;
 }
 #topNav .fas {
   color: #619194;
@@ -275,9 +331,15 @@
   #mobileMenu ul li .dropdownNav-link, #mobileMenu ul li button {
     padding-left: 35px;
   }
+  #mobileMenu ul li #mobileMenu-searchBar select {
+    width: 100%;
+    background-color: #28363d;
+    border: none;
+    outline: none;
+    color: #eb6600;
+  }
   #mobileMenu ul li form {
     display: block;
-    white-space: nowrap;
   }
   #mobileMenu ul li form button {
     all: unset;
@@ -298,7 +360,7 @@
   #mobileMenu ul li form input[type=search] {
     all: unset;
     white-space: nowrap;
-    width: 85%;
+    width: 80%;
     color: #EFFCFF;
     margin-right: 0px;
     padding-right: 0px;
@@ -307,7 +369,6 @@
     -moz-transition: border-bottom 200ms ease-out;
     -o-transition: border-bottom 200ms ease-out;
     transition: border-bottom 200ms ease-out;
-    padding-left: 10px;
     padding-right: 10px;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;

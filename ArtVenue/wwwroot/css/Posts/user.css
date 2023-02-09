@@ -134,3 +134,36 @@
 .theme-dark .user-info-container {
   color: #EFFCFF;
 }
+
+@media (max-width: 767px) {
+  .user-header {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+  .user-header .group-settings-buttons-container {
+    top: 20px;
+  }
+  .user-header .user-cover-container {
+    border-radius: 0;
+    height: fit-content;
+  }
+  .user-header .user-cover-container img {
+    border-radius: 0;
+  }
+  .user-header .user-cover-container a {
+    top: 20px;
+    bottom: auto;
+  }
+  .user-header .profile-name-container {
+    height: auto;
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+  .user-header .profile-name-container h1 {
+    padding-top: 70px;
+  }
+  .user-header .user-info-container {
+    padding: 20px;
+  }
+}

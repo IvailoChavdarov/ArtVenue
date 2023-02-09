@@ -1,0 +1,39 @@
+﻿@model AdminPublicationsViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
+}
+@{
+    ViewData["Title"] = "Moderate publications";
+}
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <div class="row table-heading">
+        <div class="col-6">
+            Title
+        </div>
+        <div class="col-4">
+            Creator
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+    @foreach (var publication in Model.Publications)
+    {
+        <div class="row">
+            <div class="col-6">
+                <a asp-controller="posts" asp-action="details" asp-route-id="@publication.Id">@publication.Title</a>
+            </div>
+            <div class="col-4">
+                <a asp-controller="posts" asp-action="users" asp-route-id="@publication.CreatorId">@publication.CreatorName</a>
+            </div>
+            <div class="col-2">
+                <form asp-action="DeletePublication" asp-route-id="@publication.Id">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    }
+                <a asp-controller="admin" asp-action="index">Back to admin panel</a>
+</div>

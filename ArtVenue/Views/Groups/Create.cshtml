@@ -1,37 +1,14 @@
 ﻿@model ArtVenue.Models.Group
-
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
+}
 @{
     ViewData["Title"] = "Create group";
-}
-@section Heads{
-    <style>
-        input[type="file"] {
-            display: none;
-        }
-
-        .form-floating .custom-file-upload {
-            border: 3px solid #eb6600;
-            display: inline-block;
-            padding: 6px 12px;
-            cursor: pointer;
-            pointer-events: all;
-            height: 45px;
-            color: #eb6600;
-            margin-left: 30px;
-            transition: all .2s;
-            pointer-events:all;
-        }
-
-        .custom-file-upload .fas {
-            color: #eb6600;
-        }
-    </style>
 }
 <div class="container">
     <h1>Create group</h1>
     <hr />
-    <div class="row">
-        <div class="col-md-4">
+    <div>
             <form asp-action="Create" id="groupForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -75,15 +52,11 @@
                     <input type="file" id="backgroundUpload" />
                     <span id="backgroundValidationText" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group form-buttons">
                     <input type="button" value="Create" class="btn btn-primary" id="groupFormButton" />
+                    <a asp-action="index">Back to your groups</a>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <div>
-        <a asp-action="index">Back to your groups</a>
     </div>
 </div>
 @section Scripts {

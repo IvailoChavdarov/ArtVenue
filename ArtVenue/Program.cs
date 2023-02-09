@@ -51,7 +51,7 @@ using (var scope = app.Services.CreateScope())
         new Category
         {
             CategoryName= "Dancing",
-            CategoryImage= "admin",
+            CategoryImage= "https://images.unsplash.com/photo-1519925610903-381054cc2a1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8ZGFuY2VyfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
             CategoryDescription= "Dance is a natural form of self-expression: the body expresses itself naturally and so therefore does the spirit. We are all free willed beings, no matter what our personal situation may be. Through dance, our body expresses how free we actually are, while also highlighting the restrictions our minds impose on it."
         },
         new Category

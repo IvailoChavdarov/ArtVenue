@@ -1,15 +1,22 @@
 ﻿@model GroupsRequestsViewModel
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
+}
 @{
     ViewData["Title"] = Model.GroupName + " join requests";
 }
 <div class="container">
     <h1>@Model.GroupName join requests</h1>
     <hr />
+    <div class="row table-heading">
+        <div class="col-6">User</div>
+        <div class="col-6"></div>
+    </div>
     @foreach (var request in Model.Requests)
     {
         <div class="row">
             <div class="col-6">
-                @request.Member.FirstName @request.Member.LastName
+                <a asp-controller="posts" asp-action="users" asp-route-id="@request.MemberId">@request.Member.FirstName @request.Member.LastName</a>
             </div>
             <div class="col-3">
                 <form asp-action="acceptrequest" asp-route-groupId="@request.GroupId" asp-route-userId="@request.MemberId">

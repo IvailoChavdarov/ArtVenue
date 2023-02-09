@@ -1,16 +1,52 @@
 ﻿@model AdminUsersViewModel
-@foreach(var user in Model.Users){
-    <div class="row">
-        <div class="col-8">
-            @user.UserName
-        </div>
-        <div class="col-4">
-            @if (!user.IsModerator && !user.IsAdmin)
-            {
-                <form asp-action="deleteuser" asp-route-id="@user.Id" method="post">
-                    <button type="submit" class="btn btn-danger">Delete user</button>
-                </form>
-            }
-        </div>
-    </div>
+@section Heads{
+    <link rel="stylesheet" href="~/css/moderation/moderation.css" asp-append-version="true" />
 }
+@{
+    ViewData["Title"] = "Manage users";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <div class="row table-heading">
+        <div class="col-8">User</div>
+        <div class="col-4"></div>
+    </div>
+    @foreach(var user in Model.Users){
+        <div class="row">
+            @if (user.IsAdmin)
+            {
+                <div class="col-8 bg-admin">
+                   <a asp-controller="posts" asp-action="users" asp-route-id="@user.Id">@user.UserName - ADMINISTRATOR</a>
+                </div>  
+            }
+            else if (user.IsModerator)
+            {
+                <div class="col-8 bg-moderator">
+                    <a asp-controller="posts" asp-action="users" asp-route-id="@user.Id">@user.UserName</a>
+                </div>
+            }
+            else
+            {
+                <div class="col-8">
+                    <a asp-controller="posts" asp-action="users" asp-route-id="@user.Id">@user.UserName</a>
+                </div>
+            }
+
+            <div class="col-4">
+                @if (!user.IsModerator && !user.IsAdmin)
+                {
+                    <form asp-action="deleteuser" asp-route-id="@user.Id" method="post">
+                        <button type="submit" class="btn btn-danger">Delete user</button>
+                    </form>
+                }
+                else
+                {
+                  <p class="text-danger">Cannot delete user in role</p>  
+                }
+            </div>
+        </div>
+    }
+    <a asp-controller="admin" asp-action="index">Back to admin panel</a>
+</div>

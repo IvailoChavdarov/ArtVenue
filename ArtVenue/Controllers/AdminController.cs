@@ -47,6 +47,7 @@ namespace ArtVenue.Controllers
                 };
                 data.Users.Add(userToModify);
             }
+            data.Users = data.Users.OrderByDescending(x => x.IsAdmin).ThenByDescending(x => x.IsModerator).ToList();
             return View(data);
         }
 
@@ -84,13 +85,16 @@ namespace ArtVenue.Controllers
         [Authorize(Roles = "admin, moderator")]
         public IActionResult AddCategory(Category category)
         {
-            if (ModelState.IsValid)
+            try
             {
                 _db.Categories.Add(category);
                 _db.SaveChanges();
                 return RedirectToAction("categories");
             }
-            return View(category);
+            catch {
+                return View(category);
+            }
+
         }
 
         [HttpPost]
@@ -99,7 +103,7 @@ namespace ArtVenue.Controllers
         {
             _db.Update(category);
             await _db.SaveChangesAsync();
-            return RedirectToAction("category", new {Id=category.Id});
+            return RedirectToAction("categories");
         }
 
         [Authorize(Roles = "admin, moderator")]
@@ -172,7 +176,8 @@ namespace ArtVenue.Controllers
                 {
                     CreatorName = creatorName,
                     Id = publication.Id,
-                    Title = publication.PublicationTitle
+                    Title = publication.PublicationTitle,
+                    CreatorId = creatorId
                 };
                 data.Publications.Add(post);
             }
@@ -190,7 +195,7 @@ namespace ArtVenue.Controllers
             }
             _db.Publications.Remove(publicationToDelete);
             await _db.SaveChangesAsync();
-            return RedirectToAction("groups");
+            return RedirectToAction("publications");
         }
 
         [Authorize(Roles = "admin")]
@@ -207,18 +212,21 @@ namespace ArtVenue.Controllers
                     UserName = user.UserName
                 };
 
-                if (await _userManager.IsInRoleAsync(user, "moderator"))
+                if (!await _userManager.IsInRoleAsync(user, "administrator"))
                 {
-                    userRole.IsSelected = true;
-                }
-                else
-                {
-                    userRole.IsSelected = false;
+                    if (await _userManager.IsInRoleAsync(user, "moderator"))
+                    {
+                        userRole.IsSelected = true;
+                    }
+                    else
+                    {
+                        userRole.IsSelected = false;
+                    }
+                    data.UsersRoles.Add(userRole);
                 }
 
-                data.UsersRoles.Add(userRole);
             }
-
+            data.UsersRoles = data.UsersRoles.OrderByDescending(x=>x.IsSelected).ToList();
             return View(data);
         }
 

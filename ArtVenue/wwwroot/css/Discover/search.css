@@ -1,0 +1,44 @@
+﻿.results-container {
+  margin-top: 40px;
+}
+.results-container #searchbar {
+  display: block;
+  font-size: 0;
+  background-color: #28363d;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+.results-container #searchbar select, .results-container #searchbar input, .results-container #searchbar button {
+  font-size: 1.4rem;
+  background-color: transparent;
+  border: none;
+  color: #EFFCFF;
+}
+.results-container #searchbar select:focus, .results-container #searchbar input:focus, .results-container #searchbar button:focus {
+  outline: none;
+}
+.results-container #searchbar option {
+  background-color: #28363d;
+}
+.results-container #searchbar select {
+  width: 25%;
+  padding: 0 20px;
+  min-width: 190px;
+}
+.results-container #searchbar input {
+  width: 65%;
+  padding-left: 20px;
+  min-width: 240px;
+}
+.results-container #searchbar buttton {
+  width: 5%;
+}
+.results-container a {
+  font-size: x-large;
+  text-decoration: none;
+  color: #eb6600;
+}
+
+.theme-dark .results-container {
+  color: #EFFCFF;
+}
