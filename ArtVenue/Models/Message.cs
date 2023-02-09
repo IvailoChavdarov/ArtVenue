@@ -26,6 +26,8 @@ namespace ArtVenue.Models
         public string SenderName { get; set; }
         [NotMapped]
         public string SenderProfileImage { get; set; }
+        [NotMapped]
+        public bool IsFromCurrentUser { get; set; } = false;
         public AppUser Sender { get; set; }
         public DirectChat DirectChat { get; set; }
         public Group Group { get; set; }

@@ -10,6 +10,7 @@ using ArtVenue.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using ArtVenue.ViewModels;
+using System.Globalization;
 
 namespace ArtVenue.Controllers
 {
@@ -71,7 +72,7 @@ namespace ArtVenue.Controllers
                 {
                     MemberId = user.Id,
                     Group = group,
-                    JoinedDate = DateTime.Today.ToString()
+                    JoinedDate = DateTime.Now.ToString("dd MMMM yyyy HH:mm tt", CultureInfo.InvariantCulture)
                 }) ;
                 await _db.SaveChangesAsync();
                 return RedirectToAction("index");
@@ -264,8 +265,8 @@ namespace ArtVenue.Controllers
             {
                 GroupId = groupId,
                 MemberId = userId,
-                JoinedDate = DateTime.Today.ToString()
-            }) ;
+                JoinedDate = DateTime.Now.ToString("dd MMMM yyyy HH:mm tt", CultureInfo.InvariantCulture)
+        }) ;
             await _db.SaveChangesAsync();
             return RedirectToAction("requests", new { Id = groupId });
         }

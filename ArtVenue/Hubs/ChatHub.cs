@@ -2,6 +2,7 @@
 using ArtVenue.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
+using System.Globalization;
 using System.Security.Claims;
 
 namespace ArtVenue.Hubs
@@ -17,7 +18,7 @@ namespace ArtVenue.Hubs
         }
         public async Task SendMessageToUser(Message message, string recieverId)
         {
-            message.SendTime = DateTime.Now.ToString();
+            message.SendTime = DateTime.Now.ToString("dd MMMM yyyy HH:mm tt", CultureInfo.InvariantCulture);
             AppUser sender = await _userManager.FindByIdAsync(message.SenderId);
             message.SenderName = sender.FirstName;
             message.SenderProfileImage = sender.GetProfileImage();
@@ -27,9 +28,11 @@ namespace ArtVenue.Hubs
         }
         public async Task SendMessageToGroup(Message message, int groupId)
         {
-            message.SendTime = DateTime.Now.ToString();
+            message.SendTime = DateTime.Now.ToString("dd MMMM yyyy HH:mm tt", CultureInfo.InvariantCulture);
             message.Sender = await _userManager.FindByIdAsync(message.SenderId);
             message.SenderName = message.Sender.FirstName + " " + message.Sender.LastName;
+            message.IsFromCurrentUser = true;
+            message.SenderProfileImage = message.Sender.GetProfileImage();
             await Clients.Group(groupId.ToString()).SendAsync("ReceiveMessage", message);
             message.GroupId = groupId;
             AddMessageToDatabase(message);

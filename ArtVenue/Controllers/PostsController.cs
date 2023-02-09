@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace ArtVenue.Controllers
@@ -453,7 +454,7 @@ namespace ArtVenue.Controllers
         public async Task<IActionResult> Create(PostsCreateViewModel data)
         {
             data.PublicationToPost.CreatorId = _userManager.GetUserId(User);
-            data.PublicationToPost.PostedTime = DateTime.Today.Day.ToString();
+            data.PublicationToPost.PostedTime = DateTime.Now.ToString("dd MMMM yyyy HH:mm tt", CultureInfo.InvariantCulture);
             data.PublicationToPost.Categories = new HashSet<Publications_Categories>();
             if (data.PublicationToPost.GroupId < 0)
             {
@@ -509,7 +510,7 @@ namespace ArtVenue.Controllers
             comment.UserId = userId;
             comment.CommentContent = data.CommentInput.CommentContent;
             comment.PublicationId = data.CommentInput.PostId;
-            comment.PostedTime = DateTime.UtcNow.ToString();
+            comment.PostedTime = DateTime.Now.ToString("dd MMMM yyyy HH:mm tt", CultureInfo.InvariantCulture);
             await _db.Comments.AddAsync(comment);
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -586,7 +587,7 @@ namespace ArtVenue.Controllers
                 Groups_Members connection = new Groups_Members();
                 connection.GroupId = groupId;
                 connection.MemberId = userId;
-                connection.JoinedDate = DateTime.Today.ToString();
+                connection.JoinedDate = DateTime.Now.ToString("dd MMMM yyyy");
                 await _db.Groups_Members.AddAsync(connection);
                 TempData["notice"] = $"Successfully joined group!";
                 TempData["noticeBackground"] = "bg-success";
@@ -620,33 +621,6 @@ namespace ArtVenue.Controllers
             await _db.SaveChangesAsync();
             TempData["notice"] = $"Successfully canceled join request!";
             TempData["noticeBackground"] = "bg-success";
-            return RedirectToAction("group", new { Id = groupId });
-        }
-
-        //copy to manage controller
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> AcceptAddToGroup(int groupId, string userId)
-        {
-            Groups_Members connection = new Groups_Members();
-            connection.GroupId = groupId;
-            connection.MemberId = userId;
-            connection.JoinedDate = DateTime.Today.ToString();
-            await _db.Groups_Members.AddAsync(connection);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("group", new { Id = groupId });
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> RemoveFromGroup(int groupId, string userId)
-        {
-            Groups_Members connection = new Groups_Members();
-            connection.GroupId = groupId;
-            connection.MemberId = userId;
-            connection.JoinedDate = DateTime.Today.ToString();
-            _db.Groups_Members.Remove(connection);
-            await _db.SaveChangesAsync();
             return RedirectToAction("group", new { Id = groupId });
         }
 

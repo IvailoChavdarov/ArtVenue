@@ -39,7 +39,7 @@
 
                             <div class="msg-bubble">
                                 <div class="msg-info">
-                                    <div class="msg-info-name">@message.SenderName</div>
+                                    <div class="msg-info-name"><a asp-controller="posts" asp-action="users" asp-route-id="@message.SenderId">@message.SenderName</a></div>
                                     <div class="msg-info-time">@message.SendTime</div>
                                 </div>
 
@@ -62,7 +62,9 @@
 </div>
 @section Scripts{
     <script>
-        var inGroupChat = false;
+        var inGroupChat = true;
+        var ChatId = @Model.GroupChatId
+        var currentUserId = document.getElementById('userInput').value;
     </script>
     <script src="~/js/chatsSidenav.js"></script>
     <script src="~/lib/microsoft-signalr/signalr.js"></script>
