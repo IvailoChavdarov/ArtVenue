@@ -35,8 +35,7 @@ namespace ArtVenue.Areas.Identity.Pages.Account
             IUserStore<AppUser> userStore,
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager
+            IEmailSender emailSender
             )
         {
             _userManager = userManager;
@@ -145,6 +144,11 @@ namespace ArtVenue.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+                    var admins = await _userManager.GetUsersInRoleAsync("admin");
+                    if (admins.Count == 0)
+                    {
+                        await _userManager.AddToRoleAsync(user, "admin");
+                    }
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -163,11 +167,6 @@ namespace ArtVenue.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        var admins = await _userManager.GetUsersInRoleAsync("admin");
-                        if (admins.Count == 0)
-                        {
-                            await _userManager.AddToRoleAsync(user, "admin");
-                        }
                         return LocalRedirect(returnUrl);
                     }
                 }

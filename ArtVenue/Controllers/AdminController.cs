@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
 namespace ArtVenue.Controllers
 {
-    [Authorize(Roles = "admin, moderator")]
     public class AdminController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -20,7 +19,6 @@ namespace ArtVenue.Controllers
             _roleManager = roleManager;
             _db = db;
         }
-
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Index()
         {

@@ -351,7 +351,8 @@ body {
 ::-webkit-scrollbar {
     height: 0;
 }
-/* typical phone screen resolution */
+
+
 @media only screen and (max-width : 720px) {
     .posts-sidenav{
         display:none;

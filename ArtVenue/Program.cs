@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer("Server=tcp:artvenue.database.windows.net,1433;Initial Catalog=ArtVenue_db;Persist Security Info=False;User ID=CloudSA42b1aa45;Password=Dragomanoit15:D;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -18,6 +18,7 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -28,6 +29,9 @@ using (var scope = app.Services.CreateScope())
     string[] roles = new string[]{"admin", "moderator"};
     foreach (var role in roles)
     {
+
+        //spacer
+        //spicer
         bool exists = await roleManager.RoleExistsAsync(role);
         if (!exists)
         {
@@ -91,8 +95,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (true)
 {
+    app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
 }
 else

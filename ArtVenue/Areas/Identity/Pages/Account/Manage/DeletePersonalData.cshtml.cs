@@ -5,6 +5,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using ArtVenue.Data;
 using ArtVenue.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +19,19 @@ namespace ArtVenue.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly ApplicationDbContext _db;
 
         public DeletePersonalDataModel(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            ApplicationDbContext db
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _db = db;
         }
 
         /// <summary>
@@ -86,7 +91,7 @@ namespace ArtVenue.Areas.Identity.Pages.Account.Manage
                     return Page();
                 }
             }
-
+            _db.Publications.RemoveRange(_db.Publications.Where(x => x.CreatorId == user.Id));
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
             if (!result.Succeeded)

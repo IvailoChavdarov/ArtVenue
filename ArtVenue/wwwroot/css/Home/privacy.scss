@@ -1,5 +1,40 @@
 ﻿@import '../Utility/_colors.scss';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@300&family=Sacramento&display=swap');
+.privacy-header {
+    height: 500px;
+    width: 100vw;
+    max-width: 1920px;
+    margin: auto;
+    color: $textColor;
+    position: relative;
+    z-index: 1;
+
+    h1 {
+        text-align: center;
+        padding: 25px;
+        padding-top:200px;
+        background-color: rgba(0,0,0,0.4);
+        height:100%;
+        font-weight:bold;
+        font-size:66px;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: url('../../img/login-bg.jpg');
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        background-position-y:center;
+    }
+}
+.about-header:before {
+    background-image: url('../../img/about.jpg');
+}
 .container {
     margin: 50px auto;
     padding: 40px;

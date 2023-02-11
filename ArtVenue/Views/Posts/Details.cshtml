@@ -2,6 +2,9 @@
 @section Heads{
     <link rel="stylesheet" href="~/css/Posts/details.css" asp-append-version="true" />
 }
+@{
+    ViewData["Title"] = Model.Post.PublicationTitle;
+}
 <div class="row">
     <div class="col-12 col-lg-2"><a id="backbutton">Back</a></div>
     <div class="col-12 col-lg-10">

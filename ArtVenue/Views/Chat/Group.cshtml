@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="~/css/Chat/chat.css" asp-append-version="true" />
 }
 <div class="row chat-container">
+    <div class="hiddenOnBigScreen col-12">
+        <button class="NoLoader open-chats-button" onclick="toggleChatsNav()">Chats</button>
+    </div>
     <div class="col-lg-3 col-12 msger-sideBar">
         <partial name="_ChatSideBarPartial" />
     </div>

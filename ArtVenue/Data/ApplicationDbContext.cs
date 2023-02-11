@@ -41,7 +41,7 @@ namespace ArtVenue.Data
                 .HasOne(user => user.Member)
                 .WithMany(userGroups => userGroups.GroupsJoined)
                 .HasForeignKey(gm => gm.MemberId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<Groups_Members>()
                 .HasOne(user => user.Group)
@@ -56,7 +56,7 @@ namespace ArtVenue.Data
                 .HasOne(user => user.Member)
                 .WithMany(userGroups => userGroups.GroupsJoinRequested)
                 .HasForeignKey(gm => gm.MemberId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<Groups_Requests>()
                 .HasOne(user => user.Group)
@@ -69,7 +69,7 @@ namespace ArtVenue.Data
                 .HasOne(publication => publication.Creator)
                 .WithMany(user => user.PublicationsPosted)
                 .HasForeignKey(publication => publication.CreatorId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Publication>()
                 .HasOne(publication => publication.Group)
@@ -98,7 +98,7 @@ namespace ArtVenue.Data
                 .HasOne(pc => pc.Category)
                 .WithMany(category => category.Publications)
                 .HasForeignKey(gm => gm.CategoryId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<Users_Interests>()
                 .HasKey(ui => new { ui.UserId, ui.CategoryId });
@@ -113,7 +113,7 @@ namespace ArtVenue.Data
                 .HasOne(ui => ui.Category)
                 .WithMany(category => category.Interested)
                 .HasForeignKey(ui => ui.CategoryId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<Users_Saved>()
                 .HasKey(us => new { us.UserId, us.PublicationId });
@@ -122,7 +122,7 @@ namespace ArtVenue.Data
                 .HasOne(us => us.User)
                 .WithMany(user => user.Saved)
                 .HasForeignKey(us => us.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<Users_Saved>()
                 .HasOne(us => us.Publication)
@@ -140,7 +140,7 @@ namespace ArtVenue.Data
                 .HasOne(comment => comment.User)
                 .WithMany(user => user.Comments)
                 .HasForeignKey(comment => comment.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<DirectChat>()
                 .HasOne(us => us.FirstUser)

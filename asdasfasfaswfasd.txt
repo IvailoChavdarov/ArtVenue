@@ -1,0 +1,2 @@
+Dragonzes123a
+    "DefaultConnection": "Server=tcp:artvenue.database.windows.net,1433;Initial Catalog=ArtVenue_db;Persist Security Info=False;User ID=ic83299437@edu.mon.bg;Password=Dragomanoit15_D;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;Authentication=\"Active Directory Password\";Connection Timeout=60;"

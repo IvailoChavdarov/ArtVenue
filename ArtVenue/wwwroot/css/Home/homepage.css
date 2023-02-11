@@ -361,7 +361,7 @@ body {
 }
 .register-section:before {
   content: "";
-  background-image: url(/img/gathering.png);
+  background-image: url("https://res.cloudinary.com/ddo3vrwcb/image/upload/v1676013968/gathering_usotbb.png");
   background-size: cover;
   height: 100%;
   width: 100%;
@@ -371,6 +371,52 @@ body {
   left: 0;
 }
 
+@media only screen and (max-width: 720px) {
+  #topNav {
+    background-color: #28363d;
+  }
+  .banner {
+    height: fit-content;
+    padding-bottom: 150px;
+  }
+  .banner .banner-text {
+    width: 90vw;
+    margin: auto;
+  }
+  .banner .banner-text .welcome-msg-divider {
+    width: 100%;
+  }
+  .banner .banner-text .welcome-msg-divider hr {
+    display: none;
+  }
+  .intro-quote {
+    height: fit-content;
+    padding: 20px;
+  }
+  .quote-container {
+    width: 100%;
+    margin-left: 0;
+  }
+  .quote-container .quote-text-half {
+    width: 100% !important;
+  }
+  .service-cards-container .service-card {
+    height: 340px;
+  }
+  .service-cards-container .service-card img {
+    height: 180px;
+  }
+  .arts-icons-bg {
+    background: none;
+    height: fit-content;
+    max-height: fit-content;
+    padding: 20px;
+  }
+  .register-section {
+    height: fit-content;
+    padding: 40px;
+  }
+}
 .theme-dark main {
   color: #EFFCFF;
 }
