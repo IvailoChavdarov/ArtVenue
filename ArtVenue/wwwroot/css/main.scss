@@ -303,9 +303,43 @@ main {
     color: $textColor;
     padding: 30px;
 }
+.error-container {
+    margin-top: 70px;
 
+    h1 {
+        font-size: 54px;
+        font-weight: bolder;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+    }
+
+    h2 {
+        font-size: 44px;
+        margin-bottom: 25px;
+    }
+
+    p {
+        font-size: x-large;
+        padding:20px;
+        padding-left:0;
+    }
+
+    .error-quote {
+        margin-top:70px;
+        font-family: 'Sacramento', serif;
+        font-size:64px;
+        span {
+            font-family: 'Montserrat';
+            font-size:44px;
+            opacity:.5;
+        }
+    }
+}
 .theme-dark {
-    background-color:$secondaryColor-dark;
+    background-color: $secondaryColor-dark;
+    .error-container{
+        color:$textColor;
+    }
     .bg-secondary-dark {
         border-color: $mainColor;
     }

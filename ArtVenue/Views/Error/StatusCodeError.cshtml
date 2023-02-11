@@ -1,0 +1,20 @@
+﻿@model StatusCodeErrorViewModel
+@{
+    ViewData["Title"] = Model.ErrorCode;
+    string[] quote = Model.Quote.Split('-');
+}
+<div class="container error-container">
+    <h1>Error @Model.ErrorCode</h1>
+    <h2>@Model.ErrorMessage</h2>
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <p>@Model.ErrorDescription</p>
+        </div>
+        <div class="col-12 col-lg-4">
+            <img src="@Model.ImageUrl" height="400"/>
+        </div>
+    </div>
+    <h2 class="error-quote">
+        " @quote[0] " <span>- @quote[1]</span>
+    </h2>
+</div>

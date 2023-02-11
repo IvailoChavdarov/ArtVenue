@@ -1,4 +1,9 @@
-﻿<nav id="topNav" class="navbar navbar-expand-lg">
+﻿@using Microsoft.AspNetCore.Identity
+@using ArtVenue.Models
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+<nav id="topNav" class="navbar navbar-expand-lg">
         <a class="navbar-brand" asp-controller="home" asp-action="index" id="homeIcon"><img src="~/img/logos/logo-sm-dark.png" alt="ArtVenue" /></a>
         <div class="collapse navbar-collapse" id="navBarContent">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -57,7 +62,7 @@
                     <option value="users">Users</option>
                     <option value="groups">Groups</option>
                 </select>
-                <input type="search" name="search" aria-label="Search" placeholder="Search for a title, actor or keyword">
+                <input type="search" name="search" aria-label="Search" placeholder="Search for a user, group, category...">
                 <button type="submit" aria-label="start search"><i class="fas fa-search fa-sm"></i></button>
             </form>
         </li>
@@ -75,6 +80,8 @@
             <a asp-controller="discover" asp-action="index" class="nav-link">Discover</a>
         </li>
         <hr />
+        @if (SignInManager.IsSignedIn(User))
+        {
         <li class="nav-item hiddenOnBigScreen">
             <h5><i class="fas fa-sm fa-user text-mainColor"></i><span>Account</span></h5>
         </li>
@@ -99,7 +106,14 @@
             <form class="form-inline" asp-area="Identity" asp-page="/account/logout" asp-route-returnUrl="@Url.Action("index", "home", new { area = "" })">
                 <button type="submit" class="nav-item" id="signOutButton-mobile">Sign out</button>
             </form>
-        </li>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item hiddenOnBigScreen">
+                <a class="dropdownNav-link" id="signInButton" asp-area="Identity" asp-page="/Account/Login">Join ArtVenue</a>
+            </li>
+        }
         <hr />
     </ul>
 </menu>

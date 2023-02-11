@@ -269,8 +269,40 @@ main {
   padding: 30px;
 }
 
+.error-container {
+  margin-top: 70px;
+}
+.error-container h1 {
+  font-size: 54px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+.error-container h2 {
+  font-size: 44px;
+  margin-bottom: 25px;
+}
+.error-container p {
+  font-size: x-large;
+  padding: 20px;
+  padding-left: 0;
+}
+.error-container .error-quote {
+  margin-top: 70px;
+  font-family: "Sacramento", serif;
+  font-size: 64px;
+}
+.error-container .error-quote span {
+  font-family: "Montserrat";
+  font-size: 44px;
+  opacity: 0.5;
+}
+
 .theme-dark {
   background-color: #28363d;
+}
+.theme-dark .error-container {
+  color: #EFFCFF;
 }
 .theme-dark .bg-secondary-dark {
   border-color: #eb6600;

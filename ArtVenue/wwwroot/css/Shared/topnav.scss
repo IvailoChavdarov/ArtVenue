@@ -175,7 +175,7 @@ main{
         display: block;
     }
 
-    @media only screen and (max-width : 667px) {
+    @media only screen and (max-width : 720px) {
         .navbar-brand {
             margin-bottom: 3px;
             padding-left: 0;
@@ -184,6 +184,7 @@ main{
         .dropdownNav-link {
             padding-left: 15px;
             color: $textColor;
+            text-align:left!important;
         }
 
         .nav-item {

@@ -90,7 +90,7 @@ namespace ArtVenue.Controllers
             var group = await _db.Groups.FindAsync(id);
             if (group == null)
             {
-                return NotFound();
+                return Forbid();
             }
             if (!IsCreatorOf(group))
             {
@@ -105,7 +105,7 @@ namespace ArtVenue.Controllers
         {
             if (!IsCreatorOf(group))
             {
-                return Unauthorized();
+                return Forbid();
             }
             try
             {
@@ -129,7 +129,7 @@ namespace ArtVenue.Controllers
             }
             if (!IsCreatorOf(group))
             {
-                return Unauthorized();
+                return Forbid();
             }
             return View(group);
         }
@@ -147,7 +147,7 @@ namespace ArtVenue.Controllers
             }
             if (!IsCreatorOf(group))
             {
-                return Unauthorized();
+                return Forbid();
             }
             _db.Groups.Remove(group);
             await _db.SaveChangesAsync();
@@ -163,7 +163,7 @@ namespace ArtVenue.Controllers
             }
             if (!IsCreatorOf(group))
             {
-                return Unauthorized();
+                return Forbid();
             }
             List<Groups_Members> memberships = new List<Groups_Members>();
             if (await _db.Groups_Members.Where(x => x.GroupId == id).AnyAsync())
@@ -193,7 +193,7 @@ namespace ArtVenue.Controllers
             }
             if (!IsCreatorOf(group) || group.CreatorId == userId)
             {
-                return Unauthorized();
+                return Forbid();
             }
             var membership = await _db.Groups_Members.Where(x => x.GroupId == groupId && x.MemberId == userId).FirstAsync();
             _db.Groups_Members.Remove(membership);
@@ -210,7 +210,7 @@ namespace ArtVenue.Controllers
             }
             if (!IsCreatorOf(group))
             {
-                return Unauthorized();
+                return Forbid();
             }
             List<Groups_Requests> requests = new List<Groups_Requests>();
             if (await _db.Groups_Requests.Where(x => x.GroupId == id).AnyAsync())
@@ -239,7 +239,7 @@ namespace ArtVenue.Controllers
             }
             if (!IsCreatorOf(group))
             {
-                return Unauthorized();
+                return Forbid();
             }
             var request = await _db.Groups_Requests.Where(x => x.GroupId == groupId && x.MemberId == userId).FirstAsync();
             _db.Groups_Requests.Remove(request);
@@ -257,7 +257,7 @@ namespace ArtVenue.Controllers
             }
             if (!IsCreatorOf(group))
             {
-                return Unauthorized();
+                return Forbid();
             }
             var request = await _db.Groups_Requests.Where(x => x.GroupId == groupId && x.MemberId == userId).FirstAsync();
             _db.Groups_Requests.Remove(request);

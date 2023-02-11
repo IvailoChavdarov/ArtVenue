@@ -2,73 +2,73 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 document.getElementsByClassName("msger-chat")[0].scrollTop = document.getElementsByClassName("msger-chat")[0].scrollHeight
+
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
 
 connection.on("ReceiveMessage", function (message) {
-    console.log(message.senderId);
-    console.log(currentUserId)
-    console.log(inGroupChat);
-    if (message.senderId == currentUserId && inGroupChat) {
-        console.log("goes here");
-        var msgContainer = document.createElement("div");
-        msgContainer.classList.add("msg", "right-msg");
-        var msgBubble = document.createElement("div");
-        msgBubble.classList.add("msg-bubble")
-        var msgText = document.createElement("div");
-        msgText.classList.add("msg-text")
-        msgText.textContent = message.messageContent
-        msgBubble.appendChild(msgText)
-        msgContainer.appendChild(msgBubble)
-        document.getElementsByClassName("msger-chat")[0].appendChild(msgContainer)
-        document.getElementsByClassName("msger-chat")[0].scrollTop = document.getElementsByClassName("msger-chat")[0].scrollHeight
+
+    if (inGroupChat) {
+        if (message.senderId == currentUserId) {
+            console.log("goes here");
+            var msgContainer = document.createElement("div");
+            msgContainer.classList.add("msg", "right-msg");
+            var msgBubble = document.createElement("div");
+            msgBubble.classList.add("msg-bubble")
+            var msgText = document.createElement("div");
+            msgText.classList.add("msg-text")
+            msgText.textContent = message.messageContent
+            msgBubble.appendChild(msgText)
+            msgContainer.appendChild(msgBubble)
+            document.getElementsByClassName("msger-chat")[0].appendChild(msgContainer)
+            document.getElementsByClassName("msger-chat")[0].scrollTop = document.getElementsByClassName("msger-chat")[0].scrollHeight
+            return;
+        }
+    }
+    var msgContainer = document.createElement("div");
+    msgContainer.classList.add("msg", "left-msg");
+
+    var msgImg = document.createElement("div");
+    msgImg.classList.add("msg-img")
+    msgImg.style.backgroundImage = `url('${message.senderProfileImage}')`
+
+    var msgBubble = document.createElement("div");
+    msgBubble.classList.add("msg-bubble")
+
+    var msgInfo = document.createElement("div");
+    msgInfo.classList.add("msg-info")
+
+    var msgInfoName = document.createElement("div");
+    msgInfoName.classList.add("msg-info-name")
+    if (inGroupChat) {
+        var senderProfileLink = document.createElement("a");
+        senderProfileLink.href = "/posts/users/" + message.senderId;
+        senderProfileLink.textContent = message.senderName;
+        msgInfoName.appendChild(senderProfileLink)
     }
     else {
-        var msgContainer = document.createElement("div");
-        msgContainer.classList.add("msg", "left-msg");
-
-        var msgImg = document.createElement("div");
-        msgImg.classList.add("msg-img")
-        msgImg.style.backgroundImage = `url('${message.senderProfileImage}')`
-
-        var msgBubble = document.createElement("div");
-        msgBubble.classList.add("msg-bubble")
-
-        var msgInfo = document.createElement("div");
-        msgInfo.classList.add("msg-info")
-
-        var msgInfoName = document.createElement("div");
-        msgInfoName.classList.add("msg-info-name")
-        if (inGroupChat) {
-            var senderProfileLink = document.createElement("a");
-            senderProfileLink.href = "/posts/users/" + message.senderId;
-            senderProfileLink.textContent = message.senderName;
-            msgInfoName.appendChild(senderProfileLink)
-        }
-        else {
-            msgInfoName.textContent = message.senderName
-        }
-
-        var msgInfoTime = document.createElement("div");
-        msgInfoTime.classList.add("msg-info-time")
-        msgInfoTime.textContent = message.sendTime
-
-        var msgText = document.createElement("div");
-        msgText.classList.add("msg-text")
-        msgText.textContent = message.messageContent
-
-        msgInfo.appendChild(msgInfoName);
-        msgInfo.appendChild(msgInfoTime);
-
-        msgBubble.appendChild(msgInfo)
-        msgBubble.appendChild(msgText)
-
-        msgContainer.appendChild(msgImg)
-        msgContainer.appendChild(msgBubble)
-
-        document.getElementsByClassName("msger-chat")[0].appendChild(msgContainer)
-        document.getElementsByClassName("msger-chat")[0].scrollTop = document.getElementsByClassName("msger-chat")[0].scrollHeight
+        msgInfoName.textContent = message.senderName
     }
+
+    var msgInfoTime = document.createElement("div");
+    msgInfoTime.classList.add("msg-info-time")
+    msgInfoTime.textContent = message.sendTime
+
+    var msgText = document.createElement("div");
+    msgText.classList.add("msg-text")
+    msgText.textContent = message.messageContent
+
+    msgInfo.appendChild(msgInfoName);
+    msgInfo.appendChild(msgInfoTime);
+
+    msgBubble.appendChild(msgInfo)
+    msgBubble.appendChild(msgText)
+
+    msgContainer.appendChild(msgImg)
+    msgContainer.appendChild(msgBubble)
+
+    document.getElementsByClassName("msger-chat")[0].appendChild(msgContainer)
+    document.getElementsByClassName("msger-chat")[0].scrollTop = document.getElementsByClassName("msger-chat")[0].scrollHeight
     
 });
 

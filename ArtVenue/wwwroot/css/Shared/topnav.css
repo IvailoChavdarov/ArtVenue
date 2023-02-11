@@ -142,7 +142,7 @@
 #topNav .dropdown:hover .dropdown-content {
   display: block;
 }
-@media only screen and (max-width: 667px) {
+@media only screen and (max-width: 720px) {
   #topNav .navbar-brand {
     margin-bottom: 3px;
     padding-left: 0;
@@ -150,6 +150,7 @@
   #topNav .dropdownNav-link {
     padding-left: 15px;
     color: #EFFCFF;
+    text-align: left !important;
   }
   #topNav .nav-item {
     margin-left: 0;

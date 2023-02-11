@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer("Server=tcp:artvenue.database.windows.net,1433;Initial Catalog=ArtVenue_db;Persist Security Info=False;User ID=CloudSA42b1aa45;Password=Dragomanoit15:D;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;"));
+    options.UseSqlServer("Server=tcp:artvenue.database.windows.net,1433;Initial Catalog=ArtVenue_db;Persist Security Info=False;User ID=CloudSA42b1aa45;Password=Dragomanoit15:D;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -95,17 +95,18 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (true)
-{
-    app.UseDeveloperExceptionPage();
-    app.UseMigrationsEndPoint();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseDeveloperExceptionPage();
+//    app.UseMigrationsEndPoint();
+//}
+//else
+//{
+    app.UseExceptionHandler("/error/servererror");
+    app.UseStatusCodePagesWithRedirects("/error/statuscode/{0}");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-}
+//}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
