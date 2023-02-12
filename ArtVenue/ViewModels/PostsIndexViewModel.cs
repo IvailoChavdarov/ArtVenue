@@ -4,10 +4,11 @@ namespace ArtVenue.ViewModels
 {
     public class PostsIndexViewModel : ViewModelWithPublicationList
     {
-
+        //model for suggested publications
     }
     public class PostCreator
     {
+        //minified user data
         public PostCreator(AppUser user)
         {
             this.FullName = user.FirstName + " " + user.LastName;

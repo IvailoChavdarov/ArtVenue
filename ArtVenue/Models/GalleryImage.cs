@@ -5,6 +5,8 @@ namespace ArtVenue.Models
 {
     public class GalleryImage
     {
+        //identifiers
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -12,6 +14,8 @@ namespace ArtVenue.Models
         public string ImageLink { get; set; }
         [Required]
         public int PublicationId { get; set; }
+
+        //relation property
         public Publication Publication { get; set; }
     }
 }

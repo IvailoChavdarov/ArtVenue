@@ -18,10 +18,13 @@ namespace ArtVenue.Controllers
 
         public IActionResult Index()
         {
+            //redirects to suggested publication page if user is logged in
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("index", "posts");
             }
+
+            //sends some categories data to view
             HomeIndexViewModel data = new HomeIndexViewModel();
             data.MainCategories = _db.Categories.Take(8).ToArray();
             return View(data);

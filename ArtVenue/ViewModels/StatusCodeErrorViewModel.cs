@@ -6,6 +6,7 @@ namespace ArtVenue.ViewModels
     {
         public StatusCodeErrorViewModel(int statusCode)
         {
+            //gets random quote for the lack of art
             Random random = new Random();
             string[] quotes = new string[]
             {
@@ -20,7 +21,11 @@ namespace ArtVenue.ViewModels
             };
             int randomQuoteIndex = random.Next(0, quotes.Length);
             this.Quote = quotes[randomQuoteIndex];
+
+            //sets the given status code
             this.ErrorCode = statusCode;
+
+            //selects data with description and corresponding image for the given status code error
             switch (statusCode)
             {
                 case 400:

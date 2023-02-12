@@ -1,4 +1,8 @@
-﻿.user-settings-container {
+﻿.user-container {
+  margin-top: 50px;
+}
+
+.user-settings-container {
   margin-bottom: 50px;
 }
 .user-settings-container .nav-link {

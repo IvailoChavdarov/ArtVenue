@@ -8,19 +8,26 @@ namespace ArtVenue.Models
 {
     public class AppUser: IdentityUser
     {
+        //additional user info for social media's work
         [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
+
         [Required]
         public bool IsPublic { get; set; }
+
+        //additional non-required user info
         public string? ProfileImage { get; set; }
         public string? ProfileBackground { get; set; }
         public string? ArtType { get; set; }
         public string? Bio { get; set; }
         public string? OutsideLink { get; set; }
+
+        //relation properties
         public HashSet<Message> Messages_Sent { get; set; }
         public HashSet<Group> GroupsCreated { get; set; }
         public HashSet<Groups_Members> GroupsJoined { get; set; }
@@ -31,6 +38,8 @@ namespace ArtVenue.Models
         public HashSet<Comment> Comments { get; set; }
         public HashSet<DirectChat> DirectChats { get; set; }
         public HashSet<DirectChat> DirectChatsSecondUser { get; set; }
+
+        //gets profile image if user has set specific one or returns placeholder image
         public string GetProfileImage()
         {
             if (string.IsNullOrEmpty(this.ProfileImage))

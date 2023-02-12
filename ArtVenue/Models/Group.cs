@@ -7,27 +7,34 @@ namespace ArtVenue.Models
 {
     public class Group
     {
+        //group identifiers
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
-        public string GroupName { get; set; }
-        [AllowNull]
-        public string Description { get; set; }
-        [Required]
-        public bool IsPrivate { get; set; }
-        [AllowNull]
-        public string? GroupPicture { get; set; }
-        [AllowNull]
-        public string? GroupBackground { get; set; }
+
         [Required]
         public string CreatorId { get; set; }
+
+        [Required]
+        public string GroupName { get; set; }
+        public string Description { get; set; }
+
+        //true - everyone can join group; false - creator decides who can join group
+        [Required]
+        public bool IsPrivate { get; set; }
+
+        //additional group info
+        public string? GroupPicture { get; set; }
+        public string? GroupBackground { get; set; }
+
+        //relation properties
         public AppUser Creator { get; set; }
         public HashSet<Groups_Members> Memberships { get; set; }
         public HashSet<Groups_Requests> Requests { get; set; }
         public HashSet<Message> Messages { get; set; }
         public HashSet<Publication> Publications { get; set; }
 
+        //gets group image if user has set specific one or returns placeholder image
         public string GetGroupPicture()
         {
             if (string.IsNullOrEmpty(this.GroupPicture))

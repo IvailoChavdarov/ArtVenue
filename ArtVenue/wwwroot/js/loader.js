@@ -10,3 +10,4 @@ function hideLoader() {
 function showLoader() {
     document.getElementById("loaderContainer").style.display = "block"
 }
+hideLoader()

@@ -29,9 +29,6 @@ using (var scope = app.Services.CreateScope())
     string[] roles = new string[]{"admin", "moderator"};
     foreach (var role in roles)
     {
-
-        //spacer
-        //spicer
         bool exists = await roleManager.RoleExistsAsync(role);
         if (!exists)
         {
@@ -61,7 +58,7 @@ using (var scope = app.Services.CreateScope())
         new Category
         {
             CategoryName= "Poetry",
-            CategoryImage= "https://images.unsplash.com/photo-1473186505569-9c61870c11f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cG9ldHJ5fGVufDB8fDB8fA%3D%3D&w=1000&q=80'",
+            CategoryImage= "https://images.unsplash.com/photo-1473186505569-9c61870c11f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cG9ldHJ5fGVufDB8fDB8fA%3D%3D&w=1000&q=80",
             CategoryDescription= "Literature that evokes a concentrated imaginative awareness of experience or a specific emotional response through language chosen and arranged for its meaning, sound, and rhythm."
         },
         new Category
@@ -94,19 +91,10 @@ using (var scope = app.Services.CreateScope())
     await _db.SaveChangesAsync();
 }
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseDeveloperExceptionPage();
-//    app.UseMigrationsEndPoint();
-//}
-//else
-//{
-    app.UseExceptionHandler("/error/servererror");
-    app.UseStatusCodePagesWithRedirects("/error/statuscode/{0}");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-//}
+app.UseExceptionHandler("/error/servererror");
+app.UseStatusCodePagesWithRedirects("/error/statuscode/{0}");
+
+app.UseHsts();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

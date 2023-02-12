@@ -14,12 +14,14 @@ namespace ArtVenue.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //relations between users and messages sent (1xM)
             modelBuilder.Entity<AppUser>()
-                            .HasMany(u => u.Messages_Sent)
-                            .WithOne(m => m.Sender)
-                            .IsRequired(true)
-                            .OnDelete(DeleteBehavior.Cascade);
+                .HasMany(u => u.Messages_Sent)
+                .WithOne(m => m.Sender)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            //messages relations with direct and group chats (1xM)
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.DirectChat)
                 .WithMany(u => u.Messages)
@@ -30,10 +32,12 @@ namespace ArtVenue.Data
                 .WithMany(u => u.Messages)
                 .IsRequired(false);
 
+            //relations between group and creator (1xM)
             modelBuilder.Entity<Group>()
                 .HasOne(m => m.Creator)
                 .WithMany(u => u.GroupsCreated);
 
+            //connection table between groups and members (MxM)
             modelBuilder.Entity<Groups_Members>()
                 .HasKey(gm => new { gm.MemberId, gm.GroupId });
 
@@ -49,6 +53,7 @@ namespace ArtVenue.Data
                 .HasForeignKey(gm => gm.GroupId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //connection table between groups and join requests (MxM)
             modelBuilder.Entity<Groups_Requests>()
                .HasKey(gm => new { gm.MemberId, gm.GroupId });
 
@@ -64,7 +69,7 @@ namespace ArtVenue.Data
                 .HasForeignKey(gm => gm.GroupId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
+            //publication relations with creator and group (1xM)
             modelBuilder.Entity<Publication>()
                 .HasOne(publication => publication.Creator)
                 .WithMany(user => user.PublicationsPosted)
@@ -78,13 +83,14 @@ namespace ArtVenue.Data
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //publication images relation (1xM)
             modelBuilder.Entity<GalleryImage>()
                 .HasOne(image => image.Publication)
                 .WithMany(publication => publication.Gallery)
                 .HasForeignKey(image => image.PublicationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
+            //connection table between publication and categories (MxM)
             modelBuilder.Entity<Publications_Categories>()
                 .HasKey(pc => new { pc.PublicationId, pc.CategoryId });
 
@@ -100,6 +106,7 @@ namespace ArtVenue.Data
                 .HasForeignKey(gm => gm.CategoryId)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
+            //connection table between user and interests(categories) (MxM)
             modelBuilder.Entity<Users_Interests>()
                 .HasKey(ui => new { ui.UserId, ui.CategoryId });
 
@@ -115,6 +122,7 @@ namespace ArtVenue.Data
                 .HasForeignKey(ui => ui.CategoryId)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
+            //connection table between user and publications saved (MxM)
             modelBuilder.Entity<Users_Saved>()
                 .HasKey(us => new { us.UserId, us.PublicationId });
 
@@ -130,6 +138,7 @@ namespace ArtVenue.Data
                 .HasForeignKey(us => us.PublicationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //comment relations with publication (Mx1)
             modelBuilder.Entity<Comment>()
                 .HasOne(comment => comment.Publication)
                 .WithMany(publication => publication.Comments)
@@ -142,6 +151,7 @@ namespace ArtVenue.Data
                 .HasForeignKey(comment => comment.UserId)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
+            //connection table between users(direct chats) (MxM)
             modelBuilder.Entity<DirectChat>()
                 .HasOne(us => us.FirstUser)
                 .WithMany(user => user.DirectChats)
@@ -154,6 +164,7 @@ namespace ArtVenue.Data
                 .HasForeignKey(us => us.SecondUserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            //define non required properties
             modelBuilder.Entity<Group>()
                 .Property(x => x.GroupBackground)
                 .IsRequired(false);

@@ -48,14 +48,14 @@
                             }
                             else
                             {
-                                <form asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id">
+                                <form asp-controller="posts" asp-action="joingroup" asp-route-groupId="@Model.Group.Id">
                                     <i class="fa-solid fa-door-open"></i><input type="submit" class="btn-success" value="Request to join @Model.Group.GroupName">
                                 </form>
                             }
                         }
                         else
                         {
-                            <form asp-controller="posts" asp-action="addtogroup" asp-route-groupId="@Model.Group.Id">
+                            <form asp-controller="posts" asp-action="joingroup" asp-route-groupId="@Model.Group.Id">
                                 <i class="fa-solid fa-right-to-bracket"></i><input type="submit" class="btn-success" value="Join @Model.Group.GroupName">
                             </form>
                         }

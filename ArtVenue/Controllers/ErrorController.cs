@@ -11,10 +11,12 @@ namespace ArtVenue.Controllers
         {
             return View();
         }
+
         [Route("error/statuscode/{statusCode}")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult StatusCodeError(int statusCode)
         {
+            //creates error with quote referencing the lack of art and data for the error depending on status code
             StatusCodeErrorViewModel error = new StatusCodeErrorViewModel(statusCode);
            
             return View(error);
