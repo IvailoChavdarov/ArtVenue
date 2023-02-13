@@ -1,4 +1,7 @@
-﻿if (document.referrer) {
+﻿//choses where to return on pressing return page
+//main page if user comes from other website or directly from browser
+//last page if user comes from other ArtVenue page
+if (document.referrer) {
     if (document.referrer == window.location.href) {
         document.getElementById("backbutton").href = "/posts/index"
     }
@@ -10,6 +13,7 @@ else {
     document.getElementById("backbutton").href = "/posts/index"
 }
 
+//details gallery slides managing
 let slideIndex = 1;
 showSlides(slideIndex);
 

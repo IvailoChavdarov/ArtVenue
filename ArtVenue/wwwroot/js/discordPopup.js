@@ -1,4 +1,5 @@
-﻿function copyDiscordName() {
+﻿//copies discord connection name for footer
+function copyDiscordName() {
     var button = document.getElementById('discordLink')
     if (!button.classList.contains('used')) {
         navigator.clipboard.writeText('Ивайло Чавдаров#5796')

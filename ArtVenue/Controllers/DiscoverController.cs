@@ -9,8 +9,10 @@ using System.Linq;
 
 namespace ArtVenue.Controllers
 {
+    //manages user's findings of new groups, users and interest(categories)
     public class DiscoverController : Controller
     {
+        //dependency injection
         private readonly UserManager<AppUser> _userManager;
         private readonly ApplicationDbContext _db;
         public DiscoverController(ApplicationDbContext db, UserManager<AppUser> userManager)
@@ -19,6 +21,8 @@ namespace ArtVenue.Controllers
             _db = db;
         }
 
+        //returns view with data for all categories on the website (and data for the user's interest for the categories if current user is logged in)
+        //page in which users mainly check the categories they are interested in
         public async Task<IActionResult> Index()
         {
             DiscoverIndexViewModel data = new DiscoverIndexViewModel();
@@ -48,7 +52,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
-
+        //returns view with results for user's search by given string, words to search, and the type of search
         public async Task<IActionResult> Search(string search, string searchType)
         {
             DiscoverSearchViewModel data = new DiscoverSearchViewModel();
@@ -142,6 +146,7 @@ namespace ArtVenue.Controllers
 
         [HttpPost]
         [Authorize]
+        //adds specific category to the current user's interests by id and returns to the page from which the user requested the change
         public async Task<IActionResult> ChangeInterest(int id, string controllerName, string actionName)
         {
             //gets current user

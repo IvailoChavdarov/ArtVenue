@@ -6,8 +6,10 @@ using System.Diagnostics;
 
 namespace ArtVenue.Controllers
 {
+    //responsible for rerouting to the main info pages of ArtVenue
     public class HomeController : Controller
     {
+        //dependency injection
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _db;
         public HomeController(ApplicationDbContext db, ILogger<HomeController> logger)
@@ -16,6 +18,7 @@ namespace ArtVenue.Controllers
             _db = db;
         }
 
+        //returns view with data for some categories to display as advertisement on the homepage
         public IActionResult Index()
         {
             //redirects to suggested publication page if user is logged in
@@ -30,6 +33,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //return views with more info about ArtVenue
         public IActionResult Privacy()
         {
             return View();

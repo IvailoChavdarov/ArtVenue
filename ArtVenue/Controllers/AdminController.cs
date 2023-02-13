@@ -9,11 +9,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 namespace ArtVenue.Controllers
 {
+    //admin and moderators controlls
     public class AdminController : Controller
     {
+        //dependency injection
         private readonly UserManager<AppUser> _userManager;
         private readonly ApplicationDbContext _db;
         private readonly RoleManager<IdentityRole> _roleManager;
+
         public AdminController(ApplicationDbContext db, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
@@ -21,6 +24,7 @@ namespace ArtVenue.Controllers
             _db = db;
         }
 
+        //returns view with data if user is admin or moderator to display manage moderators button(reroute page to other management pages)
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Index()
         {
@@ -32,6 +36,7 @@ namespace ArtVenue.Controllers
             return View(IsAdmin);
         }
 
+        //returns view the names of all users with their roles (page where mod and admin can delete users not in role)
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Users()
         {
@@ -62,6 +67,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //deletes user by id and related data from database and returns to the manage users page
         [HttpPost]
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> DeleteUser(string id)
@@ -80,6 +86,7 @@ namespace ArtVenue.Controllers
             return RedirectToAction("users");
         }
 
+        //returns view with data about all categories on the website (for deleting and routing to edit and create category pages)
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Categories()
         {
@@ -89,6 +96,7 @@ namespace ArtVenue.Controllers
             return View(categories);
         }
 
+        //returns view with data and update form for specific category (edit category page)
         [Authorize(Roles = "admin, moderator")]
         public IActionResult Category(int id)
         {
@@ -96,11 +104,14 @@ namespace ArtVenue.Controllers
             return View(_db.Categories.Find(id));
         }
 
+        //returns view with form for creating new category
         [Authorize(Roles = "admin, moderator")]
         public IActionResult AddCategory()
         {
             return View();
         }
+
+        //gets data from the AddCategory page, adds it to the database and returns to the categories list page
         [HttpPost]
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> AddCategory(Category category)
@@ -123,11 +134,11 @@ namespace ArtVenue.Controllers
             }
         }
 
+        //updates data for given category with the data from the view
         [HttpPost]
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> ModifyCategory(Category category)
         {
-
             try
             {
                 //updates category if it is valid
@@ -151,6 +162,7 @@ namespace ArtVenue.Controllers
             }
         }
 
+        //deletes category from the database by id and returns to the categories list page
         [Authorize(Roles = "admin, moderator")]
         [HttpPost]
         public async Task<IActionResult> DeleteCategory(int id)
@@ -179,6 +191,7 @@ namespace ArtVenue.Controllers
             return RedirectToAction("categories");
         }
 
+        //returns view with data of every group registered on the website (delete group page)
         [Authorize(Roles = "admin, moderator")]
         public IActionResult Groups()
         {
@@ -199,6 +212,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //deletes group from the database by id and returns to groups list page
         [HttpPost]
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> DeleteGroup(int id)
@@ -230,6 +244,8 @@ namespace ArtVenue.Controllers
             return RedirectToAction("groups");
         }
 
+        //returns view with data of every publication posted on the website (delete publication page)
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Publications()
         {
             AdminPublicationsViewModel data = new AdminPublicationsViewModel();
@@ -271,6 +287,7 @@ namespace ArtVenue.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, moderator")]
+        //deletes publication from the database by id and returns to publications list page
         public async Task<IActionResult> DeletePublication(int id)
         {
             var publicationToDelete = _db.Publications.Find(id);
@@ -287,7 +304,9 @@ namespace ArtVenue.Controllers
             return RedirectToAction("publications");
         }
 
+
         [Authorize(Roles = "admin")]
+        //returns view the names of all users with their roles (admin add/remove moderator from role page)
         public async Task<IActionResult> ManageModerators()
         {
             var data = new AdminManageModeratorsViewModel();
@@ -330,6 +349,7 @@ namespace ArtVenue.Controllers
         [HttpPost]
         [Authorize]
         [Authorize(Roles = "admin")]
+        //sets the user checked in the view to moderator role or removes role if unchecked
         public async Task<IActionResult> ManageModerators(AdminManageModeratorsViewModel model)
         {
             //gets moderator role data

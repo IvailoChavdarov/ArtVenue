@@ -10,6 +10,7 @@ namespace ArtVenue.Hubs
 {
     public class ChatHub : Hub
     {
+        //dependency injection
         private readonly UserManager<AppUser> _userManager;
         private readonly ApplicationDbContext _db;
         public ChatHub(ApplicationDbContext db, UserManager<AppUser> userManager)
@@ -17,6 +18,8 @@ namespace ArtVenue.Hubs
             _userManager = userManager;
             _db = db;
         }
+
+        //send message in direct chat and saves it in database by reciever id and message data
         public async Task SendMessageToUser(Message message, string recieverId)
         {
             //sets message send time to now
@@ -36,6 +39,8 @@ namespace ArtVenue.Hubs
             //adds message to database
             AddMessageToDatabase(message);
         }
+
+        //send message in group chat and saves it in database by group id and message data
         public async Task SendMessageToGroup(Message message, int groupId)
         {
             //sets message send time to now
@@ -55,16 +60,22 @@ namespace ArtVenue.Hubs
             //adds message to database
             AddMessageToDatabase(message);
         }
+
+        //connects current user to group chat instant rendering
         public async Task AddToGroupInstantChat(int groupId)
         {
             //adds user to chat group instant message rendering
             await Groups.AddToGroupAsync(Context.ConnectionId, groupId.ToString());
         }
+
+        //adds given message to database
         public void AddMessageToDatabase(Message message)
         {
             _db.Messages.Add(message);
             _db.SaveChangesAsync();
         }
+
+        //gets direct chat id by the two user ids
         public async Task<int> GetDirectChatId(string senderId, string recieverId)
         {
             var chats = _db.DirectChats

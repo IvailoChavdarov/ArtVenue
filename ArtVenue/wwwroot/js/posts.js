@@ -62,15 +62,15 @@ const postResource = document.querySelectorAll('.optionalMedia img, .optionalMed
 postResource.forEach((resource) => {
     if (resource.clientWidth > resource.clientHeight) {
         resource.style.width = "698px"
-        console.log("??");
     }
     else {
         resource.style.height = "618px"
     }
 })
 
+//toggles comments visability on publication
 const closeChatButtons = document.querySelectorAll('.closeChatButton')
-console.log(closeChatButtons);
+
 closeChatButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
         var postContainer = btn.parentElement.parentElement;

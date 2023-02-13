@@ -1,12 +1,20 @@
-﻿const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/ddo3vrwcb/image/upload';
+﻿//connections to the Cloudinary API
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/ddo3vrwcb/image/upload';
 const CLOUDINARY_UPLOAD_PRESET = 'k4nawbiw';
+
+//images inputs
 const image = document.querySelector('#fileupload');
 const background = document.querySelector('#backgroundUpload');
 
+//submitting form containing images uploads
 document.getElementById('update-profile-button').addEventListener('click', (e) => {
     e.preventDefault();
+
+    //checks if images are uploaded or connected by url
     if (image.files.length > 0 || background.files.length > 0) {
         if (image.files.length > 0) {
+
+            //uploads profile image to cloudinary and sets input value to posted image url
             const file = image.files[image.files.length - 1];
             const formData = new FormData();
             formData.append('file', file);
@@ -18,10 +26,12 @@ document.getElementById('update-profile-button').addEventListener('click', (e) =
                 .then(response => response.json())
                 .then((data) => {
                     if (data.secure_url !== '') {
+                        //sets image url upload to uploaded image url
                         const uploadedFileUrl = data.secure_url;
                         document.getElementById('profileImageInput').value = uploadedFileUrl;
                     }
                 }).then(() => {
+                    //checks if there is another image to upload
                     if (!background.files.length > 0) {
                         document.getElementById('profile-form').submit()
                     }
@@ -29,6 +39,7 @@ document.getElementById('update-profile-button').addEventListener('click', (e) =
                 })
         }
         if (background.files.length > 0) {
+            //uploads account cover image to cloudinary and sets input value to posted image url
             const file = background.files[background.files.length - 1];
             const formData = new FormData();
             formData.append('file', file);
@@ -53,6 +64,8 @@ document.getElementById('update-profile-button').addEventListener('click', (e) =
     }
 
 })
+
+//validates the uploaded profile image
 image.addEventListener('change', (e) => {
     if (e.target.files[image.files.length - 1].name.endsWith(".png") || e.target.files[image.files.length - 1].name.endsWith(".jpg") || e.target.files[image.files.length - 1].name.endsWith(".jpeg") | e.target.files[image.files.length - 1].name.endsWith(".gif")) {
         if (e.target.files[0].size < 1100000) {
@@ -72,7 +85,7 @@ image.addEventListener('change', (e) => {
     }
 })
 
-
+//validates the uploaded account cover image
 background.addEventListener('change', (e) => {
     if (e.target.files[image.files.length - 1].name.endsWith(".png") || e.target.files[image.files.length - 1].name.endsWith(".jpg") || e.target.files[image.files.length - 1].name.endsWith(".jpeg") | e.target.files[image.files.length - 1].name.endsWith(".gif")) {
         if (e.target.files[0].size < 1100000) {

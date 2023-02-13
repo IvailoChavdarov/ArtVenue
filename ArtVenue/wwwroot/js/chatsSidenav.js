@@ -1,5 +1,7 @@
 ﻿"use strict"
 
+//hides sidenav on chat pages until opened on mobile
+
 var directChatButton = document.getElementById("directChatButton")
 var groupChatButton = document.getElementById("groupChatButton")
 var directChats = document.getElementById("directChatsContainer")
@@ -33,10 +35,10 @@ groupChatButton.addEventListener('click', () => {
 if (window.innerWidth <= 720) {
     document.getElementsByClassName("msger-sideBar")[0].style.display = "none";
 }
+
 function toggleChatsNav() {
     var chatNav = document.getElementsByClassName("msger-sideBar")[0];
     if (chatNav.style.display == "none") {
-        console.log("gogogoo");
         chatNav.style.display = "block"
     }
     else {

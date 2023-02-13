@@ -14,9 +14,11 @@ using System.Globalization;
 
 namespace ArtVenue.Controllers
 {
+    //responsible for creation and editing of user groups
     [Authorize]
     public class GroupsController : Controller
     {
+        //dependency injection
         private readonly ApplicationDbContext _db;
         private readonly UserManager<AppUser> _userManager;
         public GroupsController(ApplicationDbContext db, UserManager<AppUser> userManager)
@@ -25,6 +27,7 @@ namespace ArtVenue.Controllers
             _db = db;
         }
 
+        //returns data for all the groups the current user has joined and sorts it by whether the user is creator of the group (to know if to display manage group buttons)
         public async Task<IActionResult> Index()
         {
             //gets current user data
@@ -65,6 +68,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //returns view with form for creating new group
         public IActionResult Create()
         {
             return View();
@@ -72,6 +76,7 @@ namespace ArtVenue.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //gets the data from the form and adds the new group to the database
         public async Task<IActionResult> Create(Group group)
         {
             //sets the new group's creator to current user
@@ -115,6 +120,7 @@ namespace ArtVenue.Controllers
 
         }
     
+        //returns view with data and update form for specific group the user has created by id (edit group page)
         public async Task<IActionResult> Edit(int id)
         {
             var group = await _db.Groups.FindAsync(id);
@@ -136,6 +142,7 @@ namespace ArtVenue.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //gets the new data for the groups and updates the data in the database
         public async Task<IActionResult> UpdateGroup(Group group)
         {
             //validates if user has access to edit group
@@ -167,7 +174,7 @@ namespace ArtVenue.Controllers
             }
         }
 
-
+        //returns view with data for specific group the user has created and wants to delete (confirm group deletion page)
         public async Task<IActionResult> Delete(int id)
         {
             //gets group
@@ -188,6 +195,7 @@ namespace ArtVenue.Controllers
             return View(group);
         }
 
+        //deletes specific group the user has created by id of group and returns to the page listing user's groups
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -230,6 +238,7 @@ namespace ArtVenue.Controllers
             }
         }
 
+        //returns view with data for all members of specific group the user has created by group id
         public async Task<IActionResult> Members(int id)
         {
             var group = await _db.Groups.FindAsync(id);
@@ -269,6 +278,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //removes member from group by member id and group id and returns to the page listing the changed group's members
         [HttpPost]
         public async Task<IActionResult> RemoveMember(int groupId, string userId)
         {
@@ -303,6 +313,7 @@ namespace ArtVenue.Controllers
             return RedirectToAction("members", new { Id = groupId });
         }
 
+        //returns view with data for the requests to join group the user has created by group id
         public async Task<IActionResult> Requests(int id)
         {
             var group = await _db.Groups.FindAsync(id);
@@ -342,6 +353,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //removes specific join request for group the user has created by group id and the user that requested to join id
         [HttpPost]
         public async Task<IActionResult> DeleteRequest(int groupId, string userId)
         {
@@ -376,6 +388,8 @@ namespace ArtVenue.Controllers
             //returns to group join request page
             return RedirectToAction("requests", new {Id=groupId });
         }
+
+        //adds user that requested to join group to the specific group by group's id and user that requested to join id
         [HttpPost]
         public async Task<IActionResult> AcceptRequest(int groupId, string userId)
         {

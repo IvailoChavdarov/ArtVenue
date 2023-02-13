@@ -11,9 +11,11 @@ using System.Linq;
 
 namespace ArtVenue.Controllers
 {
+    //controller that manages rerouting to the chats of current user 
     [Authorize]
     public class ChatController : Controller
     {
+        //dependency injection
         private readonly UserManager<AppUser> _userManager;
         private readonly ApplicationDbContext _db;
         public ChatController(ApplicationDbContext db, UserManager<AppUser> userManager)
@@ -21,6 +23,8 @@ namespace ArtVenue.Controllers
             _userManager = userManager;
             _db = db;
         }
+
+        //returns view with data for all chats user participates in (direct and group)
         public async Task<IActionResult> Index()
         {
             //gets user chats
@@ -37,6 +41,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //returns view with data for the chat of specific group the current user has joined by group id
         public async Task<IActionResult> Group(int id)
         {
             //optimizes the connection between message and sender by storing user id, to not search for same user data multiple times
@@ -99,6 +104,8 @@ namespace ArtVenue.Controllers
 
             return View(data);
         }
+
+        //returns view with data for the chat of the current user and specific other user by direct chat id
         public async Task<IActionResult> Direct(int id)
         {
             string userId = _userManager.GetUserId(User);
@@ -150,6 +157,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //redirects to the direct chat of the current user with specific other user by other user's id
         public async Task<IActionResult> ChatWith(string id)
         {
             //gets id of direct chat
@@ -159,6 +167,7 @@ namespace ArtVenue.Controllers
             return RedirectToAction("direct", new { id = chatId});
         }
 
+        //gets all of current user's chats (direct and group) to display on the sidenav of chat pages
         private async Task<ViewModelWithChatsSidenav> GetUserChats()
         {
             //stores direct chats
@@ -259,6 +268,8 @@ namespace ArtVenue.Controllers
 
             return result;
         }
+
+        //gets the id of direct chat between current user and specific other user by the other user's id
         private async Task<int> GetDirectChatWithId(string recieverId)
         {
             string currentUserId = _userManager.GetUserId(User);

@@ -1,4 +1,5 @@
-﻿var theme = localStorage.getItem("theme")
+﻿//changes between light and dark theme for the website and stores user preference in localStorage
+var theme = localStorage.getItem("theme")
 function switchTheme() {
     if (theme == "dark") {
         localStorage.setItem("theme", "light")

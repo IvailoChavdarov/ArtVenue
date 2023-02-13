@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ArtVenue.Controllers
 {
+    //responsible for showing lists of publications and publications' editing and creating
     public class PostsController : Controller
     {
         //dependency injection
@@ -26,7 +27,9 @@ namespace ArtVenue.Controllers
             _userManager = userManager;
             _db = db;
         }
-        //Suggested publications for user by from their selected interests
+
+        //returns view with data for publications suggested for current user from their selected interests
+        //homepage for logged user
         [Authorize]
         public async Task<IActionResult> Index(int page = 1)
         {
@@ -98,6 +101,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //returns view with data for  _pageSize publications of latest publications in specific category and category data by category id
         public async Task<IActionResult> Category(int id, int page = 1)
         {
             PostsCategoryViewModel data = new PostsCategoryViewModel();
@@ -172,6 +176,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //returns view with data for _pageSize publications of the ones the current user has saved
         [Authorize]
         public async Task<IActionResult> Saved(int page = 1)
         {
@@ -184,9 +189,10 @@ namespace ArtVenue.Controllers
             //decrements page num by 1 to fix start counting from 1
             page -= 1;
 
-            //gets user's saved publications ids
+            //gets user's saved publications ids by latest adding to saved
             List<int> savedPublicationsIds = await _db.Saved
                 .Where(x => x.UserId == _userManager.GetUserId(User))
+                .Reverse()
                 .Select(x => x.PublicationId)
                 .Skip(page * _pageSize)
                 .Take(_pageSize)
@@ -218,6 +224,7 @@ namespace ArtVenue.Controllers
             return View(data);
         }
 
+        //returns view with data for _pageSize publications in specific group the current user has access to see and group data by group id
         [Authorize]
         public async Task<IActionResult> Group(int id, int page = 1)
         {
@@ -298,6 +305,8 @@ namespace ArtVenue.Controllers
         }
 
         [Authorize]
+        //returns view with data for _pageSize publications of specific user and data for the user by user's id
+        //and data for if the user searched is the current user (for displaying manage account link)
         public async Task<IActionResult> Users(string id, int page = 1)
         {
             PostsUserViewModel data = new PostsUserViewModel();
@@ -353,6 +362,7 @@ namespace ArtVenue.Controllers
 
         [Authorize]
         [HttpGet]
+        //returns view with form for creating new publication
         public async Task<IActionResult> Create()
         {
             PostsCreateViewModel data = new PostsCreateViewModel();
@@ -365,6 +375,7 @@ namespace ArtVenue.Controllers
 
         [Authorize]
         [HttpGet]
+        //returns view with data for specific publication and it's related data if the current user has access to see publication by publication id
         public async Task<IActionResult> Details(int id)
         {
             PostDetailsViewModel data = new PostDetailsViewModel();
@@ -413,6 +424,7 @@ namespace ArtVenue.Controllers
 
         [Authorize]
         [HttpPost]
+        //gets data from view and adds the new publication to the database and returns to current user's page
         public async Task<IActionResult> Create(PostsCreateViewModel data)
         {
             //sets publication creator to current user
@@ -482,9 +494,9 @@ namespace ArtVenue.Controllers
             }
         }
     
-
         [HttpPost]
         [Authorize]
+        //post comment under specific publication and returns to suggested publication page
         public async Task<IActionResult> PostComment(ViewModelWithCommentInput data)
         {
             Comment comment = new Comment();
@@ -509,6 +521,8 @@ namespace ArtVenue.Controllers
 
         [HttpPost]
         [Authorize]
+        //deletes publication from database if current user is creator of the specific publication by publication id
+        //returns to current user's page
         public async Task<IActionResult> DeletePublication(int id)
         {
             //validates if user is creator of publication and has access to delete publication
@@ -537,6 +551,7 @@ namespace ArtVenue.Controllers
 
         [HttpPost]
         [Authorize]
+        //add publication to user's saved by publication id and returns to user's suggested publicaitons page
         public async Task<IActionResult> SavePublication(int id)
         {
             //creates conection between current user and publication
@@ -579,6 +594,7 @@ namespace ArtVenue.Controllers
 
         [Authorize]
         [HttpPost]
+        //adds current user to group if group is public or sends join request if group is private by group id
         public async Task<IActionResult> JoinGroup(int groupId)
         {
             string userId = _userManager.GetUserId(User);
@@ -621,6 +637,7 @@ namespace ArtVenue.Controllers
 
         [Authorize]
         [HttpPost]
+        //removes current user from specific group by group id
         public async Task<IActionResult> LeaveGroup(int groupId)
         {
             //gets current user id
@@ -652,6 +669,7 @@ namespace ArtVenue.Controllers
 
         [Authorize]
         [HttpPost]
+        //removes join request of current user for specific group by group id
         public async Task<IActionResult> CancelJoinRequest(int groupId)
         {
             //gets current user id
@@ -681,6 +699,7 @@ namespace ArtVenue.Controllers
             return RedirectToAction("group", new { Id = groupId });
         }
 
+        //gets data for the groups the current user has joined
         private async Task<List<Group>> GetUserGroups()
         {
             //gets current user id
@@ -713,6 +732,7 @@ namespace ArtVenue.Controllers
             return groupsWithImages;
         }
 
+        //connects publications in the collection to their related data from the database and returns the data
         private async Task<List<Publication>> GetPublicationsData(List<Publication> publications)
         {
             //used to optimize getting the user if one user appears multiple times
